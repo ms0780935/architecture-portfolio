@@ -110,7 +110,7 @@ const ARCH_PROJECTS = [
     },
     typology: { zh: "複合商業住宅大樓／垂直農業", en: "Mixed-use Commercial Residential / Agro-Tower" },
     location: { zh: "台北市萬華區康定路街廓", en: "Kanding Road Urban Block, Wanhua, Taipei" },
-    advisor: { zh: "張維仁 建築師", en: "Arch. Wei-Ren Chang" },
+    advisor: { zh: "周榮敬 建築師", en: "Arch. Jung-Ching Chou" },
     defaultImage: "assets/project-4.svg",
     summary: {
       zh: "於高密度舊城區植入立體螺旋公有農園，重組地面傳統市場、青年共居與長照支援系統之永續複合大樓。",
