@@ -1,0 +1,1004 @@
+/* ==========================================================================
+   ARCH/FOLIO - Divisare-Inspired Editorial Stylesheet
+   Minimalist, Monochromatic, Typographically Refined Architectural Portfolio
+   ========================================================================== */
+
+:root {
+  --bg-paper: #fcfbf9;
+  --bg-surface: #ffffff;
+  --text-main: #111111;
+  --text-muted: #555555;
+  --text-light: #888888;
+  --line-hairline: #e3e1da;
+  --line-strong: #111111;
+  --accent-terra: #a44117;
+  --accent-olive: #3b5a45;
+  --badge-bg: #f0eee8;
+  --font-serif: "Cinzel", "Playfair Display", "Noto Serif TC", "Songti TC", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", sans-serif;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
+  --container-max: 1440px;
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset & Typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--bg-paper);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  background-color: var(--bg-paper);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ==========================================================================
+   Header & Editorial Masthead
+   ========================================================================== */
+.site-header {
+  border-bottom: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.masthead-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  gap: 1.5rem;
+}
+
+.brand-group {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.brand-logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  border: 1.5px solid var(--text-main);
+  padding: 0.2rem 0.6rem;
+  line-height: 1.2;
+}
+
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.site-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Editorial Buttons */
+.btn-editorial {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-transform: uppercase;
+}
+
+.btn-editorial:hover {
+  border-color: var(--text-main);
+  background: var(--text-main);
+  color: var(--bg-surface);
+}
+
+.btn-editorial.btn-accent {
+  border-color: var(--accent-terra);
+  color: var(--accent-terra);
+}
+
+.btn-editorial.btn-accent:hover {
+  background: var(--accent-terra);
+  color: #fff;
+}
+
+.btn-lang {
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Editorial Curatorial Bar & Filters
+   ========================================================================== */
+.filter-section {
+  border-bottom: 1px solid var(--line-hairline);
+  background: var(--bg-paper);
+  padding: 1rem 0;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tab-btn {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.85rem;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  background: transparent;
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+  border-color: var(--line-hairline);
+}
+
+.tab-btn.active {
+  color: var(--text-main);
+  border-color: var(--text-main);
+  background: var(--bg-surface);
+  font-weight: 600;
+}
+
+.timeline-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.timeline-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-right: 0.4rem;
+  text-transform: uppercase;
+}
+
+.year-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.year-btn:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+}
+
+.year-btn.active {
+  background: var(--text-main);
+  color: #fff;
+  border-color: var(--text-main);
+}
+
+/* Search & Results Bar */
+.search-bar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--line-hairline);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.search-input-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.4rem 0.8rem 0.4rem 2rem;
+  font-size: 0.82rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--text-main);
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.curator-status {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   Project Editorial Grid (Divisare Style)
+   ========================================================================== */
+.main-content {
+  flex: 1;
+  padding: 2.5rem 0 4rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 2.5rem 2rem;
+}
+
+/* Project Card */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-hairline);
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  border-color: var(--text-main);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+}
+
+.card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f0eee8;
+  cursor: pointer;
+  border-bottom: 1px solid var(--line-hairline);
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .card-img {
+  transform: scale(1.02);
+}
+
+/* Badges on Card */
+.card-badges {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.badge-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(17, 17, 17, 0.88);
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+}
+
+.badge-custom {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  background: #145a54;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+}
+
+.badge-default {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-muted);
+  border: 1px solid var(--line-hairline);
+  padding: 0.15rem 0.45rem;
+}
+
+/* Hover Quick Actions */
+.card-quick-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--line-hairline);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all var(--transition-smooth);
+}
+
+.project-card:hover .card-quick-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-card-action {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--line-hairline);
+  background: #fff;
+  transition: all var(--transition-fast);
+}
+
+.btn-card-action:hover {
+  background: var(--text-main);
+  color: #fff;
+}
+
+/* Card Body Content */
+.card-body {
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.card-code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-terra);
+  letter-spacing: 0.06em;
+}
+
+.card-category {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-light);
+  letter-spacing: 0.04em;
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.card-title:hover {
+  color: var(--accent-terra);
+}
+
+.card-typology {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.card-summary {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.card-footer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--line-hairline);
+}
+
+.tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-light);
+  background: var(--bg-paper);
+  padding: 0.15rem 0.45rem;
+}
+
+/* ==========================================================================
+   Divisare-Style Modal Viewer & Project Dossier (Paginated Reader)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-smooth);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  background: var(--bg-surface);
+  width: 100%;
+  max-width: 1100px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-hairline);
+  overflow: hidden;
+}
+
+/* Reader Top Bar */
+.reader-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.5rem;
+  background: var(--bg-paper);
+  border-bottom: 1px solid var(--line-hairline);
+}
+
+.reader-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-nav-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+}
+
+.btn-nav-arrow:hover:not(:disabled) {
+  background: var(--text-main);
+  color: #fff;
+  border-color: var(--text-main);
+}
+
+.btn-nav-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.reader-counter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+}
+
+.btn-close-modal {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  transition: all var(--transition-fast);
+}
+
+.btn-close-modal:hover {
+  background: var(--accent-terra);
+  color: #fff;
+  border-color: var(--accent-terra);
+}
+
+/* Reader Scrollable Content */
+.reader-scroll-content {
+  overflow-y: auto;
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+/* Dossier Header */
+.dossier-header {
+  border-bottom: 1px solid var(--line-hairline);
+  padding-bottom: 1.5rem;
+}
+
+.dossier-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.dossier-code {
+  color: var(--accent-terra);
+  font-weight: 700;
+}
+
+.dossier-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.dossier-title-alt {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.dossier-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  background: var(--bg-paper);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line-hairline);
+  font-size: 0.82rem;
+}
+
+.info-item dt {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.info-item dd {
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+/* Dossier Hero Image & Replacement Box */
+.dossier-visual-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dossier-image-frame {
+  position: relative;
+  background: #f2f0ea;
+  border: 1px solid var(--line-hairline);
+  width: 100%;
+  max-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dossier-main-img {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+}
+
+.image-caption-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 0.4rem 0.2rem;
+}
+
+/* Interactive Device Image Replacer Box */
+.device-replacer-box {
+  background: var(--bg-paper);
+  border: 1.5px dashed var(--line-hairline);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all var(--transition-fast);
+}
+
+.device-replacer-box.drag-over {
+  border-color: var(--accent-terra);
+  background: #fff8f5;
+}
+
+.replacer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.replacer-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.replacer-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-hairline);
+  cursor: pointer;
+  text-align: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.replacer-dropzone:hover {
+  border-color: var(--text-main);
+}
+
+.dropzone-icon {
+  font-size: 1.5rem;
+  color: var(--text-light);
+}
+
+.dropzone-text {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.dropzone-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-light);
+}
+
+.replacer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+/* Dossier Architectural Essay */
+.dossier-essay {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  border-top: 1px solid var(--line-hairline);
+  padding-top: 1.75rem;
+}
+
+.essay-label {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.essay-body {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: #222;
+}
+
+/* ==========================================================================
+   Asset Manager Modal (本機裝置圖片管理中心)
+   ========================================================================== */
+.manager-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.manager-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: var(--bg-paper);
+  border: 1px solid var(--line-hairline);
+  gap: 1rem;
+}
+
+.manager-item-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.manager-thumb {
+  width: 52px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid var(--line-hairline);
+  background: #eee;
+  flex-shrink: 0;
+}
+
+.manager-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.manager-item-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-light);
+}
+
+.manager-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.manager-global-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-hairline);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   Grading & Presentation Rubric Modal
+   ========================================================================== */
+.rubric-score-box {
+  background: #145a54;
+  color: #fff;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rubric-score-val {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.rubric-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.rubric-table th, .rubric-table td {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--line-hairline);
+  text-align: left;
+}
+
+.rubric-table th {
+  background: var(--bg-paper);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.rubric-changes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.change-item {
+  background: var(--bg-paper);
+  border-left: 3px solid var(--accent-terra);
+  padding: 0.85rem 1.15rem;
+  font-size: 0.85rem;
+}
+
+.change-title {
+  font-weight: 700;
+  color: var(--accent-terra);
+  margin-bottom: 0.3rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  border-top: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-light);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ==========================================================================
+   Responsive Web Design (RWD) Media Queries
+   ========================================================================== */
+@media (max-width: 900px) {
+  .masthead-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.75rem;
+  }
+
+  .dossier-essay {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .reader-scroll-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dossier-title {
+    font-size: 1.4rem;
+  }
+
+  .dossier-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .modal-container {
+    max-height: 96vh;
+  }
+}

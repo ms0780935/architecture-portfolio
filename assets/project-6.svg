@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <rect width="800" height="600" fill="#f8f8f6"/>
+  <!-- Voronoi / Parametric Lattice -->
+  <g stroke="#111" stroke-width="1.4" fill="none">
+    <!-- Row 1 -->
+    <polygon points="120,180 180,150 250,170 240,230 160,240"/>
+    <polygon points="250,170 340,140 410,180 380,240 240,230"/>
+    <polygon points="410,180 500,160 560,210 510,270 380,240"/>
+    <polygon points="560,210 650,180 710,230 660,280 510,270"/>
+    <!-- Row 2 -->
+    <polygon points="160,240 240,230 280,310 210,360 140,320"/>
+    <polygon points="240,230 380,240 390,330 310,370 280,310"/>
+    <polygon points="380,240 510,270 490,360 410,380 390,330"/>
+    <polygon points="510,270 660,280 630,370 530,380 490,360"/>
+    <!-- Row 3 -->
+    <polygon points="210,360 310,370 330,460 240,480 180,430"/>
+    <polygon points="310,370 410,380 420,470 330,460"/>
+    <polygon points="410,380 490,360 510,460 420,470"/>
+    <polygon points="490,360 630,370 600,470 510,460"/>
+  </g>
+  <!-- Solar vector lines -->
+  <g stroke="#c25b30" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="200" y1="80" x2="250" y2="170"/>
+    <line x1="360" y1="80" x2="380" y2="240"/>
+    <line x1="520" y1="80" x2="510" y2="270"/>
+  </g>
+  <text x="60" y="80" font-family="'Cinzel', 'Noto Serif TC', serif" font-size="18" fill="#111" letter-spacing="3">FIG. 06 / PARAMETRIC LATTICE</text>
+  <text x="60" y="105" font-family="sans-serif" font-size="11" fill="#777" letter-spacing="1">COMPUTATIONAL DESIGN · GRASSHOPPER SOLAR SIMULATION</text>
+</svg>
