@@ -353,6 +353,12 @@ const I18N = {
     rubricBonus: "四個加分項目 (+40分滿分)",
     improvementsTitle: "三項實際改善歷程紀錄 (前後對照)",
     navTimeline: "歷年時間軸",
+    visualStreamTitle: "圖紙、模型與空間影像 (由上至下依序排列)",
+    btnAddImage: "新增圖片 (由本機選取)",
+    addImagesTitle: "新增或擴充此作品之圖片 (由上至下依序排列)",
+    dragDropMultiText: "拖曳一張或多張圖片至此，或點擊選取檔案增加數量",
+    deleteSingleImg: "移除此圖",
+    imgSeqBadge: "圖紙",
     footerText: "自然科學與人工智慧課程 · 建築設計學程期末專案成果"
   },
   en: {
@@ -398,6 +404,12 @@ const I18N = {
     rubricBonus: "Four Bonus Criteria (+40 pts)",
     improvementsTitle: "Three Documented Architectural Improvements",
     navTimeline: "Chronological Timeline",
+    visualStreamTitle: "Drawings, Models & Visual Archive (Ordered Vertically)",
+    btnAddImage: "Add Image from Device",
+    addImagesTitle: "Add or Expand Project Images (Ordered Vertically)",
+    dragDropMultiText: "Drag & drop one or multiple images here, or click to add more",
+    deleteSingleImg: "Remove Image",
+    imgSeqBadge: "Figure",
     footerText: "Natural Science & AI Course · Architecture Portfolio Final Project"
   }
 };

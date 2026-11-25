@@ -126,33 +126,43 @@
           </dl>
         </div>
 
-        <!-- Visual Showcase & Image Frame -->
+        <!-- Visual Showcase & Vertical Image Stream (由上至下依序排列) -->
         <div class="dossier-visual-section">
-          <div class="dossier-image-frame">
-            <img id="reader-main-img" src="" alt="建築圖紙展示" class="dossier-main-img">
-          </div>
-          <div class="image-caption-bar">
-            <span id="reader-img-caption">1:50 縱向剖面透視圖</span>
-            <button id="btn-reset-single-image" class="btn-editorial" style="font-size: 0.72rem; color: var(--accent-terra); display: none;">
-              ✕ 恢復預設原創圖紙
-            </button>
+          <div class="visual-stream-header">
+            <div class="stream-header-left">
+              <span class="stream-header-title" data-i18n="visualStreamTitle">圖紙、模型與空間影像 (由上至下依序排列)</span>
+              <span id="reader-images-count-badge" class="stream-count-badge">0 張圖片</span>
+            </div>
+            <div class="stream-header-actions">
+              <button id="btn-add-more-trigger" class="btn-editorial btn-accent">
+                ➕ <span data-i18n="btnAddImage">新增圖片 (由本機選取)</span>
+              </button>
+              <button id="btn-reset-single-image" class="btn-editorial" style="font-size: 0.72rem; color: var(--accent-terra); display: none;">
+                ✕ <span data-i18n="resetDefaults">恢復預設圖紙</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Interactive Device Image Replacement Box -->
+          <!-- Vertical Stream: All images stacked sequentially from top to bottom -->
+          <div id="reader-images-stream" class="reader-images-stream">
+            <!-- Dynamically populated by app.js: img 1, img 2, img 3... -->
+          </div>
+
+          <!-- Interactive Device Image Addition & Drag-and-Drop Box -->
           <div class="device-replacer-box" id="reader-dropzone">
             <div class="replacer-header">
               <span class="replacer-title">
-                📷 <span data-i18n="replaceFromDevice">從我的裝置抽換圖片</span>
+                📷 <span data-i18n="addImagesTitle">新增或擴充此作品之圖片 (由上至下依序排列)</span>
               </span>
               <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #145a54; font-weight: 700;">
-                ✓ 自動儲存於本機 IndexedDB
+                ✓ 支援多張連續選取 · 自動儲存於本機 IndexedDB
               </span>
             </div>
             <div class="replacer-dropzone">
               <span class="dropzone-icon">📁</span>
-              <p class="dropzone-text" data-i18n="dragDropText">拖曳圖片至此，或點擊由本機檔案選擇</p>
-              <span class="dropzone-hint">支援 JPG, PNG, WEBP, SVG（最大支援原圖解析度）</span>
-              <input type="file" id="reader-image-input" accept="image/*" style="display: none;">
+              <p class="dropzone-text" data-i18n="dragDropMultiText">拖曳一張或多張圖片至此，或點擊選取檔案增加數量</p>
+              <span class="dropzone-hint">支援 JPG, PNG, WEBP, SVG（可一次多選，自動由上至下依序排列展示）</span>
+              <input type="file" id="reader-image-input" accept="image/*" multiple style="display: none;">
             </div>
           </div>
         </div>

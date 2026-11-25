@@ -123,14 +123,24 @@ class ArchApp {
     document.getElementById("input-import-backup").addEventListener("change", (e) => this.handleImportBackup(e));
     document.getElementById("btn-reset-all").addEventListener("click", () => this.handleResetAll());
 
-    // Single Project Image Input inside Reader Modal
+    // Add More Images Button trigger inside Reader Modal
+    const btnAddMoreTrigger = document.getElementById("btn-add-more-trigger");
+    if (btnAddMoreTrigger) {
+      btnAddMoreTrigger.addEventListener("click", () => {
+        const input = document.getElementById("reader-image-input");
+        if (input) input.click();
+      });
+    }
+
+    // Multiple Project Images Input inside Reader Modal
     const readerImageInput = document.getElementById("reader-image-input");
     if (readerImageInput) {
       readerImageInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (file) {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
           const currentProj = this.filteredProjects[this.currentProjectIndex];
-          this.processImageUpload(currentProj.id, file);
+          this.processMultipleImageUpload(currentProj.id, files);
+          e.target.value = "";
         }
       });
     }
@@ -148,9 +158,9 @@ class ArchApp {
       dropzone.addEventListener("drop", (e) => {
         e.preventDefault();
         dropzone.classList.remove("drag-over");
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
           const currentProj = this.filteredProjects[this.currentProjectIndex];
-          this.processImageUpload(currentProj.id, e.dataTransfer.files[0]);
+          this.processMultipleImageUpload(currentProj.id, Array.from(e.dataTransfer.files));
         }
       });
       dropzone.addEventListener("click", () => {
@@ -266,8 +276,10 @@ class ArchApp {
     }
 
     this.filteredProjects.forEach((proj, idx) => {
-      const isCustom = !!this.customImages[proj.id];
-      const imgSrc = isCustom ? this.customImages[proj.id] : proj.defaultImage;
+      const customList = this.customImages[proj.id];
+      const isCustom = Array.isArray(customList) && customList.length > 0;
+      const imgSrc = isCustom ? customList[0].src : proj.defaultImage;
+      const imgCount = isCustom ? customList.length : (proj.drawings ? proj.drawings.length : 1);
 
       const card = document.createElement("article");
       card.className = "project-card";
@@ -280,7 +292,7 @@ class ArchApp {
           <div class="card-badges">
             <span class="badge-year">${proj.period} · ${proj.yearLabel[this.currentLang]}</span>
             <span class="${isCustom ? 'badge-custom' : 'badge-default'}">
-              ${isCustom ? t.customBadge : t.defaultBadge}
+              ${isCustom ? `● ${imgCount} ${t.imgSeqBadge || '圖紙'}` : `○ ${imgCount} ${t.imgSeqBadge || '圖紙'}`}
             </span>
           </div>
           <div class="card-quick-actions">
@@ -354,8 +366,33 @@ class ArchApp {
 
   renderReaderModal(proj) {
     const t = I18N[this.currentLang];
-    const isCustom = !!this.customImages[proj.id];
-    const currentImgSrc = isCustom ? this.customImages[proj.id] : proj.defaultImage;
+    const customList = this.customImages[proj.id];
+    const isCustom = Array.isArray(customList) && customList.length > 0;
+
+    // Build the ordered list of images (from top to bottom)
+    let activeImages = [];
+    if (isCustom) {
+      activeImages = customList.map((item, i) => ({
+        id: item.id || `custom-${i}`,
+        src: item.src,
+        name: item.name || `Custom Image ${i + 1}`,
+        isCustom: true
+      }));
+    } else if (proj.drawings && proj.drawings.length > 0) {
+      activeImages = proj.drawings.map((d, i) => ({
+        id: `def-${i}`,
+        src: d.src,
+        name: (d.label && d.label[this.currentLang]) ? d.label[this.currentLang] : (d.type || `Drawing ${i + 1}`),
+        isCustom: false
+      }));
+    } else {
+      activeImages = [{
+        id: 'def-0',
+        src: proj.defaultImage,
+        name: proj.title[this.currentLang],
+        isCustom: false
+      }];
+    }
 
     // Counter & Nav states
     const counter = document.getElementById("reader-counter");
@@ -391,20 +428,57 @@ class ArchApp {
       </div>
     `;
 
-    // Visual Frame
-    const mainImg = document.getElementById("reader-main-img");
-    mainImg.src = currentImgSrc;
-    mainImg.alt = proj.title[this.currentLang];
-
-    // Image Caption / Badge
-    const caption = document.getElementById("reader-img-caption");
-    caption.textContent = isCustom
-      ? `[ ${t.customBadge} ] ${proj.drawings[0].label[this.currentLang]}`
-      : `[ ${t.defaultBadge} ] ${proj.drawings[0].label[this.currentLang]}`;
+    // Update Stream Images Count Badge
+    const countBadge = document.getElementById("reader-images-count-badge");
+    if (countBadge) {
+      countBadge.textContent = `${activeImages.length} ${t.imgSeqBadge || '圖紙'} · ${this.currentLang === 'zh' ? '依序由上至下展示' : 'Ordered Vertically'}`;
+    }
 
     // Reset button visibility
     const btnReset = document.getElementById("btn-reset-single-image");
-    btnReset.style.display = isCustom ? "inline-block" : "none";
+    if (btnReset) {
+      btnReset.style.display = isCustom ? "inline-flex" : "none";
+    }
+
+    // Render Sequential Vertical Images Stream (依序由上至下排列)
+    const streamContainer = document.getElementById("reader-images-stream");
+    if (streamContainer) {
+      streamContainer.innerHTML = activeImages.map((imgItem, idx) => `
+        <div class="stream-image-block" data-img-index="${idx}">
+          <div class="stream-img-top-meta">
+            <span style="font-weight: 700; color: var(--text-main);">
+              ${t.imgSeqBadge || 'FIG.'} ${String(idx + 1).padStart(2, '0')} / ${String(activeImages.length).padStart(2, '0')}
+            </span>
+            <span style="font-size: 0.72rem; color: var(--text-light); text-transform: uppercase;">
+              ${imgItem.name || ''}
+            </span>
+          </div>
+          <div class="stream-image-frame">
+            <img src="${imgItem.src}" class="stream-img" alt="${imgItem.name || proj.title[this.currentLang]}" loading="lazy">
+          </div>
+          <div class="stream-img-caption-bar">
+            <span>
+              ${imgItem.isCustom ? `<strong style="color: #145a54;">[ ${t.customBadge} ]</strong>` : `<span style="color: var(--text-light);">[ ${t.defaultBadge} ]</span>`}
+              ${imgItem.name || ''}
+            </span>
+            ${imgItem.isCustom ? `
+              <button class="btn-delete-img" data-action="delete-stream-img" data-index="${idx}" title="${t.deleteSingleImg || '移除此圖'}">
+                ✕ ${t.deleteSingleImg || '移除此圖'}
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `).join("");
+
+      // Bind delete single image buttons
+      streamContainer.querySelectorAll('[data-action="delete-stream-img"]').forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const targetIdx = parseInt(btn.dataset.index, 10);
+          await this.deleteImageFromStream(proj.id, targetIdx);
+        });
+      });
+    }
 
     // Architectural Essay
     document.getElementById("reader-concept-body").textContent = proj.concept[this.currentLang];
@@ -420,57 +494,83 @@ class ArchApp {
     }
   }
 
-  // Device Image Handling
+  // Device Image Handling (Multi-image upload & sequential append)
   triggerQuickUpload(projectId) {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = "image/*";
+    fileInput.multiple = true;
     fileInput.onchange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        this.processImageUpload(projectId, file);
+      const files = Array.from(e.target.files);
+      if (files.length > 0) {
+        this.processMultipleImageUpload(projectId, files);
       }
     };
     fileInput.click();
   }
 
-  async processImageUpload(projectId, file) {
-    if (!file.type.startsWith("image/")) {
+  async processMultipleImageUpload(projectId, files) {
+    const validFiles = files.filter(f => f.type.startsWith("image/"));
+    if (validFiles.length === 0) {
       alert("請選擇有效的圖形檔案（.jpg, .png, .webp, .svg）");
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const dataUrl = e.target.result;
+    let loadedCount = 0;
+    for (const file of validFiles) {
       try {
-        await window.archStorage.saveImage(projectId, dataUrl, {
+        const dataUrl = await this.readFileAsDataURL(file);
+        await window.archStorage.addImageToProject(projectId, dataUrl, {
           name: file.name,
           size: file.size
         });
-        this.customImages[projectId] = dataUrl;
-
-        // Visual feedback
-        const t = I18N[this.currentLang];
-        alert(`${t.uploadSuccess} (${file.name})`);
-
-        this.filterAndRender();
-
-        if (this.isReaderOpen()) {
-          const currentProj = this.filteredProjects[this.currentProjectIndex];
-          if (currentProj && currentProj.id === projectId) {
-            this.renderReaderModal(currentProj);
-          }
-        }
+        loadedCount++;
       } catch (err) {
-        alert("儲存檔案失敗：" + err.message);
+        console.error("Failed to add image:", file.name, err);
       }
-    };
-    reader.readAsDataURL(file);
+    }
+
+    // Refresh custom images cache
+    this.customImages = await window.archStorage.getAllCustomImages();
+
+    // Feedback
+    const t = I18N[this.currentLang];
+    alert(`✓ ${t.uploadSuccess} (已新增 ${loadedCount} 張圖片，依序排列於本作品中)`);
+
+    this.filterAndRender();
+
+    if (this.isReaderOpen()) {
+      const currentProj = this.filteredProjects[this.currentProjectIndex];
+      if (currentProj && currentProj.id === projectId) {
+        this.renderReaderModal(currentProj);
+      }
+    }
+  }
+
+  readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = (e) => reject(e);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async deleteImageFromStream(projectId, index) {
+    await window.archStorage.removeImageAt(projectId, index);
+    this.customImages = await window.archStorage.getAllCustomImages();
+    this.filterAndRender();
+
+    if (this.isReaderOpen()) {
+      const currentProj = this.filteredProjects[this.currentProjectIndex];
+      if (currentProj && currentProj.id === projectId) {
+        this.renderReaderModal(currentProj);
+      }
+    }
   }
 
   async resetProjectImage(projectId) {
-    await window.archStorage.removeImage(projectId);
+    await window.archStorage.resetProjectImages(projectId);
     delete this.customImages[projectId];
     this.filterAndRender();
 
@@ -491,8 +591,10 @@ class ArchApp {
     const t = I18N[this.currentLang];
 
     ARCH_PROJECTS.forEach(proj => {
-      const isCustom = !!this.customImages[proj.id];
-      const imgSrc = isCustom ? this.customImages[proj.id] : proj.defaultImage;
+      const customList = this.customImages[proj.id];
+      const isCustom = Array.isArray(customList) && customList.length > 0;
+      const imgSrc = isCustom ? customList[0].src : proj.defaultImage;
+      const count = isCustom ? customList.length : (proj.drawings ? proj.drawings.length : 1);
 
       const row = document.createElement("div");
       row.className = "manager-item";
@@ -502,13 +604,13 @@ class ArchApp {
           <div style="min-width: 0;">
             <div class="manager-item-title">${proj.code} · ${proj.title[this.currentLang]}</div>
             <div class="manager-item-meta">
-              ${proj.period} · ${isCustom ? `<span style="color: #145a54; font-weight: 700;">● ${t.customBadge}</span>` : `<span style="color: #888;">○ ${t.defaultBadge}</span>`}
+              ${proj.period} · ${isCustom ? `<span style="color: #145a54; font-weight: 700;">● ${count} ${t.imgSeqBadge || '圖紙'} (${t.customBadge})</span>` : `<span style="color: #888;">○ ${count} ${t.imgSeqBadge || '圖紙'} (${t.defaultBadge})</span>`}
             </div>
           </div>
         </div>
         <div class="manager-actions">
           <button class="btn-editorial" data-action="upload-single" data-id="${proj.id}">
-            📷 ${t.replaceFromDevice}
+            ➕ ${t.btnAddImage || '新增圖片'}
           </button>
           ${isCustom ? `<button class="btn-editorial" style="color: var(--accent-terra);" data-action="reset-single" data-id="${proj.id}">✕ ${t.resetDefaults}</button>` : ''}
         </div>
