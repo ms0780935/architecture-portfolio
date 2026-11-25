@@ -11,6 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- Early Theme Initialization (Prevents theme flash) -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('arch_theme_preference') || 'auto';
+      const isDark = saved === 'dark' || (saved === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme-mode', saved);
+    })();
+  </script>
 </head>
 <body>
 
@@ -29,6 +38,22 @@
       </div>
 
       <div class="header-actions">
+        <!-- Theme Mode Switcher (日間 / 夜間 / 系統模式) -->
+        <div class="theme-switch-group" role="group" aria-label="主題外觀模式切換">
+          <button class="btn-theme-opt" data-theme="light" title="日間模式 (白底)" aria-label="日間模式 (白底)">
+            <span class="theme-icon">☼</span>
+            <span class="theme-name" data-i18n="themeLight">日間</span>
+          </button>
+          <button class="btn-theme-opt" data-theme="dark" title="夜間模式 (黑底)" aria-label="夜間模式 (黑底)">
+            <span class="theme-icon">☾</span>
+            <span class="theme-name" data-i18n="themeDark">夜間</span>
+          </button>
+          <button class="btn-theme-opt" data-theme="auto" title="使用者個人瀏覽器模式" aria-label="使用者個人瀏覽器模式">
+            <span class="theme-icon">🖥</span>
+            <span class="theme-name" data-i18n="themeAuto">系統</span>
+          </button>
+        </div>
+
         <button id="btn-open-asset-manager" class="btn-editorial" aria-label="開啟圖片管理中心">
           <span data-i18n="btnAssetManager">📷 圖片管理中心</span>
         </button>

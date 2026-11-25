@@ -7,6 +7,7 @@
 class ArchApp {
   constructor() {
     this.currentLang = localStorage.getItem("arch_lang") || "zh";
+    this.themeMode = localStorage.getItem("arch_theme_preference") || "auto";
     this.activeCategory = "all";
     this.activeYear = "all";
     this.searchQuery = "";
@@ -18,6 +19,9 @@ class ArchApp {
   }
 
   async init() {
+    // Initialize Theme (Divisare-style Light / Dark / Auto)
+    this.initTheme();
+
     // Load custom images from IndexedDB
     try {
       this.customImages = await window.archStorage.getAllCustomImages();
@@ -37,7 +41,49 @@ class ArchApp {
     }
   }
 
+  initTheme() {
+    this.applyTheme();
+
+    // Listen to OS prefers-color-scheme changes
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (this.themeMode === 'auto') {
+          this.applyTheme();
+        }
+      });
+    }
+  }
+
+  setThemeMode(mode) {
+    this.themeMode = mode;
+    localStorage.setItem("arch_theme_preference", mode);
+    this.applyTheme();
+  }
+
+  applyTheme() {
+    let effective = this.themeMode;
+    if (effective === "auto") {
+      effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? "dark" : "light";
+    }
+
+    document.documentElement.setAttribute("data-theme", effective);
+    document.documentElement.setAttribute("data-theme-mode", this.themeMode);
+
+    // Update switcher buttons UI
+    document.querySelectorAll(".btn-theme-opt").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.theme === this.themeMode);
+    });
+  }
+
   bindEvents() {
+    // Theme Switcher Buttons (Tri-mode: Light, Dark, Auto)
+    document.querySelectorAll(".btn-theme-opt").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.dataset.theme;
+        this.setThemeMode(mode);
+      });
+    });
+
     // Language Switcher
     const langBtn = document.getElementById("btn-toggle-lang");
     if (langBtn) {

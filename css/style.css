@@ -28,7 +28,22 @@
   font-display: swap;
 }
 
+/* ==========================================================================
+   Editorial Color Schemes & Themes (Divisare-Inspired Tri-Mode)
+   Mode 1: 日間模式 (Light / 白底)
+   Mode 2: 夜間模式 (Dark / 黑底)
+   Mode 3: 瀏覽器個人預設模式 (System / Auto prefers-color-scheme)
+   ========================================================================== */
+
 :root {
+  --font-serif: "Cinzel", "Playfair Display", "Noto Serif TC", "Songti TC", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", sans-serif;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
+  --container-max: 1440px;
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Light Theme Defaults (日間模式 - 白底) */
   --bg-paper: #fcfbf9;
   --bg-surface: #ffffff;
   --text-main: #111111;
@@ -39,12 +54,74 @@
   --accent-terra: #a44117;
   --accent-olive: #3b5a45;
   --badge-bg: #f0eee8;
-  --font-serif: "Cinzel", "Playfair Display", "Noto Serif TC", "Songti TC", Georgia, serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", sans-serif;
-  --font-mono: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
-  --container-max: 1440px;
-  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --frame-bg: #f4f3ed;
+  --frame-border: #e3e1da;
+  --hover-subtle: #faf8f5;
+  --hover-highlight: #fff8f5;
+  --modal-overlay: rgba(17, 17, 17, 0.75);
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.04);
+}
+
+/* Explicit Light Theme (日間模式 - 白底) */
+html[data-theme="light"] {
+  --bg-paper: #fcfbf9;
+  --bg-surface: #ffffff;
+  --text-main: #111111;
+  --text-muted: #555555;
+  --text-light: #888888;
+  --line-hairline: #e3e1da;
+  --line-strong: #111111;
+  --accent-terra: #a44117;
+  --accent-olive: #3b5a45;
+  --badge-bg: #f0eee8;
+  --frame-bg: #f4f3ed;
+  --frame-border: #e3e1da;
+  --hover-subtle: #faf8f5;
+  --hover-highlight: #fff8f5;
+  --modal-overlay: rgba(17, 17, 17, 0.75);
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.04);
+}
+
+/* Explicit Dark Theme (夜間模式 - 黑底，參考 Divisare.com 極黑展覽風格) */
+html[data-theme="dark"] {
+  --bg-paper: #0c0c0c;
+  --bg-surface: #141414;
+  --text-main: #f2f2f2;
+  --text-muted: #a2a2a2;
+  --text-light: #6e6e6e;
+  --line-hairline: #262626;
+  --line-strong: #f0f0f0;
+  --accent-terra: #e26839;
+  --accent-olive: #4f825e;
+  --badge-bg: #1c1c1c;
+  --frame-bg: #181818;
+  --frame-border: #2c2c2c;
+  --hover-subtle: #1c1c1c;
+  --hover-highlight: #241d1a;
+  --modal-overlay: rgba(0, 0, 0, 0.88);
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+/* System Preference Mode Fallback when data-theme is not explicitly light */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --bg-paper: #0c0c0c;
+    --bg-surface: #141414;
+    --text-main: #f2f2f2;
+    --text-muted: #a2a2a2;
+    --text-light: #6e6e6e;
+    --line-hairline: #262626;
+    --line-strong: #f0f0f0;
+    --accent-terra: #e26839;
+    --accent-olive: #4f825e;
+    --badge-bg: #1c1c1c;
+    --frame-bg: #181818;
+    --frame-border: #2c2c2c;
+    --hover-subtle: #1c1c1c;
+    --hover-highlight: #241d1a;
+    --modal-overlay: rgba(0, 0, 0, 0.88);
+    --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.5);
+  }
 }
 
 /* Base Reset & Typography */
@@ -196,6 +273,51 @@ img, svg {
   letter-spacing: 0.02em;
 }
 
+/* Theme Switcher Segmented Control (Divisare Tri-Mode) */
+.theme-switch-group {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-paper);
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-theme-opt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.btn-theme-opt:hover {
+  color: var(--text-main);
+  background: var(--bg-surface);
+}
+
+.btn-theme-opt.active {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--line-hairline);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.theme-icon {
+  font-size: 0.82rem;
+  line-height: 1;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -316,7 +438,7 @@ img, svg {
 
 .year-btn.active {
   background: var(--text-main);
-  color: #fff;
+  color: var(--bg-paper);
   border-color: var(--text-main);
 }
 
@@ -344,6 +466,7 @@ img, svg {
   font-size: 0.82rem;
   border: 1px solid var(--line-hairline);
   background: var(--bg-surface);
+  color: var(--text-main);
   outline: none;
   transition: border-color var(--transition-fast);
 }
@@ -453,7 +576,7 @@ img, svg {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.05em;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--bg-surface);
   color: var(--text-muted);
   border: 1px solid var(--line-hairline);
   padding: 0.15rem 0.45rem;
@@ -465,7 +588,7 @@ img, svg {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--bg-surface);
   backdrop-filter: blur(4px);
   padding: 0.6rem 0.8rem;
   display: flex;
@@ -489,13 +612,13 @@ img, svg {
   color: var(--text-main);
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--line-hairline);
-  background: #fff;
+  background: var(--bg-paper);
   transition: all var(--transition-fast);
 }
 
 .btn-card-action:hover {
   background: var(--text-main);
-  color: #fff;
+  color: var(--bg-paper);
 }
 
 /* Card Body Content */
@@ -550,7 +673,7 @@ img, svg {
 .card-summary {
   font-size: 0.83rem;
   line-height: 1.6;
-  color: #444;
+  color: var(--text-muted);
   margin-bottom: 1rem;
   flex: 1;
 }
@@ -821,8 +944,8 @@ img, svg {
 
 .stream-image-frame {
   position: relative;
-  background: #f4f3ed;
-  border: 1px solid var(--line-hairline);
+  background: var(--frame-bg);
+  border: 1px solid var(--frame-border);
   width: 100%;
   min-height: 280px;
   max-height: 720px;
@@ -921,7 +1044,7 @@ img, svg {
 
 .stream-bottom-add-bar:hover {
   border-color: var(--text-main);
-  background: #faf8f5;
+  background: var(--hover-subtle);
 }
 
 .btn-bottom-add {
@@ -932,7 +1055,7 @@ img, svg {
   padding: 0.75rem 1.75rem;
   border: 1.5px solid var(--text-main);
   background: var(--text-main);
-  color: #fff;
+  color: var(--bg-paper);
   transition: all var(--transition-fast);
   display: inline-flex;
   align-items: center;
@@ -943,13 +1066,14 @@ img, svg {
 .btn-bottom-add:hover {
   background: var(--accent-terra);
   border-color: var(--accent-terra);
+  color: #fff;
   box-shadow: 0 4px 14px rgba(164, 65, 23, 0.25);
 }
 
 .dossier-image-frame {
   position: relative;
-  background: #f2f0ea;
-  border: 1px solid var(--line-hairline);
+  background: var(--frame-bg);
+  border: 1px solid var(--frame-border);
   width: 100%;
   max-height: 600px;
   display: flex;
