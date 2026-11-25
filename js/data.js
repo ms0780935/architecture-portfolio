@@ -388,6 +388,10 @@ const I18N = {
     dragDropMultiText: "拖曳一張或多張圖片至此，或點擊選取檔案增加數量",
     deleteSingleImg: "移除此圖",
     imgSeqBadge: "圖紙",
+    moveUp: "▲ 上移",
+    moveDown: "▼ 下移",
+    btnAddImageBottom: "➕ 在最下方新增照片 (由本機選取)",
+    reorderSuccess: "照片順序已更新並自動儲存！",
     footerText: "自然科學與人工智慧課程 · 建築設計學程期末專案成果"
   },
   en: {
@@ -439,6 +443,10 @@ const I18N = {
     dragDropMultiText: "Drag & drop one or multiple images here, or click to add more",
     deleteSingleImg: "Remove Image",
     imgSeqBadge: "Figure",
+    moveUp: "▲ Move Up",
+    moveDown: "▼ Move Down",
+    btnAddImageBottom: "➕ Add Photo to End (from Device)",
+    reorderSuccess: "Photo order updated and saved!",
     footerText: "Natural Science & AI Course · Architecture Portfolio Final Project"
   }
 };

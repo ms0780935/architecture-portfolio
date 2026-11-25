@@ -132,10 +132,27 @@ class ArchApp {
       });
     }
 
-    // Multiple Project Images Input inside Reader Modal
+    // Multiple Project Images Input inside Reader Modal (Top trigger)
     const readerImageInput = document.getElementById("reader-image-input");
     if (readerImageInput) {
       readerImageInput.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
+          const currentProj = this.filteredProjects[this.currentProjectIndex];
+          this.processMultipleImageUpload(currentProj.id, files);
+          e.target.value = "";
+        }
+      });
+    }
+
+    // Add Photo Button directly below the last image (在最後一張圖片下方新增照片按鈕)
+    const btnBottomAdd = document.getElementById("btn-bottom-add-image");
+    const bottomImageInput = document.getElementById("bottom-image-input");
+    if (btnBottomAdd && bottomImageInput) {
+      btnBottomAdd.addEventListener("click", () => {
+        bottomImageInput.click();
+      });
+      bottomImageInput.addEventListener("change", (e) => {
         const files = Array.from(e.target.files);
         if (files.length > 0) {
           const currentProj = this.filteredProjects[this.currentProjectIndex];
@@ -448,10 +465,18 @@ class ArchApp {
           <div class="stream-img-top-meta">
             <span style="font-weight: 700; color: var(--text-main);">
               ${t.imgSeqBadge || 'FIG.'} ${String(idx + 1).padStart(2, '0')} / ${String(activeImages.length).padStart(2, '0')}
+              <span style="margin-left: 0.5rem; font-weight: normal; font-size: 0.72rem; color: var(--text-light); text-transform: uppercase;">
+                ${imgItem.name || ''}
+              </span>
             </span>
-            <span style="font-size: 0.72rem; color: var(--text-light); text-transform: uppercase;">
-              ${imgItem.name || ''}
-            </span>
+            <div class="stream-img-actions">
+              <button class="btn-order-img" data-action="move-up" data-index="${idx}" ${idx === 0 ? 'disabled' : ''} title="${t.moveUp || '上移'}">
+                ${t.moveUp || '▲ 上移'}
+              </button>
+              <button class="btn-order-img" data-action="move-down" data-index="${idx}" ${idx === activeImages.length - 1 ? 'disabled' : ''} title="${t.moveDown || '下移'}">
+                ${t.moveDown || '▼ 下移'}
+              </button>
+            </div>
           </div>
           <div class="stream-image-frame">
             <img src="${imgItem.src}" class="stream-img" alt="${imgItem.name || proj.title[this.currentLang]}" loading="lazy">
@@ -469,6 +494,27 @@ class ArchApp {
           </div>
         </div>
       `).join("");
+
+      // Bind reordering (Move Up / Move Down)
+      streamContainer.querySelectorAll('[data-action="move-up"]').forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const targetIdx = parseInt(btn.dataset.index, 10);
+          if (targetIdx > 0) {
+            await this.moveImageInStream(proj.id, targetIdx, targetIdx - 1, activeImages);
+          }
+        });
+      });
+
+      streamContainer.querySelectorAll('[data-action="move-down"]').forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const targetIdx = parseInt(btn.dataset.index, 10);
+          if (targetIdx < activeImages.length - 1) {
+            await this.moveImageInStream(proj.id, targetIdx, targetIdx + 1, activeImages);
+          }
+        });
+      });
 
       // Bind delete single image buttons
       streamContainer.querySelectorAll('[data-action="delete-stream-img"]').forEach(btn => {
@@ -561,6 +607,35 @@ class ArchApp {
     this.customImages = await window.archStorage.getAllCustomImages();
     this.filterAndRender();
 
+    if (this.isReaderOpen()) {
+      const currentProj = this.filteredProjects[this.currentProjectIndex];
+      if (currentProj && currentProj.id === projectId) {
+        this.renderReaderModal(currentProj);
+      }
+    }
+  }
+
+  async moveImageInStream(projectId, fromIndex, toIndex, currentImages) {
+    if (fromIndex < 0 || toIndex < 0 || fromIndex >= currentImages.length || toIndex >= currentImages.length) return;
+
+    // Create normalized copy of current images array
+    const newList = currentImages.map(item => ({
+      id: item.id || ("img-" + Math.random().toString(36).substr(2, 7)),
+      src: item.src,
+      name: item.name,
+      isCustom: true
+    }));
+
+    // Swap elements
+    const [moved] = newList.splice(fromIndex, 1);
+    newList.splice(toIndex, 0, moved);
+
+    // Save to local storage
+    await window.archStorage.saveProjectImages(projectId, newList);
+    this.customImages = await window.archStorage.getAllCustomImages();
+
+    // Re-render
+    this.filterAndRender();
     if (this.isReaderOpen()) {
       const currentProj = this.filteredProjects[this.currentProjectIndex];
       if (currentProj && currentProj.id === projectId) {

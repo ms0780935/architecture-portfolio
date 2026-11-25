@@ -148,6 +148,17 @@
             <!-- Dynamically populated by app.js: img 1, img 2, img 3... -->
           </div>
 
+          <!-- Add Photo directly below the last image (在最後一張圖片下方增加新增照片按鈕) -->
+          <div class="stream-bottom-add-bar">
+            <button id="btn-bottom-add-image" class="btn-bottom-add" aria-label="在最後一張圖片下方新增照片">
+              <span>➕ <span data-i18n="btnAddImageBottom">在最下方新增照片 (由本機選取)</span></span>
+            </button>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">
+              支援多選 · 照片將自動依序加在最後一張圖片下方，並可隨時手動上移/下移排序
+            </span>
+            <input type="file" id="bottom-image-input" accept="image/*" multiple style="display: none;">
+          </div>
+
           <!-- Interactive Device Image Addition & Drag-and-Drop Box -->
           <div class="device-replacer-box" id="reader-dropzone">
             <div class="replacer-header">
