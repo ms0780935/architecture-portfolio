@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <rect width="1000" height="650" fill="#fcfbf7"/>
+  <defs>
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#ebe8de" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="brickHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#222" stroke-width="0.8" />
+    </pattern>
+  </defs>
+  <rect width="1000" height="650" fill="url(#grid)" />
+
+  <!-- Title & Metadata Block -->
+  <text x="60" y="65" font-family="'Cinzel', 'Noto Serif TC', serif" font-size="18" font-weight="700" fill="#111" letter-spacing="2">HISTORIC SHOPHOUSE LONGITUDINAL MEASURED SECTION</text>
+  <text x="60" y="90" font-family="monospace" font-size="11" fill="#666" letter-spacing="1">TAIPEI DADAOCHENG SURVEY · SCALE 1:50 · THREE COURTYARDS TYPOLOGY</text>
+
+  <!-- Ground Line -->
+  <line x1="40" y1="520" x2="960" y2="520" stroke="#111" stroke-width="2.5"/>
+
+  <!-- Shophouse Section Profile (Three Bays, Two Skywells / 三進兩天井) -->
+  <!-- 1. Front Arcade & Shop (第一進: 騎樓與前坎) -->
+  <!-- Arcade Pier -->
+  <rect x="70" y="380" width="28" height="140" fill="url(#brickHatch)"/>
+  <!-- Front Shop 2F & 3F Wall -->
+  <rect x="98" y="240" width="22" height="280" fill="#fff" stroke="#111" stroke-width="2"/>
+  <rect x="70" y="380" width="180" height="18" fill="#fff" stroke="#111" stroke-width="2"/>
+  <!-- Front Shop Room 1F -->
+  <rect x="120" y="398" width="130" height="122" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="145" y="470" font-family="'Noto Serif TC', serif" font-size="12" fill="#444">第一進：店面</text>
+  <text x="145" y="488" font-family="monospace" font-size="9" fill="#888">Front Storefront</text>
+  <!-- Front Shop 2F Room -->
+  <rect x="120" y="258" width="130" height="122" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <!-- Pitched Roof Bay 1 -->
+  <polygon points="60,240 200,160 250,200 250,240" fill="#fff" stroke="#111" stroke-width="2.5"/>
+  <line x1="200" y1="160" x2="120" y2="240" stroke="#111" stroke-width="1.2"/>
+
+  <!-- 2. First Courtyard / Skywell (第一天井 / 採光通風井) -->
+  <rect x="250" y="520" width="110" height="0"/>
+  <text x="270" y="460" font-family="'Noto Serif TC', serif" font-size="12" fill="#c04e28">第一天井</text>
+  <text x="270" y="478" font-family="monospace" font-size="9" fill="#c04e28">Open Skywell</text>
+  <!-- Thermal Stack Airflow Arrows -->
+  <g stroke="#c04e28" stroke-width="1.5" fill="none">
+    <path d="M 280 500 C 280 430 300 350 300 220 L 300 170" stroke-dasharray="4 3"/>
+    <polygon points="300,160 295,175 305,175" fill="#c04e28"/>
+    <text x="315" y="260" font-family="monospace" font-size="10" fill="#c04e28">熱浮力拔風 (Stack Effect)</text>
+  </g>
+
+  <!-- 3. Middle Hall / Living (第二進: 正廳與起居) -->
+  <rect x="360" y="260" width="22" height="260" fill="#fff" stroke="#111" stroke-width="2"/>
+  <rect x="360" y="390" width="200" height="18" fill="#fff" stroke="#111" stroke-width="2"/>
+  <rect x="382" y="408" width="178" height="112" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="430" y="470" font-family="'Noto Serif TC', serif" font-size="12" fill="#444">第二進：正廳起居</text>
+  <text x="430" y="488" font-family="monospace" font-size="9" fill="#888">Living & Family Hall</text>
+  <!-- Middle Pitched Roof Bay 2 -->
+  <polygon points="360,260 460,180 560,260" fill="#fff" stroke="#111" stroke-width="2.5"/>
+
+  <!-- 4. Second Courtyard / Skywell (第二天井) -->
+  <text x="580" y="460" font-family="'Noto Serif TC', serif" font-size="12" fill="#c04e28">第二天井</text>
+  <g stroke="#c04e28" stroke-width="1.5" fill="none">
+    <path d="M 605 500 C 605 430 620 350 620 220 L 620 180" stroke-dasharray="4 3"/>
+    <polygon points="620,170 615,185 625,185" fill="#c04e28"/>
+  </g>
+
+  <!-- 5. Rear Storage / Warehouse (第三進: 倉庫後庫) -->
+  <rect x="660" y="280" width="22" height="240" fill="#fff" stroke="#111" stroke-width="2"/>
+  <rect x="660" y="410" width="180" height="18" fill="#fff" stroke="#111" stroke-width="2"/>
+  <rect x="682" y="428" width="158" height="92" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="710" y="470" font-family="'Noto Serif TC', serif" font-size="12" fill="#444">第三進：貨棧倉庫</text>
+  <text x="710" y="488" font-family="monospace" font-size="9" fill="#888">Rear Merchant Storage</text>
+  <rect x="840" y="280" width="22" height="240" fill="#fff" stroke="#111" stroke-width="2"/>
+  <polygon points="660,280 750,220 840,280" fill="#fff" stroke="#111" stroke-width="2.5"/>
+
+  <!-- Dimension Lines -->
+  <!-- Horizontal Total Length -->
+  <g stroke="#666" stroke-width="0.8">
+    <line x1="70" y1="565" x2="860" y2="565"/>
+    <line x1="70" y1="555" x2="70" y2="575"/>
+    <line x1="250" y1="555" x2="250" y2="575"/>
+    <line x1="360" y1="555" x2="360" y2="575"/>
+    <line x1="560" y1="555" x2="560" y2="575"/>
+    <line x1="660" y1="555" x2="660" y2="575"/>
+    <line x1="860" y1="555" x2="860" y2="575"/>
+  </g>
+  <text x="140" y="582" font-family="monospace" font-size="11" fill="#444">8,200mm</text>
+  <text x="285" y="582" font-family="monospace" font-size="11" fill="#444">4,500mm</text>
+  <text x="440" y="582" font-family="monospace" font-size="11" fill="#444">9,600mm</text>
+  <text x="590" y="582" font-family="monospace" font-size="11" fill="#444">4,200mm</text>
+  <text x="735" y="582" font-family="monospace" font-size="11" fill="#444">8,800mm</text>
+  <text x="410" y="615" font-family="monospace" font-size="13" font-weight="700" fill="#111">TOTAL DEPTH 進深: 35,300mm</text>
+
+  <!-- Vertical Levels -->
+  <line x1="900" y1="520" x2="940" y2="520" stroke="#111" stroke-width="1"/>
+  <text x="945" y="524" font-family="monospace" font-size="10" fill="#555">▼ ±0.00m (GL)</text>
+  <line x1="900" y1="380" x2="940" y2="380" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="945" y="384" font-family="monospace" font-size="10" fill="#555">▼ +3.80m (2FL)</text>
+  <line x1="900" y1="240" x2="940" y2="240" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="945" y="244" font-family="monospace" font-size="10" fill="#555">▼ +7.60m (3FL)</text>
+  <line x1="900" y1="160" x2="940" y2="160" stroke="#111" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="945" y="164" font-family="monospace" font-size="10" fill="#555">▼ +10.80m (ROOF)</text>
+</svg>

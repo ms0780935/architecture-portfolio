@@ -202,7 +202,7 @@ const ARCH_PROJECTS = [
     typology: { zh: "歷史建築測繪／田野調查", en: "Architectural History / Field Measurement" },
     location: { zh: "台北市大同區迪化街一段", en: "Dihua St. Sec 1, Datong District, Taipei" },
     advisor: { zh: "鄭書華 副教授", en: "Assoc. Prof. Shu-Hua Cheng" },
-    defaultImage: "assets/project-7.svg",
+    defaultImage: "assets/dadaocheng-field-streetscape.jpg",
     summary: {
       zh: "針對迪化街 12 棟典型長條型街屋展開立面測繪，梳理閩南磚瓦、紅磚圓柱至日治折衷主義泥塑山牆之營造體系流變。",
       en: "Detailed manual measurement of 12 historic shophouses along Dihua Street, cataloging tectonic shifts from Minnan masonry to Eclectic baroque pediments."
@@ -212,7 +212,36 @@ const ARCH_PROJECTS = [
       en: "Completed for the Taiwan Architectural History seminar, this survey produced archival orthographic elevations and courtyard sections. The research demonstrates how historic shophouse courtyards function as natural thermal chimneys in subtropical heat."
     },
     drawings: [
-      { type: "Elevation", label: { zh: "1:25 折衷主義街屋立面正投影精密測繪圖", en: "1:25 Measured Orthographic Historic Elevation" }, src: "assets/project-7.svg" }
+      {
+        type: "Field Photo",
+        label: { zh: "【現場踏查 01】大稻埕迪化街歷史街廓街景與街屋連續立面全景", en: "Field Survey 01: Dihua Street Historic Streetscape & Sequential Elevations" },
+        src: "assets/dadaocheng-field-streetscape.jpg"
+      },
+      {
+        type: "Field Photo",
+        label: { zh: "【現場踏查 02】連續騎樓（亭仔腳）空間光影與磚造拱圈廊道實地踏查", en: "Field Survey 02: Continuous Ting-a-kha Covered Arcade & Brick Arch Walkway" },
+        src: "assets/dadaocheng-field-arcade.jpg"
+      },
+      {
+        type: "Field Photo",
+        label: { zh: "【現場踏查 03】折衷主義巴洛克泥塑山牆、女兒牆與紅磚柱頭裝飾特寫", en: "Field Survey 03: Eclectic Baroque Plaster Pediment & Red Brick Capital Detail" },
+        src: "assets/dadaocheng-field-facade.jpg"
+      },
+      {
+        type: "Measured Photo",
+        label: { zh: "【實地測繪 01】製圖桌實體圖紙寫真：街屋立面正投影與尺度標註測繪原稿", en: "Measured Survey 01: Drafting Table Photo of Facade Elevation Survey Sheet" },
+        src: "assets/dadaocheng-measured-drafting.jpg"
+      },
+      {
+        type: "Section",
+        label: { zh: "【實地測繪 02】1:50 街屋長向三進兩天井縱剖面圖（進深 35.3m 與熱浮力拔風分析）", en: "Measured Drawing 02: 1:50 Longitudinal Section (35.3m Depth & Thermal Stack Analysis)" },
+        src: "assets/dadaocheng-measured-section.svg"
+      },
+      {
+        type: "Detail",
+        label: { zh: "【實地測繪 03】1:10 騎樓清水紅磚圓柱（Ø 520mm）與莨苕葉柱頭構造大樣測繪圖", en: "Measured Drawing 03: 1:10 Tectonic Detail of Arcade Column & Acanthus Capital" },
+        src: "assets/dadaocheng-measured-tectonics.svg"
+      }
     ],
     tags: ["Architectural History", "Survey", "Dadaocheng", "Arcade", "Measured Drawing"]
   },
