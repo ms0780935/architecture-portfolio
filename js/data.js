@@ -171,7 +171,7 @@ const ARCH_PROJECTS = [
     typology: { zh: "計算設計／動態立面構件", en: "Computational Design / Kinetic Façade" },
     location: { zh: "數位製造實驗室", en: "Digital Fabrication FabLab" },
     advisor: { zh: "柯皓文 助理教授", en: "Asst. Prof. Hao-Wen Ko" },
-    defaultImage: "assets/project-6.svg",
+    defaultImage: "assets/project-6-parametric.jpg",
     summary: {
       zh: "利用 Ladybug 工具組分析台北夏季極端日射量，以 Voronoi 幾何演算法自動調節遮陽格柵開口孔徑，降低室內 32% 空調負荷。",
       en: "Simulating Taipei's peak solar radiation using Ladybug Tools, driving Voronoi geometry apertures to decrease indoor cooling load by 32%."
@@ -181,6 +181,7 @@ const ARCH_PROJECTS = [
       en: "Developed within the Advanced Parametric Design seminar, this project scripts solar radiation vectors to actuate individual kinetic louvers. A 1:5 scale prototype was fabricated with laser cutting and Arduino stepper motors to test physical daylighting calibration."
     },
     drawings: [
+      { type: "Render", label: { zh: "日照感應幾何百葉立面渲染圖", en: "Solar-Responsive Kinetic Facade Rendering" }, src: "assets/project-6-parametric.jpg" },
       { type: "Diagram", label: { zh: "Grasshopper 演算法網絡與太陽軌跡圖", en: "Grasshopper Algorithm Network & Sun-path Diagram" }, src: "assets/project-6.svg" }
     ],
     tags: ["Parametric", "Grasshopper", "Ladybug", "Kinetic Façade", "Digital Fabrication"]
