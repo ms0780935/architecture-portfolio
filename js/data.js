@@ -340,7 +340,7 @@ const ARCH_PROJECTS = [
 // UI Text Dictionary for i18n
 const I18N = {
   zh: {
-    siteTitle: "ARCH / FOLIO",
+    siteTitle: "PORTFOLIO",
     siteSubtitle: "建築系學生五年學習歷程與設計作品集",
     curatorNote: "收錄一至五年級建築設計、選修課程與研究專題",
     filterAll: "全部作品",
@@ -395,7 +395,7 @@ const I18N = {
     footerText: "自然科學與人工智慧課程 · 建築設計學程期末專案成果"
   },
   en: {
-    siteTitle: "ARCH / FOLIO",
+    siteTitle: "PORTFOLIO",
     siteSubtitle: "Architecture Student 5-Year Portfolio & Academic Archive",
     curatorNote: "Design Studios (Years 1-5), Elective Studies & Theoretical Research",
     filterAll: "All Works",
