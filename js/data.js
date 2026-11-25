@@ -31,7 +31,30 @@ const ARCH_PROJECTS = [
       en: "Serving as the foundational tectonic exercise in first year, this project originated from 1:1 physical joint mockups. Using 2x2 Cryptomeria timber sections arranged in reciprocal joints, the pavilion creates an open shelter balancing self-weight stability with visual transparency, funneling breezes toward the seating plinth."
     },
     drawings: [
-      { type: "Axonometric", label: { zh: "1:20 等角透視軸測圖", en: "1:20 Axonometric Tectonic Breakdown" }, src: "assets/project-1.svg" }
+      {
+        type: "Axonometric Drawing",
+        label: {
+          zh: "1:20 等角透視軸測構造分解與微氣候流場分析圖",
+          en: "1:20 Axonometric Tectonic Breakdown & Microclimate Aerodynamic Simulation"
+        },
+        src: "assets/project-1-drawing.svg"
+      },
+      {
+        type: "Physical Model",
+        label: {
+          zh: "1:1 與 1:20 手作木構榫接節點與互承骨架實體模型實拍",
+          en: "1:1 & 1:20 Handcrafted Reciprocal Timber Joinery & Frame Physical Mockup"
+        },
+        src: "assets/project-1-model.jpg"
+      },
+      {
+        type: "Spatial Atmosphere",
+        label: {
+          zh: "校園中庭草坪微氣候輕質木構空間實景與光影穿透氛圍",
+          en: "Courtyard Lawn Campus Installation: Light Penetration & Aerodynamic Spatial Atmosphere"
+        },
+        src: "assets/project-1-space.jpg"
+      }
     ],
     tags: ["Timber", "Pavilion", "Basic Design", "Joinery", "1:1 Mockup"]
   },
