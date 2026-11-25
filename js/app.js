@@ -365,6 +365,9 @@ class ArchApp {
             <button class="btn-card-action" data-action="quick-upload">
               <span>📷 ${t.quickReplace}</span>
             </button>
+            <button class="btn-card-action" data-action="open-full" data-src="${imgSrc}" title="${t.zoomHint || '原尺寸預覽'}">
+              <span>🔍 ${t.openFullSize || '原尺寸'} ↗</span>
+            </button>
           </div>
         </div>
 
@@ -392,6 +395,14 @@ class ArchApp {
         btnQuickUpload.addEventListener("click", (e) => {
           e.stopPropagation();
           this.triggerQuickUpload(proj.id);
+        });
+      }
+
+      const btnOpenFull = card.querySelector('[data-action="open-full"]');
+      if (btnOpenFull) {
+        btnOpenFull.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.openFullSizePreview(btnOpenFull.dataset.src);
         });
       }
 
@@ -524,22 +535,36 @@ class ArchApp {
               </button>
             </div>
           </div>
-          <div class="stream-image-frame">
+          <div class="stream-image-frame" data-action="open-full" data-src="${imgItem.src}" title="${t.zoomHint || '點擊於新分頁開啟原尺寸大圖預覽'}">
             <img src="${imgItem.src}" class="stream-img" alt="${imgItem.name || proj.title[this.currentLang]}" loading="lazy">
+            <span class="stream-zoom-badge">🔍 ${t.openFullSize || '原尺寸預覽'} ↗</span>
           </div>
           <div class="stream-img-caption-bar">
             <span>
               ${imgItem.isCustom ? `<strong style="color: #145a54;">[ ${t.customBadge} ]</strong>` : `<span style="color: var(--text-light);">[ ${t.defaultBadge} ]</span>`}
               ${imgItem.name || ''}
             </span>
-            ${imgItem.isCustom ? `
-              <button class="btn-delete-img" data-action="delete-stream-img" data-index="${idx}" title="${t.deleteSingleImg || '移除此圖'}">
-                ✕ ${t.deleteSingleImg || '移除此圖'}
+            <div style="display: inline-flex; align-items: center; gap: 0.4rem;">
+              <button class="btn-preview-full" data-action="open-full" data-src="${imgItem.src}" title="${t.zoomHint || '點擊於新分頁開啟原尺寸大圖預覽'}">
+                ↗ ${t.openFullSize || '原尺寸預覽'}
               </button>
-            ` : ''}
+              ${imgItem.isCustom ? `
+                <button class="btn-delete-img" data-action="delete-stream-img" data-index="${idx}" title="${t.deleteSingleImg || '移除此圖'}">
+                  ✕ ${t.deleteSingleImg || '移除此圖'}
+                </button>
+              ` : ''}
+            </div>
           </div>
         </div>
       `).join("");
+
+      // Bind Full-Size Image Preview (點擊開啟新分頁原尺寸預覽)
+      streamContainer.querySelectorAll('[data-action="open-full"]').forEach(el => {
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.openFullSizePreview(el.dataset.src);
+        });
+      });
 
       // Bind reordering (Move Up / Move Down)
       streamContainer.querySelectorAll('[data-action="move-up"]').forEach(btn => {
@@ -646,6 +671,30 @@ class ArchApp {
       reader.onerror = (e) => reject(e);
       reader.readAsDataURL(file);
     });
+  }
+
+  // Open Full-Size Image Preview in New Tab (新分頁開啟原尺寸預覽)
+  openFullSizePreview(src) {
+    if (!src) return;
+    if (src.startsWith("data:")) {
+      try {
+        const parts = src.split(",");
+        const mime = parts[0].match(/:(.*?);/)[1];
+        const bstr = atob(parts[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        const blob = new Blob([u8arr], { type: mime });
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, "_blank", "noopener,noreferrer");
+        return;
+      } catch (e) {
+        console.warn("Fallback opening data URL:", e);
+      }
+    }
+    window.open(src, "_blank", "noopener,noreferrer");
   }
 
   async deleteImageFromStream(projectId, index) {

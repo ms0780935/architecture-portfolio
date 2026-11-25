@@ -953,6 +953,8 @@ img, svg {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: zoom-in;
+  text-decoration: none;
 }
 
 .stream-img {
@@ -963,7 +965,56 @@ img, svg {
 }
 
 .stream-image-frame:hover .stream-img {
-  transform: scale(1.01);
+  transform: scale(1.015);
+}
+
+.stream-zoom-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: all var(--transition-fast);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.stream-image-frame:hover .stream-zoom-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-preview-full {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.btn-preview-full:hover {
+  background: var(--text-main);
+  color: var(--bg-paper);
+  border-color: var(--text-main);
 }
 
 .stream-img-caption-bar {

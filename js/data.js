@@ -418,6 +418,8 @@ const I18N = {
     moveDown: "▼ 下移",
     btnAddImageBottom: "➕ 在最下方新增照片 (由本機選取)",
     reorderSuccess: "照片順序已更新並自動儲存！",
+    openFullSize: "原尺寸預覽",
+    zoomHint: "點擊於新分頁開啟原尺寸大圖預覽",
     footerText: "自然科學與人工智慧課程 · 建築設計學程期末專案成果"
   },
   en: {
@@ -476,6 +478,8 @@ const I18N = {
     moveDown: "▼ Move Down",
     btnAddImageBottom: "➕ Add Photo to End (from Device)",
     reorderSuccess: "Photo order updated and saved!",
+    openFullSize: "Full Size",
+    zoomHint: "Click to open full-size image in a new tab",
     footerText: "Natural Science & AI Course · Architecture Portfolio Final Project"
   }
 };
