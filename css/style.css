@@ -60,6 +60,7 @@
   --hover-highlight: #fff8f5;
   --modal-overlay: rgba(17, 17, 17, 0.75);
   --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.04);
+  --cobalt: #1638d6;
 }
 
 /* Explicit Light Theme (日間模式 - 白底) */
@@ -80,6 +81,7 @@ html[data-theme="light"] {
   --hover-highlight: #fff8f5;
   --modal-overlay: rgba(17, 17, 17, 0.75);
   --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.04);
+  --cobalt: #1638d6;
 }
 
 /* Explicit Dark Theme (夜間模式 - 黑底，參考 Divisare.com 極黑展覽風格) */

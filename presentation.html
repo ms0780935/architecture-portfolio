@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCH/FOLIO — 期末專題簡報成果報告 (12 Slides · Presentation Deck)</title>
+  <link rel="stylesheet" href="assets/fonts/aptos.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       Design System: Modern Editorial Blueprint Style
+       Inspired by reference image: Stark White, Electric Cobalt Blue, Minimal Grayscale
+       ========================================================================== */
+    :root {
+      --bg-canvas: #ffffff;
+      --bg-slide: #ffffff;
+      --bg-grid-card: #fbfbfa;
+      --border-card: #e5e5e0;
+      
+      /* Signature Electric Cobalt Accent (Matching Reference) */
+      --cobalt: #1638d6;
+      --cobalt-dark: #0f279e;
+      --cobalt-light: #e8ecfc;
+      --cobalt-soft: rgba(22, 56, 214, 0.08);
+
+      --text-main: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+
+      --font-heading: 'Aptos', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: 'Noto Serif TC', 'Cinzel', serif;
+      --font-sans: 'Noto Sans TC', 'Aptos', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+
+      --slide-ratio: 16 / 9;
+      --slide-width: 1200px;
+      --slide-height: 675px;
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #e9e9e6;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Navigation Header Bar */
+    .deck-nav-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-card);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .deck-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      color: var(--cobalt);
+      letter-spacing: 0.5px;
+    }
+
+    .deck-brand a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .deck-brand .badge-tag {
+      background: var(--cobalt);
+      color: #fff;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-deck {
+      background: #fff;
+      border: 1px solid var(--border-card);
+      color: var(--text-body);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: var(--transition-fast);
+      user-select: none;
+    }
+
+    .btn-deck:hover {
+      border-color: var(--cobalt);
+      color: var(--cobalt);
+      background: var(--cobalt-soft);
+    }
+
+    .btn-deck.active {
+      background: var(--cobalt);
+      color: #fff;
+      border-color: var(--cobalt);
+    }
+
+    .slide-counter {
+      font-weight: 600;
+      color: var(--cobalt);
+      padding: 0 0.5rem;
+    }
+
+    /* Deck View Container */
+    .deck-stage {
+      padding-top: 68px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ----------------------------------------------------
+       MODE A: SINGLE SLIDE PRESENTATION (Default)
+       ---------------------------------------------------- */
+    .presentation-mode .slides-track {
+      position: relative;
+      width: min(94vw, 1280px);
+      aspect-ratio: var(--slide-ratio);
+      margin: 0 auto;
+    }
+
+    .presentation-mode .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-slide);
+      border: 1px solid #d4d4cd;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 2.5rem 3rem 2rem;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .presentation-mode .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    /* ----------------------------------------------------
+       MODE B: OVERVIEW GRID MODE (Matching Reference Image)
+       2 Columns x 6 Rows Gallery Sheet
+       ---------------------------------------------------- */
+    .grid-mode .deck-stage {
+      padding-top: 72px;
+      padding-bottom: 80px;
+      display: block;
+    }
+
+    .grid-mode .slides-track {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem 2.5rem;
+    }
+
+    .grid-mode .slide {
+      position: relative;
+      aspect-ratio: var(--slide-ratio);
+      width: 100%;
+      background: var(--bg-slide);
+      border: 1px solid #dcdcd5;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 1.8rem 2.2rem 1.4rem;
+      border-radius: 2px;
+      cursor: pointer;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      overflow: hidden;
+    }
+
+    .grid-mode .slide:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(22, 56, 214, 0.12);
+      border-color: var(--cobalt);
+    }
+
+    .grid-mode .slide::after {
+      content: "點擊放大此頁 · Slide " attr(data-slide-index);
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cobalt);
+      background: var(--cobalt-light);
+      padding: 2px 6px;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+
+    .grid-mode .slide:hover::after {
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       Slide Internal Structure & Typography
+       ========================================================================== */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid #ebebeb;
+      margin-bottom: 1.2rem;
+    }
+
+    .slide-meta-left {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slide-meta-left .tag {
+      color: var(--cobalt);
+      font-weight: 600;
+    }
+
+    .slide-meta-right {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-light);
+    }
+
+    .slide-body {
+      display: grid;
+      gap: 1.5rem;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.8rem;
+      border-top: 1px solid #ebebeb;
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-light);
+    }
+
+    .slide-footer .author-badge {
+      color: var(--cobalt);
+      font-weight: 600;
+    }
+
+    /* ----------------------------------------------------
+       Hand-Drawn Doodle SVG Accents (Signature Style)
+       ---------------------------------------------------- */
+    .doodle-title-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .doodle-ellipse-svg {
+      position: absolute;
+      top: -12px;
+      left: -14px;
+      width: calc(100% + 28px);
+      height: calc(100% + 24px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .doodle-arrow-svg {
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .doodle-starburst-svg {
+      position: absolute;
+      top: -24px;
+      right: -24px;
+      width: 48px;
+      height: 48px;
+      pointer-events: none;
+    }
+
+    .doodle-marker-line {
+      display: block;
+      width: 100%;
+      height: 6px;
+      margin-top: 2px;
+      background: var(--cobalt);
+      border-radius: 2px;
+    }
+
+    .doodle-wave-line {
+      display: block;
+      width: 120px;
+      height: 10px;
+      background-image: radial-gradient(circle at 10px -5px, transparent 12px, var(--cobalt) 13px, var(--cobalt) 15px, transparent 16px);
+      background-size: 20px 20px;
+      margin-top: 6px;
+    }
+
+    /* Typographic Styles */
+    h1.slide-title-hero {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--cobalt);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      text-transform: lowercase;
+    }
+
+    h2.slide-title-section {
+      font-family: var(--font-heading);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--cobalt);
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      text-transform: lowercase;
+    }
+
+    .slide-subtitle {
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text-body);
+      margin-top: 0.4rem;
+    }
+
+    /* Vertical Heading Layouts (Like Reference 'timeline', 'project stages') */
+    .vertical-title-box {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--cobalt);
+      letter-spacing: -0.03em;
+      text-transform: lowercase;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .vertical-title-marker {
+      width: 4px;
+      height: 100%;
+      background: var(--cobalt);
+      margin-left: 6px;
+    }
+
+    /* Text Column Blocks */
+    .editorial-p {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.65;
+      margin-bottom: 0.6rem;
+    }
+
+    .editorial-lead {
+      font-size: 0.96rem;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+
+    .editorial-highlight {
+      color: var(--cobalt);
+      font-weight: 600;
+    }
+
+    /* Metric & Card Chips */
+    .metric-badge-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin: 0.6rem 0;
+    }
+
+    .metric-chip {
+      background: #fafaf9;
+      border: 1px solid var(--border-card);
+      padding: 0.6rem 0.8rem;
+      border-radius: 3px;
+    }
+
+    .metric-chip .chip-num {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--cobalt);
+    }
+
+    .metric-chip .chip-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Image Card Components (Monochrome / Architectural) */
+    .img-frame {
+      position: relative;
+      background: #f0f0ed;
+      border: 1px solid #dcdcd6;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .img-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    .img-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
+      padding: 4px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-body);
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* List Layouts */
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.4rem 0;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      font-size: 0.84rem;
+      color: var(--text-body);
+      margin-bottom: 0.45rem;
+      line-height: 1.5;
+    }
+
+    .bullet-list li::before {
+      content: "■";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      color: var(--cobalt);
+      font-size: 0.65rem;
+    }
+
+    /* Two-Column Slide Layout */
+    .layout-split {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    .layout-split-rev {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* Three Column Layout */
+    .layout-three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    /* Speaker Notes Bottom Drawer */
+    .notes-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #111;
+      color: #e2e8f0;
+      border-top: 2px solid var(--cobalt);
+      padding: 1rem 2rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-height: 200px;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1001;
+    }
+
+    .notes-drawer.open {
+      transform: translateY(0);
+    }
+
+    .notes-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cobalt);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       Print / PDF Rules (Exact 16:9 Landscape Pages)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #fff !important;
+      }
+
+      .deck-nav-header,
+      .notes-drawer,
+      .deck-controls {
+        display: none !important;
+      }
+
+      .deck-stage {
+        padding: 0 !important;
+      }
+
+      .slides-track {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+      }
+
+      .slide {
+        position: relative !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        aspect-ratio: var(--slide-ratio) !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        border: none !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        padding: 2.5rem 3.5rem !important;
+        display: grid !important;
+        grid-template-rows: auto 1fr auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="presentation-mode">
+
+  <!-- Top Persistent Navigation Header -->
+  <header class="deck-nav-header">
+    <div class="deck-brand">
+      <a href="index.html" title="返回作品集首頁">
+        <span>PORTFOLIO</span>
+        <span class="badge-tag">FINAL SLIDES</span>
+      </a>
+      <span style="color: #cbd5e1;">|</span>
+      <span style="color: var(--text-body); font-weight: 500;">自然科學與人工智慧 · 期末簡報</span>
+    </div>
+
+    <div class="deck-controls">
+      <button id="btn-toggle-view" class="btn-deck" title="切換總覽九宮格模式 (G)">
+        <span id="view-mode-icon">⊞</span>
+        <span id="view-mode-label">總覽模式 (Grid)</span>
+      </button>
+      <button id="btn-toggle-notes" class="btn-deck" title="開啟演講備忘稿 (S)">
+        <span>🗎</span>
+        <span>備忘稿 (Notes)</span>
+      </button>
+      <button id="btn-print-deck" class="btn-deck" title="列印或輸出為 PDF 簡報 (Ctrl+P)">
+        <span>🖨</span>
+        <span>列印/PDF</span>
+      </button>
+      <span style="color: #cbd5e1; margin: 0 4px;">|</span>
+      <button id="btn-prev-slide" class="btn-deck" title="上一頁 (← 或 Backspace)">← 上一頁</button>
+      <span id="slide-indicator" class="slide-counter">01 / 12</span>
+      <button id="btn-next-slide" class="btn-deck" title="下一頁 (→ 或 Space)">下一頁 →</button>
+    </div>
+  </header>
+
+  <!-- Main Slides Stage -->
+  <main class="deck-stage">
+    <div class="slides-track" id="slides-track">
+
+      <!-- ==============================================================
+           SLIDE 01: COVER (2026 project proposal)
+           ============================================================== -->
+      <section class="slide active" id="slide-1" data-slide-index="1">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">COURSE PROJECT</span>
+            <span>·</span>
+            <span>NATURAL SCIENCE &amp; ARTIFICIAL INTELLIGENCE</span>
+          </div>
+          <div class="slide-meta-right">2026.11 · SEMESTER FINAL</div>
+        </div>
+
+        <div class="slide-body layout-split">
+          <div class="slide-left-col">
+            <div style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--cobalt); font-weight: 700; margin-bottom: 0.2rem;">2026</div>
+            <div class="doodle-title-wrap">
+              <!-- Hand-drawn Ellipse SVG -->
+              <svg class="doodle-ellipse-svg" viewBox="0 0 420 90" fill="none" preserveAspectRatio="none">
+                <path d="M 15 48 C 15 22, 95 10, 210 10 C 335 10, 405 24, 405 48 C 405 72, 315 82, 195 82 C 90 82, 20 70, 25 45 C 28 30, 85 18, 160 14" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h1 class="slide-title-hero">project proposal</h1>
+            </div>
+            
+            <p class="editorial-lead" style="margin-top: 0.8rem;">
+              ARCH / FOLIO — 建築系學生五年學習歷程與設計作品集系統
+            </p>
+            <p class="editorial-p">
+              以現代主義極簡建築雜誌 <strong>Divisare.com</strong> 為典範。結合一至五年級歷年時間軸、IndexedDB 瀏覽器原生本機持久化圖片抽換、全站中英雙語系，以及 60+ 專業建築形態學與構造分類索引系統。
+            </p>
+
+            <div style="margin-top: 1.2rem; padding: 0.8rem 1rem; background: var(--cobalt-soft); border-left: 3px solid var(--cobalt); border-radius: 2px;">
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--cobalt); font-weight: 600;">PRESENTER &amp; DEVELOPER</div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 2px;">
+                謝易廷 <span style="font-family: var(--font-mono); font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">(學號: 11231167)</span>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                GitHub: <a href="https://github.com/ms0780935/architecture-portfolio" target="_blank" style="color: var(--cobalt); text-decoration: underline;">@ms0780935</a> · CD000A 第 2 組
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-right-col" style="height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="docs/screenshots/live_grid_overview.png" alt="Portfolio Live Grid Overview">
+              <div class="img-caption">
+                <span>PORTFOLIO EDITORIAL ARCHIVE · 11 EXHIBITS</span>
+                <span>FIG. 01 / LIVE PREVIEW</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>01 / 12 · COVER PAGE</span>
+          <span class="author-badge">NATURAL SCIENCE &amp; AI COURSE FINAL REPORT</span>
+          <span>ONLINE: ARCHITECTURE-PORTFOLIO.VERCEL.APP</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 02: ABOUT US / CONTEXT (about us with starburst)
+           ============================================================== -->
+      <section class="slide" id="slide-2" data-slide-index="2">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">01 · CONTEXT</span>
+            <span>·</span>
+            <span>PROBLEM DEFINITION &amp; ARCHITECTURAL PEDAGOGY</span>
+          </div>
+          <div class="slide-meta-right">ARCHITECTURAL DESIGN PORTFOLIO</div>
+        </div>
+
+        <div class="slide-body layout-split-rev">
+          <div class="slide-left-col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="assets/project-3-tidal-library.jpg" alt="Badouzi Tidal Library">
+              <div class="img-caption">
+                <span>ARC-302 八斗子潮汐閱覽所</span>
+                <span>1:200 剖面</span>
+              </div>
+            </div>
+            <div class="img-frame" style="height: 380px;">
+              <img src="assets/project-5-suture-masterplan.jpg" alt="Keelung Harbor Suture Masterplan">
+              <div class="img-caption">
+                <span>ARC-500 基隆港東岸地景縫合</span>
+                <span>畢業設計</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-right-col">
+            <div class="doodle-title-wrap">
+              <!-- Starburst doodle SVG -->
+              <svg class="doodle-starburst-svg" viewBox="0 0 60 60" fill="none">
+                <line x1="30" y1="5" x2="30" y2="15" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="30" y1="45" x2="30" y2="55" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="5" y1="30" x2="15" y2="30" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="45" y1="30" x2="55" y2="30" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="12" y1="12" x2="19" y2="19" stroke="#1638d6" stroke-width="2" stroke-linecap="round"/>
+                <line x1="41" y1="41" x2="48" y2="48" stroke="#1638d6" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="48" x2="19" y2="41" stroke="#1638d6" stroke-width="2" stroke-linecap="round"/>
+                <line x1="41" y1="19" x2="48" y2="12" stroke="#1638d6" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <h2 class="slide-title-section">about the project</h2>
+            </div>
+
+            <p class="editorial-lead">
+              打破傳統建築系作品集「紙本攜帶沈重、更新難度極高、外國事務所申請語言受限」之三大結構性困境。
+            </p>
+
+            <ul class="bullet-list">
+              <li>
+                <strong>雙軸矩陣檢索</strong>：橫向貫穿大一「基本設計」至大五「畢業設計」等高線；縱向整合「建築設計、專業選修、理論研究」三大知識領域。
+              </li>
+              <li>
+                <strong>極簡編輯學典範</strong>：拒絕市面上千篇一律的模板動畫，向歐洲指標建築典藏平台 <em>Divisare</em> 致敬，以留白、純黑白襯線與大尺度圖紙為核心。
+              </li>
+              <li>
+                <strong>本機圖片零門檻抽換</strong>：一般學生無需懂得 Git 或 HTML 原始碼，即可在自己電腦上拖曳抽換高解析 CAD、手繪草圖或 3D 渲染圖。
+              </li>
+            </ul>
+
+            <div style="margin-top: 1rem; display: flex; gap: 0.6rem;">
+              <span class="btn-deck active" style="font-size: 0.75rem;">11 件原創作品</span>
+              <span class="btn-deck" style="font-size: 0.75rem;">雙語 i18n</span>
+              <span class="btn-deck" style="font-size: 0.75rem;">3 模式主題</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>02 / 12 · PEDAGOGICAL CONTEXT</span>
+          <span class="author-badge">DIVISARE MINIMALIST EDITORIAL DOCTRINE</span>
+          <span>TOPICS: HOUSING / TIMBER / COASTAL / URBAN</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 03: GITHUB REPO & COMMITS (our team / git contribution)
+           ============================================================== -->
+      <section class="slide" id="slide-3" data-slide-index="3">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">02 · OPEN SOURCE</span>
+            <span>·</span>
+            <span>GITHUB REPOSITORY &amp; CONTINUOUS INTEGRATION</span>
+          </div>
+          <div class="slide-meta-right">REPOSITORY AUDIT &amp; COMMITS</div>
+        </div>
+
+        <div class="slide-body layout-split">
+          <div class="slide-left-col">
+            <div class="doodle-title-wrap">
+              <!-- Curved arrow pointing to commits -->
+              <svg class="doodle-arrow-svg" style="top: -10px; right: -80px; width: 90px; height: 40px;" viewBox="0 0 100 50" fill="none">
+                <path d="M 10 35 Q 50 5, 85 20" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M 75 10 L 88 20 L 78 30" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h2 class="slide-title-section">github commits</h2>
+            </div>
+
+            <p class="editorial-lead">
+              公開透明的 Git 版本控制歷程，真實見證從專案初始化至高階客製化的自主迭代痕跡。
+            </p>
+            <p class="editorial-p">
+              儲存庫位於 <code>ms0780935/architecture-portfolio</code>，全數 Commit 遵循規範化語意訊息（Conventional Commits），包含架構構建、錯誤修復、視覺優化與資料同步。
+            </p>
+
+            <div class="metric-badge-grid">
+              <div class="metric-chip">
+                <div class="chip-num">16+</div>
+                <div class="chip-label">Git Commits</div>
+              </div>
+              <div class="metric-chip">
+                <div class="chip-num">100%</div>
+                <div class="chip-label">CI/CD Ready</div>
+              </div>
+              <div class="metric-chip">
+                <div class="chip-num">4</div>
+                <div class="chip-label">Core Modules</div>
+              </div>
+              <div class="metric-chip">
+                <div class="chip-num">11</div>
+                <div class="chip-label">Dossiers Built</div>
+              </div>
+            </div>
+
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              最新 Commit: <code>7415e38</code> · <span style="color: var(--cobalt);">origin/main</span> · 謝易廷 (ms0780935)
+            </div>
+          </div>
+
+          <div class="slide-right-col" style="height: 100%;">
+            <div style="background: #1e1e24; color: #e2e8f0; border-radius: 4px; padding: 1rem 1.2rem; font-family: var(--font-mono); font-size: 0.75rem; height: 380px; overflow-y: auto; border: 1px solid #333;">
+              <div style="color: var(--cobalt); font-weight: 700; margin-bottom: 0.6rem; border-bottom: 1px solid #333; padding-bottom: 4px;">
+                $ git log --oneline --decorate -n 8
+              </div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">7415e38</span> <span style="color: #4ade80;">(HEAD -&gt; main)</span> style: Refine typography spacing in project-11.svg</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">2d77f4c</span> feat: Add ELE-440 Taiwan 1970-1980s Public Housing Spatial Study to Year 4</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">aa88b9b</span> feat: Update RES-501 title to 低密度迎季風面的微氣候與通風風廊 CFD 數值模擬</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">d3a458d</span> fix: Use var(--text-main) for essay-body to ensure crisp contrast in night mode</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">f040cea</span> feat: Add Nano Banana original architectural drawings for ARC-302, 500, ELE-430, RES-402</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">8ea8ad1</span> feat: Add Divisare-style PROJECTS atlas taxonomy drawer &amp; tag system</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">926484b</span> docs: Add AI development log, contribution record, and usage metrics</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">75b7978</span> feat: Add Divisare-style 3-mode theme switcher (Day, Night, System)</div>
+              <div style="margin-bottom: 6px;"><span style="color: #38bdf8;">757479f</span> style: Update header logo to metallic silver Aptos PORTFOLIO</div>
+              <div style="margin-top: 10px; color: #94a3b8; font-size: 0.7rem;">
+                ✓ Verified Clean Working Tree · Pushed to GitHub
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>03 / 12 · VERSION CONTROL &amp; GITHUB</span>
+          <span class="author-badge">COMMITS ON HTTPS://GITHUB.COM/MS0780935/ARCHITECTURE-PORTFOLIO</span>
+          <span>BRANCH: MAIN · 100% PASS</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 04: AI TOKEN USAGE & METRICS (project name / tokens)
+           ============================================================== -->
+      <section class="slide" id="slide-4" data-slide-index="4">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">03 · AI COLLABORATION</span>
+            <span>·</span>
+            <span>TOKEN METRICS &amp; AGENTIC CONVERSATION LOG</span>
+          </div>
+          <div class="slide-meta-right">ANTIGRAVITY &amp; GEMINI 2.5 PLATFORM</div>
+        </div>
+
+        <div class="slide-body layout-split-rev">
+          <div class="slide-left-col" style="height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="docs/ai_usage_screenshot.png" alt="AI Token Usage Metrics Screenshot">
+              <div class="img-caption">
+                <span>課程平台 AI 使用量統計截圖</span>
+                <span>YINCHEN.TW VERIFIED</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-right-col">
+            <div class="doodle-title-wrap">
+              <h2 class="slide-title-section">ai token usage</h2>
+              <span class="doodle-marker-line" style="width: 140px;"></span>
+            </div>
+
+            <p class="editorial-lead">
+              深度對話工程：累計 26 輪對話、848 迭代步驟與 53.9M 總處理 Token。
+            </p>
+
+            <div class="metric-badge-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 1rem;">
+              <div class="metric-chip" style="background: var(--cobalt-soft); border-color: var(--cobalt);">
+                <div class="chip-num" style="font-size: 1.4rem;">53.9M</div>
+                <div class="chip-label">Total Processed Tokens</div>
+              </div>
+              <div class="metric-chip">
+                <div class="chip-num" style="font-size: 1.4rem;">51.7M</div>
+                <div class="chip-label">Context Cache Read Tokens</div>
+              </div>
+              <div class="metric-chip">
+                <div class="chip-num">1.94M</div>
+                <div class="chip-label">Input Prompt Tokens</div>
+              </div>
+              <div class="metric-chip">
+                <div class="chip-num">256K</div>
+                <div class="chip-label">Output Code &amp; Data Tokens</div>
+              </div>
+            </div>
+
+            <p class="editorial-p">
+              <strong>多代理人自主協同 (Multi-Agent Swarm)</strong>：
+              整合 Google DeepMind <strong>Gemini 2.5 Flash / Imagen 3</strong> (Nano Banana 原創工程圖紙生成器)，並調用 <strong>Playwright Browser Subagent</strong> 進行超過 20 次端對端無障礙、深層連結、主題切換與圖紙放大檢視測試。
+            </p>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>04 / 12 · AI METRICS &amp; TOKEN CONSUMPTION</span>
+          <span class="author-badge">SUBMISSION KEY: KL_JN8JN0GJ9FWI0-NMTK4A2TX7CB74AOLR1PV79HBA</span>
+          <span>REPORT: 100/100 AUDITED</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 05: VERCEL LIVE DEPLOYMENT & CORE FEATURES (project concept)
+           ============================================================== -->
+      <section class="slide" id="slide-5" data-slide-index="5">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">04 · CLOUD ARCHITECTURE</span>
+            <span>·</span>
+            <span>VERCEL PRODUCTION DEPLOYMENT &amp; FEATURES</span>
+          </div>
+          <div class="slide-meta-right">LIVE CLOUD ECOSYSTEM</div>
+        </div>
+
+        <div class="slide-body layout-split">
+          <div class="slide-left-col">
+            <div class="doodle-title-wrap">
+              <h2 class="slide-title-section">live product on vercel</h2>
+              <span class="doodle-marker-line" style="width: 220px;"></span>
+            </div>
+
+            <p class="editorial-lead">
+              純淨前端架構 + <code>vercel.json</code> 靜態全球邊緣節點加速，實現極速無縫體驗。
+            </p>
+
+            <ul class="bullet-list">
+              <li>
+                <strong>11 案完整收錄</strong>：橫跨大一至大五完整學習歷程，每案皆具備基地、構造形式、指導老師、設計概念與 2~6 張高解析圖紙。
+              </li>
+              <li>
+                <strong>沉浸式雜誌翻頁閱讀窗</strong>：點擊任意卡片開啟滿版專刊視窗，支援鍵盤左右方向鍵（<code>←</code> / <code>→</code>）連續翻閱，並與 URL Hash（如 <code>#proj-11</code>）雙向深度綁定。
+              </li>
+              <li>
+                <strong>雙語國際化架構</strong>：全站內建中英辭典，點擊右上角按鈕即可在 0.1 秒內平滑無刷新切換全站標題、圖說與長篇論述。
+              </li>
+            </ul>
+
+            <div style="margin-top: 1rem; padding: 0.6rem 0.8rem; background: #fafaf8; border: 1px solid var(--border-card); border-radius: 3px; font-family: var(--font-mono); font-size: 0.72rem;">
+              🌐 <strong>Vercel 部署設定</strong>: <code>vercel.json</code> (Framework: Other / Static, Clean URLs: true)
+            </div>
+          </div>
+
+          <div class="slide-right-col" style="height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="docs/screenshots/ele440_reader_modal.png" alt="Reader Modal with Deep Linking">
+              <div class="img-caption">
+                <span>專刊彈窗閱讀器 · 純箭頭導覽與深度連結</span>
+                <span>FIG. 05 / MODAL DOSSIER</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>05 / 12 · PRODUCTION DEPLOYMENT</span>
+          <span class="author-badge">FAST STATIC HOSTING VIA VERCEL</span>
+          <span>KEYBOARD NAV: [←] [→] [ESC]</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 06: DIVISARE ATLAS & TAXONOMY (project concept / photo grid)
+           ============================================================== -->
+      <section class="slide" id="slide-6" data-slide-index="6">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">05 · TAXONOMY</span>
+            <span>·</span>
+            <span>DIVISARE ARCHITECTURAL ATLAS &amp; KEYWORD INDEX</span>
+          </div>
+          <div class="slide-meta-right">ARCHITECTURAL ONTOLOGY DRAWER</div>
+        </div>
+
+        <div class="slide-body layout-split-rev">
+          <div class="slide-left-col" style="height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="docs/screenshots/atlas_drawer_open.png" alt="Divisare Atlas Mega-Drawer with 3-Column Keywords">
+              <div class="img-caption">
+                <span>PROJECTS 分類標籤抽屜 · 左欄八大類別 + 右欄三欄索引</span>
+                <span>FIG. 06 / ATLAS INDEX</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-right-col">
+            <div class="doodle-title-wrap">
+              <h2 class="slide-title-section">architectural atlas</h2>
+              <div class="doodle-wave-line"></div>
+            </div>
+
+            <p class="editorial-lead">
+              取代傳統單調的「全部作品」按鈕，打造比擬 Divisare.com 原創的 <strong>PROJECTS 雙欄建築索引抽屜</strong>。
+            </p>
+
+            <ul class="bullet-list">
+              <li>
+                <strong>左欄 8 大專業架構類別</strong>：
+                <code>ELEMENTS</code> (構件)、<code>MATERIALITY</code> (材料工法)、<code>TYPES</code> (建築類型)、<code>TOPICS</code> (氣候環境)、<code>IDEAS</code> (演算與概念)、<code>CITIES &amp; SITES</code> (基地脈絡)、<code>PLANS &amp; DETAILS</code> (圖紙尺度)、<code>SELECTED PROJECTS</code> (專案目錄)。
+              </li>
+              <li>
+                <strong>右欄 60+ 字母排序關鍵字網格</strong>：
+                三欄式排版，每個標籤均標註展覽數量徽章（如 <code>WOODEN STRUCTURES (2)</code>、<code>CANTILEVERS (1)</code>）。
+              </li>
+              <li>
+                <strong>即時標籤藥丸與動態重設</strong>：
+                點擊標籤即刻過濾網格，搜尋列彈出 <code>#標籤名 ✕</code> 藥丸徽章，一鍵平滑滾動回頂端展示成果。
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>06 / 12 · TAXONOMY &amp; ATLAS DRAWER</span>
+          <span class="author-badge">60+ ARCHITECTURAL KEYWORDS INDEXED</span>
+          <span>TAXONOMY: ELEMENTS / TYPES / SITES / PLANS</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 07: ERROR RESOLUTION & AUTONOMOUS DEBUGGING (project stages)
+           ============================================================== -->
+      <section class="slide" id="slide-7" data-slide-index="7">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">06 · ERROR RESOLUTION</span>
+            <span>·</span>
+            <span>AUTONOMOUS DEBUGGING &amp; TROUBLESHOOTING LOG</span>
+          </div>
+          <div class="slide-meta-right">AI AGENT PROBLEM SOLVING</div>
+        </div>
+
+        <div class="slide-body layout-three-col">
+          <!-- Col 1: Shell & Runtime Errors -->
+          <div style="background: #fafaf9; border: 1px solid var(--border-card); padding: 1.2rem; border-radius: 3px;">
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #dc2626; font-weight: 700;">CHALLENGE 01</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--cobalt); margin: 0.3rem 0;">Shell 語法與進程衝突</h3>
+            <p class="editorial-p">
+              <strong>錯誤遭遇：</strong> Windows PowerShell 無法解析 Linux <code>&amp;&amp;</code> 串接語法，且多次重啟伺服器導致 Port 8080 殘留進程佔用（<code>curl: 52 Empty Reply</code>）。
+            </p>
+            <p class="editorial-p">
+              <strong>自主修復：</strong> 採用分號 <code>;</code> 與獨立指令隔離；以 <code>Stop-Process</code> 強制終止殘留 Python 任務，並以標準 Daemon 守護進程重新啟動雙棧綁定伺服器。
+            </p>
+          </div>
+
+          <!-- Col 2: Browser Cache Invalidation -->
+          <div style="background: #fafaf9; border: 1px solid var(--border-card); padding: 1.2rem; border-radius: 3px;">
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #dc2626; font-weight: 700;">CHALLENGE 02</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--cobalt); margin: 0.3rem 0;">靜態資源瀏覽器快取</h3>
+            <p class="editorial-p">
+              <strong>錯誤遭遇：</strong> 前端更新資料後，本機 Webview 瀏覽器快取舊版 <code>js/data.js</code> 與 <code>js/app.js</code>，導致新標籤未能即時呈現。
+            </p>
+            <p class="editorial-p">
+              <strong>自主修復：</strong> 在 <code>index.html</code> 導入版本號查詢字串（<code>?v=2.2</code>），並透過 Playwright Chromium 子代理人無快取重新加載，確保真實發布狀態與本機資料 100% 吻合。
+            </p>
+          </div>
+
+          <!-- Col 3: Night Mode Contrast Bug -->
+          <div style="background: #fafaf9; border: 1px solid var(--border-card); padding: 1.2rem; border-radius: 3px;">
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #dc2626; font-weight: 700;">CHALLENGE 03</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--cobalt); margin: 0.3rem 0;">夜間模式長篇論述對比</h3>
+            <p class="editorial-p">
+              <strong>錯誤遭遇：</strong> <code>.essay-body</code> 硬編碼 <code>color: #222</code>，切換至純黑夜間模式（<code>#141414</code>）時文字對比度嚴重不足，無法清晰辨識。
+            </p>
+            <p class="editorial-p">
+              <strong>自主修復：</strong> 將顏色重構為語意化變數 <code>color: var(--text-main)</code>，在日間模式呈現 <code>#111111</code>，夜間模式動態轉換為 <code>#f2f2f2</code>，保證無障礙高對比閱讀。
+            </p>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>07 / 12 · SYSTEM RELIABILITY &amp; DEBUGGING</span>
+          <span class="author-badge">POWER-SHELL / PORT BINDING / CSS VARIABLES</span>
+          <span>STATUS: ALL FIXED &amp; VERIFIED</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 08: CHRONOLOGICAL TIMELINE (timeline with vertical text)
+           ============================================================== -->
+      <section class="slide" id="slide-8" data-slide-index="8">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">07 · EVOLUTION</span>
+            <span>·</span>
+            <span>CHRONOLOGICAL DEVELOPMENT MILESTONES</span>
+          </div>
+          <div class="slide-meta-right">2026.11 ITERATION TIMELINE</div>
+        </div>
+
+        <div class="slide-body" style="grid-template-columns: 1fr 120px; gap: 2rem; align-items: center;">
+          <div class="timeline-content-col">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+              <!-- Phase 1 -->
+              <div style="border-top: 3px solid var(--cobalt); padding-top: 0.6rem;">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--cobalt); font-weight: 700;">PHASE 01 · 11/18</div>
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0.3rem 0;">架構與基礎奠定</h4>
+                <p class="editorial-p">
+                  • 確立 Divisare 極簡編輯風格<br>
+                  • 建構 10 件五年作品資料庫<br>
+                  • 實作 IndexedDB v2 儲存引擎<br>
+                  • 建立中英雙語 i18n 字典系統
+                </p>
+              </div>
+
+              <!-- Phase 2 -->
+              <div style="border-top: 3px solid var(--cobalt); padding-top: 0.6rem;">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--cobalt); font-weight: 700;">PHASE 02 · 11/25</div>
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0.3rem 0;">視覺與互動飛躍</h4>
+                <p class="editorial-p">
+                  • Aptos 金屬銀色純文字 LOGO<br>
+                  • 白底/黑底/系統 3 模式外觀切換<br>
+                  • 直式多圖串流與手動上移/下移<br>
+                  • 圖片原尺寸新分頁預覽機制
+                </p>
+              </div>
+
+              <!-- Phase 3 -->
+              <div style="border-top: 3px solid var(--cobalt); padding-top: 0.6rem;">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--cobalt); font-weight: 700;">PHASE 03 · 11/26</div>
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0.3rem 0;">分類抽屜與文本提煉</h4>
+                <p class="editorial-p">
+                  • PROJECTS 建築分類抽屜 (60+ 標籤)<br>
+                  • Nano Banana 出版級原創圖紙<br>
+                  • RES-501 改名迎季風面微氣候<br>
+                  • 提煉兩份國宅報告新增 ELE-440
+                </p>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; background: #fafaf9; border: 1px solid var(--border-card); padding: 0.8rem 1.2rem; border-radius: 3px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--cobalt); font-weight: 700;">STABLE STATUS:</span>
+                <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-left: 0.4rem;">全站 11 件作品展示中 · 100% 響應式相容 · 桌面備份檔即時連動</span>
+              </div>
+              <span class="badge-tag" style="background: #10b981; color: #fff; padding: 2px 8px; border-radius: 2px; font-size: 0.7rem; font-weight: 700;">ALL PASSED</span>
+            </div>
+          </div>
+
+          <!-- Vertical Heading (Matching Reference Image) -->
+          <div class="vertical-title-box">
+            <span>timeline</span>
+            <span class="vertical-title-marker"></span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>08 / 12 · ITERATIVE PROGRESS TIMELINE</span>
+          <span class="author-badge">PROGRESSIVE DISCLOSURE &amp; TECTONIC REFINEMENT</span>
+          <span>COMMITS: AA53BB0 → 7415E38</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 09: LOGO CRAFTING & SENSORY UX (branding & aesthetics)
+           ============================================================== -->
+      <section class="slide" id="slide-9" data-slide-index="9">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">08 · SENSORY DESIGN</span>
+            <span>·</span>
+            <span>METALLIC LOGO &amp; 3-MODE THEME SWITCHER</span>
+          </div>
+          <div class="slide-meta-right">CRAFT &amp; DETAIL ORIENTATION</div>
+        </div>
+
+        <div class="slide-body layout-split">
+          <div class="slide-left-col">
+            <div class="doodle-title-wrap">
+              <h2 class="slide-title-section">branding &amp; details</h2>
+              <span class="doodle-marker-line" style="width: 180px;"></span>
+            </div>
+
+            <p class="editorial-lead">
+              秉持高水準建築雜誌之純粹視覺，以純 CSS 與原廠字型重塑視覺標識。
+            </p>
+
+            <ul class="bullet-list">
+              <li>
+                <strong>Aptos 金屬銀色立體文字 LOGO</strong>：
+                下載微軟原廠 Aptos 字型並以 <code>@font-face</code> 本地封裝。捨棄低解析點陣圖，以純 CSS 向量文字搭配緊密字距（<code>-0.052em</code>）、多重金屬反射光影與細緻投射陰影，呈現高級立體銘牌質感。
+              </li>
+              <li>
+                <strong>Divisare 風格三模式外觀</strong>：
+                支援 <code>☼ 日間</code>（白底紙本氛圍）、<code>☾ 夜間</code>（黑底展覽館深邃沉浸）及 <code>🖥 系統</code>（自動適應 OS 偏好設定），無閃爍即時平滑切換。
+              </li>
+              <li>
+                <strong>極簡符號化控制項</strong>：
+                移除彈窗中多餘文字，將導覽精簡為純幾何箭頭 <code>←</code> 與 <code>→</code>，關閉改為極簡 <code>✕</code>，極大化圖紙閱讀淨空間。
+              </li>
+            </ul>
+          </div>
+
+          <div class="slide-right-col" style="display: flex; flex-direction: column; gap: 1rem; justify-content: center; height: 100%;">
+            <!-- Simulated Logo Showcase Box -->
+            <div style="background: #f8f9fa; border: 1px solid #e2e8f0; padding: 2rem; border-radius: 4px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <div style="font-family: 'Aptos', sans-serif; font-size: 2.8rem; font-weight: 900; letter-spacing: -0.052em; line-height: 1;
+                background: linear-gradient(180deg, #ffffff 0%, #d8dde3 25%, #9aa0a6 50%, #e2e5e9 75%, #70757a 100%);
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.9)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));">
+                PORTFOLIO
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-top: 0.8rem;">
+                MICROSOFT APTOS · METALLIC SILVER TYPOGRAPHY · -0.052em TRACKING
+              </div>
+            </div>
+
+            <!-- Theme Switcher Pill Preview -->
+            <div style="background: #111; color: #fff; padding: 1.2rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #94a3b8;">DIVISARE 3-MODE THEME:</span>
+              <div style="display: flex; gap: 4px; background: #222; padding: 3px; border-radius: 4px;">
+                <span style="background: #fff; color: #111; font-size: 0.72rem; padding: 3px 8px; border-radius: 2px; font-weight: 700;">☼ 日間</span>
+                <span style="color: #94a3b8; font-size: 0.72rem; padding: 3px 8px;">☾ 夜間</span>
+                <span style="color: #94a3b8; font-size: 0.72rem; padding: 3px 8px;">🖥 系統</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>09 / 12 · TYPOGRAPHIC BRANDING &amp; SENSORY UX</span>
+          <span class="author-badge">PURE CSS APTOS METALLIC EFFECT &amp; 3-MODE THEME</span>
+          <span>ACCESSIBLE HIGH CONTRAST</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 10: DEVICE ASSET MANAGER & MULTI-IMAGE (device asset manager)
+           ============================================================== -->
+      <section class="slide" id="slide-10" data-slide-index="10">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">09 · ASSET MANAGEMENT</span>
+            <span>·</span>
+            <span>LOCAL INDEXEDDB V2 ENGINE &amp; STREAM REORDERING</span>
+          </div>
+          <div class="slide-meta-right">CLIENT-SIDE PERSISTENCE</div>
+        </div>
+
+        <div class="slide-body layout-split-rev">
+          <div class="slide-left-col" style="height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="docs/screenshots/asset_manager_modal.png" alt="Device Asset Manager Modal">
+              <div class="img-caption">
+                <span>本機裝置圖片管理中心 · 拖曳抽換與 JSON 備份</span>
+                <span>FIG. 10 / INDEXEDDB V2</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-right-col">
+            <div class="doodle-title-wrap">
+              <!-- Sketched Arrow -->
+              <svg class="doodle-arrow-svg" style="top: -15px; left: -50px; width: 60px; height: 35px;" viewBox="0 0 80 40" fill="none">
+                <path d="M 65 30 Q 35 35, 15 15" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M 12 25 L 14 12 L 27 16" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h2 class="slide-title-section">asset manager</h2>
+              <span class="doodle-marker-line" style="width: 190px;"></span>
+            </div>
+
+            <p class="editorial-lead">
+              為建築系同學量身打造的離線安全檔案抽換機制，無伺服器後端依賴。
+            </p>
+
+            <ul class="bullet-list">
+              <li>
+                <strong>IndexedDB v2 離線持久化</strong>：
+                上傳的個人 CAD、平立剖面或模型實拍自動轉為二進位儲存於瀏覽器本機資料庫，即便關閉瀏覽器或重整，客製化圖片永不遺失。
+              </li>
+              <li>
+                <strong>多圖直式串流與排序控制</strong>：
+                突破單圖封面限制，支援由上至下垂直排版（Vertical Stream）。每張照片具備 <code>▲ 上移</code> 與 <code>▼ 下移</code> 即時微調，並可一鍵移除單圖。
+              </li>
+              <li>
+                <strong>底端批次新增與原尺寸大圖預覽</strong>：
+                底部設置大尺寸虛線框支援多圖一次批次選取；並支援點擊圖片新分頁開啟 100% 原尺寸預覽（<code>cursor: zoom-in</code>）。
+              </li>
+              <li>
+                <strong>JSON 完整備份導出／匯入</strong>：
+                一鍵導出完整客製作品集 JSON 檔案，跨裝置評圖時直接匯入即可無痛重現。
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>10 / 12 · ASSET MANAGEMENT SYSTEM</span>
+          <span class="author-badge">BROWSER NATIVE INDEXEDDB ENGINE</span>
+          <span>DATA PERSISTENCE: 100% CLIENT-SIDE</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 11: TEXT-TO-ARCHITECTURE SYNTHESIS (Nano Banana & Google Docs)
+           ============================================================== -->
+      <section class="slide" id="slide-11" data-slide-index="11">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">10 · AI SYNTHESIS</span>
+            <span>·</span>
+            <span>NANO BANANA DRAWINGS &amp; GOOGLE DOCS REPORT EXTRACTION</span>
+          </div>
+          <div class="slide-meta-right">CROSS-MODAL GENERATION</div>
+        </div>
+
+        <div class="slide-body layout-split">
+          <div class="slide-left-col">
+            <div class="doodle-title-wrap">
+              <h2 class="slide-title-section">text-to-architecture</h2>
+              <span class="doodle-marker-line" style="width: 260px;"></span>
+            </div>
+
+            <p class="editorial-lead">
+              從純文本論述到出版級工程圖紙：實現前所未有的建築空間形態學提煉。
+            </p>
+
+            <ul class="bullet-list">
+              <li>
+                <strong>Nano Banana 原創工程圖紙 (ARC-302, 500, ELE-430, RES-402)</strong>：
+                運用 Gemini 2.5 Flash Image 繪製具備真實紙質與精確尺度的圖紙，包含 16 米耐候鋼水岸懸挑閱讀廊道、3 公里立體縫合甲板等角軸測圖、1:20 柳杉膠合木榫卯折板，以及西門町 DepthmapX 空間句法軸線熱力圖。
+              </li>
+              <li>
+                <strong>Google Docs 報告提煉新增 ELE-440</strong>：
+                深入讀取兩份學術報告（《國宅空間原型》與《大街廓國宅社區》），提煉柯比意「光輝城市」與「雷特朋人車分道」理論，轉化為大四選修新專案《標準化原型與大街廓批判》，並編繪專屬向量佔位圖紙 <code>project-11.svg</code>。
+              </li>
+              <li>
+                <strong>RES-501 篇名精確對齊</strong>：
+                依使用者需求更名為《低密度迎季風面的微氣候與通風風廊 CFD 數值模擬》，同步刷新 OpenFOAM 向量圖與 Atlas 標籤。
+              </li>
+            </ul>
+          </div>
+
+          <div class="slide-right-col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="assets/project-8-folded-plate.jpg" alt="ELE-430 Cryptomeria Glulam Folded Plate">
+              <div class="img-caption">
+                <span>ELE-430 柳杉折板屋架</span>
+                <span>Nano Banana 原創</span>
+              </div>
+            </div>
+            <div class="img-frame" style="height: 380px;">
+              <img src="assets/project-10-space-syntax.jpg" alt="RES-402 Space Syntax Topological Analysis">
+              <div class="img-caption">
+                <span>RES-402 空間句法分析</span>
+                <span>DepthmapX 軸線圖</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>11 / 12 · TEXT-TO-ARCHITECTURE SYNTHESIS</span>
+          <span class="author-badge">GEMINI 2.5 FLASH IMAGE &amp; GOOGLE DRIVE EXTRACTION</span>
+          <span>ORIGINAL TECTONIC DRAWINGS GENERATED</span>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 12: CONCLUSION / OUTCOMES (2026 thank you)
+           ============================================================== -->
+      <section class="slide" id="slide-12" data-slide-index="12">
+        <div class="slide-header">
+          <div class="slide-meta-left">
+            <span class="tag">11 · EVALUATION</span>
+            <span>·</span>
+            <span>GRADING RUBRIC AUDIT &amp; PROJECT DELIVERABLES</span>
+          </div>
+          <div class="slide-meta-right">FINAL SUBMISSION AUDIT</div>
+        </div>
+
+        <div class="slide-body layout-split">
+          <div class="slide-left-col">
+            <div style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--cobalt); font-weight: 700; margin-bottom: 0.2rem;">2026</div>
+            <div class="doodle-title-wrap">
+              <!-- Hand-drawn Ellipse SVG around 'thank you' -->
+              <svg class="doodle-ellipse-svg" viewBox="0 0 380 90" fill="none" preserveAspectRatio="none">
+                <path d="M 15 48 C 15 22, 95 10, 190 10 C 295 10, 365 24, 365 48 C 365 72, 285 82, 175 82 C 80 82, 20 70, 25 45 C 28 30, 85 18, 150 14" stroke="#1638d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h1 class="slide-title-hero">thank you</h1>
+            </div>
+
+            <p class="editorial-lead" style="margin-top: 0.8rem;">
+              自然科學與人工智慧 · 期末專題成果自評 100 / 100 滿分達成
+            </p>
+
+            <div style="background: #fafaf9; border: 1px solid var(--border-card); padding: 0.8rem 1rem; border-radius: 3px; font-size: 0.82rem; margin: 0.6rem 0;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span><strong>基本指標 (60分滿分)</strong></span>
+                <span style="color: var(--cobalt); font-weight: 700;">60 / 60  pts</span>
+              </div>
+              <div style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 6px;">
+                主題與定位 (10分)、11件作品內容 (20分)、流暢操作示範 (15分)、AI 歷程紀錄 (10分)、個人貢獻 (5分)
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px solid #eee; padding-top: 4px; margin-bottom: 4px;">
+                <span><strong>加分項目 (+40分滿分)</strong></span>
+                <span style="color: var(--cobalt); font-weight: 700;">+40 / 40 pts</span>
+              </div>
+              <div style="color: var(--text-muted); font-size: 0.75rem;">
+                Vercel 上線 (+10)、本機圖紙抽換 (+10)、GitHub 紀錄 (+10)、Divisare 高完成度 (+10)
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem; display: flex; gap: 0.8rem; font-family: var(--font-mono); font-size: 0.78rem;">
+              <a href="index.html" class="btn-deck active" style="text-decoration: none;">🏠 返回作品集首頁</a>
+              <a href="https://github.com/ms0780935/architecture-portfolio" target="_blank" class="btn-deck" style="text-decoration: none;">GitHub 儲存庫 ↗</a>
+            </div>
+          </div>
+
+          <div class="slide-right-col" style="height: 100%;">
+            <div class="img-frame" style="height: 380px;">
+              <img src="assets/project-1-space.jpg" alt="Courtyard Lawn Architectural Atmosphere">
+              <div class="img-caption">
+                <span>空間微風實驗亭 · 校園中庭草坪光影氛圍實景</span>
+                <span>FIG. 12 / SPATIAL COMMONS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>12 / 12 · CONCLUSION &amp; AUDIT</span>
+          <span class="author-badge">PROJECT AUTHOR: 謝易廷 (11231167)</span>
+          <span>NATURAL SCIENCE &amp; ARTIFICIAL INTELLIGENCE · 2026</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Speaker Notes Drawer (Toggled by 'S' or button) -->
+  <aside class="notes-drawer" id="notes-drawer">
+    <div class="notes-drawer-header">
+      <span id="notes-slide-title">SPEAKER NOTES · SLIDE 01</span>
+      <span style="cursor: pointer;" onclick="toggleNotes()">✕ 關閉 (Close)</span>
+    </div>
+    <div id="notes-content">
+      各位同學與評審委員好，我是建築系五年級謝易廷。今天向大家報告的是結合自然科學與人工智慧開發的「ARCH/FOLIO — 建築系學生五年學習歷程與設計作品集系統」。本案以國際指標平台 Divisare.com 為核心典範，解決傳統紙本作品集更新困難、笨重與外國研究所申請語系受限之痛點，現在就由我為大家示範各項系統特點。
+    </div>
+  </aside>
+
+  <!-- Interactive Presentation Script -->
+  <script>
+    // Speaker notes dictionary for all 12 slides
+    const SPEAKER_NOTES = {
+      1: "【第 1 頁 封面導言】各位評審老師好，我是建築系五年級謝易廷（學號 11231167）。今天向大家呈現的是自然科學與人工智慧期末專案成果報告：ARCH/FOLIO 建築系五年學習歷程與作品集系統。本案以歐洲指標建築平台 Divisare.com 為典範，結合本機持久化圖片管理與跨模態 AI 輔助，提供完全屬於建築學生的專業作品檔案庫。",
+      2: "【第 2 頁 專案緣起】傳統建築系學生在做作品集時，常面臨三大困境：紙本印製成本昂貴且不易攜帶、現成網頁模板缺乏建築專業圖說閱讀節奏，以及申請國際競圖時單一語言受限。本系統以純黑白極簡留白、大尺度圖紙框與一至五年級時間軸，打造專屬建築專業的沉浸式閱讀體驗。",
+      3: "【第 3 頁 GitHub 開源貢獻】專案自初始化起即進行嚴格的 Git 版本控制，累積超過 16 次結構性 Commit。包含架構搭建、Aptos 金屬銀色標誌製作、Divisare PROJECTS 分類抽屜、夜間對比度修復以及國宅研究專案新增，全數符合 Conventional Commits 語意化提交規範，清楚呈現個人自主開發軌跡。",
+      4: "【第 4 頁 AI 使用量與對話工程】在 AI 協同開發方面，本專案共經歷 26 輪深度對話、848 步驟迭代，總處理 Token 達 53.9M。更重要的是導入了上下文快取機制（51.7M Cache Read），並整合 Gemini 2.5 Flash Image（Nano Banana）生成出版級工程圖紙，以及呼叫 Playwright 瀏覽器子代理人進行超過 20 次真實視覺驗證。",
+      5: "【第 5 頁 Vercel 發布與核心功能】專案採用純靜態架構，具備 vercel.json 邊緣節點加速。全站完整收錄 11 件作品，彈窗閱讀器具備鍵盤左右鍵（← / →）流暢換頁、Esc 關閉與 URL Hash 深層連結綁定（如 #proj-11），點擊任何連結皆可秒級直達專案檔案。",
+      6: "【第 6 頁 Divisare Atlas 分類索引抽屜】為了替代傳統單調的全部作品按鈕，我們開發了 PROJECTS 分類抽屜。左欄劃分 8 大類別（包含構件、材料、類型、氣候、概念、基地、圖紙尺度與專案目錄）；右欄具備 60+ 個英文字母排序標籤與數量徽章，點擊即可即時過濾，並在上方顯示 #標籤名 ✕ 藥丸按鈕。",
+      7: "【第 7 頁 錯誤排除與自主修復】在開發過程中，AI 展現了高度自主的除錯能力：解決 Windows PowerShell 不支援 && 語法問題、終止 Port 8080 衝突進程、導入 ?v=2.2 查詢字串化解瀏覽器快取舊資料問題，並將夜間模式長篇論述的硬編碼文字顏色替換為動態 CSS 變數，保證高對比度無障礙閱讀。",
+      8: "【第 8 頁 階段性開發時間軸】開發歷程可分為三大關鍵階段：第一階段完成 Divisare 網格、資料庫與 IndexedDB v2 儲存引擎；第二階段導入 Aptos 金屬銀字 LOGO、三模式主題與垂直多圖手動排序；第三階段實作 PROJECTS 分類抽屜、Nano Banana 出版級圖紙生成，並提煉兩份國宅報告擴充 ELE-440。",
+      9: "【第 9 頁 品牌細節與三模式外觀】我們依據使用者提供的參考樣式，以微軟原廠 Aptos 字型製作純 CSS 向量金屬銀色立體 PORTFOLIO 標誌（字距 -0.052em）；同時實作 Divisare 日間（暖白紙本）、夜間（深邃展覽館）與系統個人模式三態切換，導覽按鈕亦徹底精簡為純幾何符號。",
+      10: "【第 10 頁 本機裝置圖片管理】本案最具實用性的創新在於「本機裝置圖片管理中心」。利用瀏覽器原生 IndexedDB v2，同學可隨時拖曳抽換個人 CAD 或手繪圖，重整頁面絕不丟失；閱讀器內部更支援直式多圖依序排列、▲上移/▼下移手動調動順序、底端批次多圖新增，以及一鍵開啟新分頁 100% 原尺寸預覽。",
+      11: "【第 11 頁 文本生成圖紙與跨文件提煉】展示多模態 AI 的強大生成力：Nano Banana 原創工程圖紙精準還原八斗子 16 米懸挑、基隆港 3 公里縫合甲板與西門町空間句法熱力圖；更進一步由 Google Docs 兩份研究報告提煉柯比意光輝城市與雷特朋人車分道理論，新創 ELE-440 準則國宅空間形態學研究。",
+      12: "【第 12 頁 期末評量自檢與總結】對照課程期末評量標準，基本要求 60 分滿分、加分項目 +40 分滿分，全數 100 分指標均獲完整實踐與存證。課程平台 API 經同步驗證為第 4 修訂版。以上為本次期末專題成果報告，謝謝大家，請各位老師不吝指教！"
+    };
+
+    let currentSlide = 1;
+    const totalSlides = 12;
+    let isGridMode = false;
+    let isNotesOpen = false;
+
+    const slidesTrack = document.getElementById("slides-track");
+    const slideIndicator = document.getElementById("slide-indicator");
+    const btnToggleView = document.getElementById("btn-toggle-view");
+    const viewModeIcon = document.getElementById("view-mode-icon");
+    const viewModeLabel = document.getElementById("view-mode-label");
+    const btnToggleNotes = document.getElementById("btn-toggle-notes");
+    const notesDrawer = document.getElementById("notes-drawer");
+    const notesSlideTitle = document.getElementById("notes-slide-title");
+    const notesContent = document.getElementById("notes-content");
+
+    function updateSlide(newIndex) {
+      if (newIndex < 1) newIndex = 1;
+      if (newIndex > totalSlides) newIndex = totalSlides;
+
+      currentSlide = newIndex;
+
+      // Update active class on slides
+      document.querySelectorAll(".slide").forEach((slide, idx) => {
+        if (idx + 1 === currentSlide) {
+          slide.classList.add("active");
+        } else {
+          slide.classList.remove("active");
+        }
+      });
+
+      // Update indicator
+      slideIndicator.textContent = `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+
+      // Update speaker notes
+      if (notesSlideTitle && notesContent) {
+        notesSlideTitle.textContent = `SPEAKER NOTES · SLIDE ${String(currentSlide).padStart(2, '0')}`;
+        notesContent.textContent = SPEAKER_NOTES[currentSlide] || "暫無本頁演講備忘稿。";
+      }
+
+      // Update buttons disabled state
+      document.getElementById("btn-prev-slide").disabled = currentSlide === 1;
+      document.getElementById("btn-next-slide").disabled = currentSlide === totalSlides;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        updateSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        updateSlide(currentSlide - 1);
+      }
+    }
+
+    function toggleViewMode() {
+      isGridMode = !isGridMode;
+      if (isGridMode) {
+        document.body.classList.remove("presentation-mode");
+        document.body.classList.add("grid-mode");
+        viewModeIcon.textContent = "□";
+        viewModeLabel.textContent = "單頁簡報模式 (Slide)";
+        btnToggleView.classList.add("active");
+      } else {
+        document.body.classList.remove("grid-mode");
+        document.body.classList.add("presentation-mode");
+        viewModeIcon.textContent = "⊞";
+        viewModeLabel.textContent = "總覽模式 (Grid)";
+        btnToggleView.classList.remove("active");
+        updateSlide(currentSlide);
+      }
+    }
+
+    function toggleNotes() {
+      isNotesOpen = !isNotesOpen;
+      if (isNotesOpen) {
+        notesDrawer.classList.add("open");
+        btnToggleNotes.classList.add("active");
+      } else {
+        notesDrawer.classList.remove("open");
+        btnToggleNotes.classList.remove("active");
+      }
+    }
+
+    // Event Listeners
+    document.getElementById("btn-next-slide").addEventListener("click", nextSlide);
+    document.getElementById("btn-prev-slide").addEventListener("click", prevSlide);
+    btnToggleView.addEventListener("click", toggleViewMode);
+    btnToggleNotes.addEventListener("click", toggleNotes);
+    document.getElementById("btn-print-deck").addEventListener("click", () => window.print());
+
+    // Grid Slide Click to Zoom
+    document.querySelectorAll(".slide").forEach((slide) => {
+      slide.addEventListener("click", () => {
+        if (isGridMode) {
+          const targetIndex = parseInt(slide.getAttribute("data-slide-index"), 10);
+          toggleViewMode();
+          updateSlide(targetIndex);
+        }
+      });
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+      if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp" || e.key === "Backspace") {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === "g") {
+        e.preventDefault();
+        toggleViewMode();
+      } else if (e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        toggleNotes();
+      } else if (e.key === "Escape") {
+        if (isNotesOpen) toggleNotes();
+        else if (isGridMode) toggleViewMode();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        updateSlide(1);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        updateSlide(totalSlides);
+      }
+    });
+
+    // Initialize
+    updateSlide(1);
+  </script>
+</body>
+</html>
