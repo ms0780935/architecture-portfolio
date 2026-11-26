@@ -417,6 +417,51 @@ const ARCH_PROJECTS = [
       }
     ],
     tags: ["Space Syntax", "DepthmapX", "Urban Morphology", "Accessibility", "Research", "Walkability", "Pedestrian Network"]
+  },
+  {
+    id: "proj-11",
+    yearNumber: 4,
+    yearLabel: { zh: "四年級", en: "Year 4" },
+    semester: { zh: "大四下 · 專業選修", en: "4th Year Spring · Elective" },
+    period: "2024",
+    category: "elective",
+    categoryLabel: { zh: "選修科目", en: "Elective Courses" },
+    code: "ELE-440",
+    title: {
+      zh: "標準化原型與大街廓批判：台灣 1970–1980 年代準則國宅空間形態學研究",
+      en: "Standardized Prototypes & Superblock Critique: Spatial Morphology of Taiwan's 1970–1980s Public Housing"
+    },
+    typology: { zh: "集合住宅空間形態學／現代主義都市批判", en: "Housing Typology & Morphology / Critical Urbanism" },
+    location: { zh: "台北市大安國宅、成功國宅社區與忠孝國宅", en: "Da'an, Chenggong & Zhongxiao Public Housing Estates, Taipei" },
+    advisor: { zh: "夏鑄九 講座教授 / 住宅空間研究室", en: "Prof. Chu-Joe Hsia / Housing Space Laboratory" },
+    defaultImage: "assets/project-11.svg",
+    summary: {
+      zh: "剖析台灣 1970 至 1980 年代『六年國宅計畫』之準則國宅空間機制。從單元平面『L+D+K 核心確立』與『服務核集中化』標準化工業化邏輯，到大基地『雷特朋人車分道』與『公園中的塔』現代主義大街廓規劃，進而批判其演變為都市孤立『飛地』與機車停車矛盾之歷史教訓。",
+      en: "Analyzing the spatial apparatus of Taiwan's 1970–1980s standardized public housing under the Six-Year Housing Plan. Investigating unit-level 'L+D+K living cores' and centralized service shafts alongside superblock urbanism inspired by Le Corbusier's 'Tower in the Park' and Radburn pedestrian segregation, while critiquing their historical descent into urban enclaves and pedestrian-scooter conflicts."
+    },
+    concept: {
+      zh: "修習『台灣戰後集合住宅與都市形態專題』之核心研究成果。本研究緊扣台灣 1970 年代中後期至 1980 年代政府頒布《國民住宅條例》與實施『六年國宅計畫』之『準則國宅時期』，以台北市指標性之大安國宅與成功國宅為實證案例，解構兩大維度之空間體系：\n\n一、 單元平面原型與高坪效工業化邏輯：\n為達成國家在有限土地與造價下的大規模快速供給，單元平面發展出高度同質的空間原型。其一為確立『L+D+K』公共起居軸線，將客餐廳連貫並緊鄰獨立廚房，擺脫戰後初期暗廳困局；其二為『服務機能核（Service Core）集中化』，將廚房、衛浴與工作後陽台集中背靠背配置，共用垂直水電管道間（Pipe Chase）以極大化施工效率並防阻油煙濕氣；其三為『極小化過道（Corridor）』，臥室房門直接面向小型過渡小廳，在 24–34 坪的小坪數內實現極致之『三房兩廳』；其四為住棟走向『四併型』與『風車十字型』幾何組合，確保各單元均具備雙面採光與風向對流。\n\n二、 大街廓社區規劃與西方現代主義移植：\n在社區層面，國宅全面實踐柯比意（Le Corbusier）『光輝城市』中『公園中的塔（Tower in the Park）』理念與美國『雷特朋原則（Radburn Principles）』。依循《國民住宅社區規劃及住宅設計規則》與《臺北市鼓勵大街廓設計審查原則》，將數個街廓整併為逾 15,000 平方公尺之巨型基地，以 10 至 19 層高樓壓低建蔽率至 30%–40%，騰出地面圍塑中央綠地與防衛空間（Defensible Space）；車行動線外圍化與地下化，人工平台專供人行、幼兒園與生活商場，建構自給自足微型社會。\n\n三、 歷史反思與空間批判：\n本研究援引夏鑄九、沈孟穎等學者論述展開歷史檢討：大街廓巨型量體與封閉防衛邊界實質造成與周邊舊市區紋理斷裂，異化為都市『孤立飛地（Enclave）』；西式汽車導向的人車分道與台灣 1980 年代機車/公車為主的現實嚴重脫節，導致地面人行步道遭機車大量佔據；而俯視圖面的幾何中庭更因缺乏遮蔭與人體尺度失調，暴露了技術官僚理性規劃與日常真實生活的深刻斷裂。",
+      en: "Completed within the Post-war Housing Typology and Urban Morphology research seminar. Focuses on Taiwan's 'Standardized Public Housing Era' (1970s–1980s) initiated under the Six-Year Public Housing Plan and the Public Housing Act, using Taipei's landmark Da'an and Chenggong estates as empirical benchmarks across two interconnected spatial dimensions:\n\n1. Standardized Unit Prototypes & High-Efficiency Industrialization:\nTo achieve rapid mass housing within constrained budgets, architectural layouts crystallized into standardized prototypes. First, establishing the 'L+D+K' (Living-Dining-Kitchen) social spine by creating continuous living-dining axes adjacent to segregated galley kitchens. Second, 'Service Core Centralization'—clustering kitchens, bathrooms, and utility verandas back-to-back to share vertical mechanical pipe chases (Pipe Chase) for maximal plumbing efficiency. Third, 'Corridor Minimization', where bedrooms radiate directly off a compressed transitional node to pack three-bedroom programs into 24–34 ping footprints. Fourth, transitioning from linear slab blocks to 4-in-1 cluster and pinwheel geometries ensuring dual-aspect daylighting and cross-ventilation.\n\n2. Superblock Urbanism & Modernist Ideological Transplantation:\nAt the neighborhood scale, planning doctrine imported Le Corbusier's 'Tower in the Park' (Radiant City) and American 'Radburn Principles'. Governed by the 1984 Public Housing Community Design Rules and Taipei's Superblock Bonus Regulations, multiple blocks were consolidated into massive 15,000+ sqm parcels. High-rise towers (10–19 storeys) capped building coverage at 30%–40%, liberating ground planes for geometric courtyards and Oscar Newman's 'Defensible Space'. Peripheral and subterranean vehicular circulation yielded elevated pedestrian decks housing internal nurseries, markets, and civic centers.\n\n3. Historical Spatial Critique:\nSynthesizing critical frameworks by scholars Chu-Joe Hsia and Meng-Ying Shen, this research dissects systemic contradictions: the fortified perimeter created urban 'enclaves' that severed surrounding neighborhood fabrics; the automotive-centric Radburn dogma collided with Taiwan's scooter-dominated mobility, leaving walkways colonized by two-wheelers; and rigid aerial geometric plazas, lacking shade and micro-scale intimacy, unveiled the profound fissure between technocratic rationalism and lived spatial reality."
+    },
+    drawings: [
+      {
+        type: "Architectural Plan (Awaiting Upload)",
+        label: {
+          zh: "【圖紙 01 · 待上傳】1:50 準則國宅標準化單元空間原型分析圖（L+D+K 動靜分區與集中服務核管道間配置）",
+          en: "Figure 01 (Awaiting Upload): 1:50 Standardized Housing Prototype Plan (L+D+K Living Core & Pipe Chase Detail)"
+        },
+        src: "assets/project-11.svg"
+      },
+      {
+        type: "Superblock Axonometric (Awaiting Upload)",
+        label: {
+          zh: "【圖紙 02 · 待上傳】1:500 大街廓國宅社區立體人車分道、防衛中庭與都市飛地形態分析軸測圖",
+          en: "Figure 02 (Awaiting Upload): 1:500 Superblock Morphology Axonometric (Pedestrian-Vehicular Segregation & Enclave Analysis)"
+        },
+        src: "assets/project-11.svg"
+      }
+    ],
+    tags: ["Public Housing", "Superblock", "Housing Typology", "Service Core", "Modernism", "Urban Morphology", "Taiwan Architecture", "Defensible Space"]
   }
 ];
 
@@ -433,15 +478,16 @@ const DIVISARE_ATLAS_TAXONOMY = [
     tags: [
       { id: "arcades", name: "ARCADES & TING-A-KHA", labelZh: "連續騎樓與亭仔腳", projectIds: ["proj-7", "proj-4"] },
       { id: "arches", name: "ARCHES", labelZh: "清水紅磚拱圈廊道", projectIds: ["proj-7"] },
-      { id: "balconies", name: "BALCONIES & TERRACES", labelZh: "退縮露台與私家花園", projectIds: ["proj-2", "proj-4"] },
+      { id: "balconies", name: "BALCONIES & TERRACES", labelZh: "退縮露台與私家花園", projectIds: ["proj-2", "proj-4", "proj-11"] },
       { id: "cantilevers", name: "CANTILEVERS", labelZh: "16米水岸懸挑閱讀廊道", projectIds: ["proj-3"] },
       { id: "columns", name: "COLUMNS & CAPITALS", labelZh: "紅磚圓柱與莨苕葉柱頭", projectIds: ["proj-7"] },
-      { id: "courtyards", name: "COURTYARDS & ATRIUMS", labelZh: "中庭草坪與長條拔風天井", projectIds: ["proj-1", "proj-7"] },
+      { id: "courtyards", name: "COURTYARDS & ATRIUMS", labelZh: "中庭草坪與長條拔風天井", projectIds: ["proj-1", "proj-7", "proj-11"] },
       { id: "folded-plates", name: "FOLDED PLATES", labelZh: "自承重膠合木連續折板", projectIds: ["proj-8"] },
       { id: "kinetic-facade", name: "KINETIC SHADING", labelZh: "演算法動態日照感應百葉", projectIds: ["proj-6"] },
       { id: "pediments", name: "PEDIMENTS & PLASTERWORK", labelZh: "折衷主義巴洛克泥塑山牆", projectIds: ["proj-7"] },
       { id: "reciprocal-joinery", name: "RECIPROCAL JOINERY", labelZh: "互承木構與榫卯抗剪節點", projectIds: ["proj-1", "proj-8"] },
       { id: "roof-gardens", name: "ROOF GARDENS & RAMPS", labelZh: "螺旋立體公共空中農園", projectIds: ["proj-4"] },
+      { id: "service-cores", name: "SERVICE CORES & SHAFTS", labelZh: "服務核與垂直管道間集中配置", projectIds: ["proj-11"] },
       { id: "solar-chimneys", name: "SOLAR CHIMNEYS", labelZh: "熱浮力自然對流拔風風井", projectIds: ["proj-4", "proj-7"] },
       { id: "suspension-bridge", name: "SUSPENSION BRIDGES", labelZh: "大跨度鋼構吊橋人行甲板", projectIds: ["proj-5"] }
     ]
@@ -470,12 +516,13 @@ const DIVISARE_ATLAS_TAXONOMY = [
     icon: "▲",
     tags: [
       { id: "academic-research", name: "ACADEMIC RESEARCH", labelZh: "計算流體模擬與形態學論文", projectIds: ["proj-9", "proj-10"] },
-      { id: "collective-housing", name: "COLLECTIVE HOUSING", labelZh: "坡地梯級退縮集合住宅", projectIds: ["proj-2"] },
+      { id: "collective-housing", name: "COLLECTIVE HOUSING", labelZh: "坡地梯級退縮集合住宅", projectIds: ["proj-2", "proj-11"] },
       { id: "computational-prototype", name: "COMPUTATIONAL PROTOTYPE", labelZh: "參數化自適應動態構件", projectIds: ["proj-6"] },
       { id: "experimental-pavilion", name: "EXPERIMENTAL PAVILION", labelZh: "輕質木構微氣候感知實驗亭", projectIds: ["proj-1"] },
       { id: "historic-survey", name: "HISTORIC FIELD SURVEY", labelZh: "大稻埕街屋立面實測與踏查", projectIds: ["proj-7"] },
       { id: "infrastructure", name: "INFRASTRUCTURE & MASTERPLAN", labelZh: "基隆軍港東岸轉型都市設計", projectIds: ["proj-5"] },
       { id: "mixed-use-agro", name: "MIXED-USE AGRO-TOWER", labelZh: "高密度舊城混居與垂直農園", projectIds: ["proj-4"] },
+      { id: "public-housing", name: "PUBLIC HOUSING & SUPERBLOCKS", labelZh: "準則國宅與大街廓社區研究", projectIds: ["proj-11"] },
       { id: "public-library", name: "PUBLIC LIBRARY", labelZh: "八斗子潮汐海洋文化圖書館", projectIds: ["proj-3"] },
       { id: "structural-prototype", name: "STRUCTURAL PROTOTYPE", labelZh: "9米無柱跨距折板屋架力學原型", projectIds: ["proj-8"] }
     ]
@@ -489,9 +536,11 @@ const DIVISARE_ATLAS_TAXONOMY = [
       { id: "aerodynamics", name: "AERODYNAMICS", labelZh: "迎風面折板與氣流捕捉導引", projectIds: ["proj-1", "proj-9"] },
       { id: "cfd-simulation", name: "CFD SIMULATION", labelZh: "OpenFOAM 迎季風面微氣候模擬", projectIds: ["proj-9"] },
       { id: "daylighting", name: "DAYLIGHTING & SOLAR", labelZh: "Ladybug 太陽輻射即時演算法", projectIds: ["proj-6"] },
+      { id: "defensible-space", name: "DEFENSIBLE SPACE & ZONING", labelZh: "防衛空間與人車分道立體分區", projectIds: ["proj-11"] },
+      { id: "housing-policy", name: "HOUSING STANDARDIZATION", labelZh: "國民住宅條例與標準化工業化", projectIds: ["proj-11"] },
       { id: "intertidal", name: "INTERTIDAL INTEGRATION", labelZh: "消波碼頭潮汐海水熱交換調節", projectIds: ["proj-3"] },
       { id: "microclimate", name: "MICROCLIMATE", labelZh: "中庭與街道微氣候通風優化", projectIds: ["proj-1", "proj-9"] },
-      { id: "passive-ventilation", name: "PASSIVE VENTILATION", labelZh: "騎樓多孔隙通透與浮力拔風", projectIds: ["proj-4", "proj-7", "proj-9"] },
+      { id: "passive-ventilation", name: "PASSIVE VENTILATION", labelZh: "騎樓多孔隙通透與浮力拔風", projectIds: ["proj-4", "proj-7", "proj-9", "proj-11"] },
       { id: "space-syntax", name: "SPACE SYNTAX", labelZh: "DepthmapX 軸線拓樸整合度分析", projectIds: ["proj-10"] },
       { id: "sustainability", name: "SUSTAINABLE DESIGN", labelZh: "中水回收、垂直綠化與永續材料", projectIds: ["proj-4", "proj-8"] },
       { id: "topography", name: "TOPOGRAPHY & SLOPES", labelZh: "依循等高線梯級退縮縫合", projectIds: ["proj-2"] },
@@ -507,8 +556,10 @@ const DIVISARE_ATLAS_TAXONOMY = [
       { id: "mockup-1-1", name: "1:1 PHYSICAL MOCKUP", labelZh: "1:1 實體榫接節點與破壞試驗", projectIds: ["proj-1", "proj-8"] },
       { id: "algorithmic-arch", name: "ALGORITHMIC ARCHITECTURE", labelZh: "Grasshopper 參數化關聯幾何", projectIds: ["proj-6"] },
       { id: "community-resilience", name: "COMMUNITY RESILIENCE", labelZh: "青年共居、傳統市場與長照互助", projectIds: ["proj-4"] },
+      { id: "enclave-critique", name: "URBAN ENCLAVE CRITIQUE", labelZh: "都市飛地與歷史空間批判反思", projectIds: ["proj-11"] },
       { id: "historic-tectonics", name: "HISTORIC TECTONICS", labelZh: "閩南磚瓦至日治折衷泥塑流變", projectIds: ["proj-7"] },
       { id: "measured-drafting", name: "MEASURED DRAFTING", labelZh: "現場正投影測繪手稿與大樣圖", projectIds: ["proj-7"] },
+      { id: "modernist-transplant", name: "MODERNIST URBANISM", labelZh: "光輝城市與公園中的塔之移植", projectIds: ["proj-11"] },
       { id: "sectional-urbanism", name: "SECTIONAL URBANISM", labelZh: "剖面都市主義與立體公共步道", projectIds: ["proj-2"] },
       { id: "spatial-perception", name: "SPATIAL PERCEPTION", labelZh: "輕質懸浮感知與風向光影推移", projectIds: ["proj-1"] },
       { id: "urban-suture", name: "URBAN SUTURE", labelZh: "拆解七十年封閉軍事港區邊界", projectIds: ["proj-5"] },
@@ -524,6 +575,7 @@ const DIVISARE_ATLAS_TAXONOMY = [
       { id: "keelung-badouzi", name: "KEELUNG · BADOUZI", labelZh: "八斗子觀光漁港水岸碼頭", projectIds: ["proj-3"] },
       { id: "keelung-harbor", name: "KEELUNG · HARBOR", labelZh: "基隆港東岸軍事碼頭威海營區", projectIds: ["proj-5"] },
       { id: "keelung-zhongzheng", name: "KEELUNG · ZHONGZHENG", labelZh: "基隆市中正區山坡巷道山城", projectIds: ["proj-2"] },
+      { id: "taipei-daan-chenggong", name: "TAIPEI · DA'AN & CHENGGONG", labelZh: "台北市大安國宅與成功國宅社區", projectIds: ["proj-11"] },
       { id: "taipei-dadaocheng", name: "TAIPEI · DADAOCHENG", labelZh: "大同區迪化街一段傳統街屋", projectIds: ["proj-7"] },
       { id: "taipei-wanhua", name: "TAIPEI · WANHUA", labelZh: "萬華區康定路舊市區生活街廓", projectIds: ["proj-4"] },
       { id: "taipei-ximending", name: "TAIPEI · XIMENDING", labelZh: "萬華區西門町行人徒步商圈", projectIds: ["proj-10"] },
@@ -539,10 +591,12 @@ const DIVISARE_ATLAS_TAXONOMY = [
     icon: "◫",
     tags: [
       { id: "detail-joinery", name: "1:1 / 1:20 JOINERY DETAILS", labelZh: "榫接構造分解與軸測大樣圖", projectIds: ["proj-1", "proj-8"] },
+      { id: "detail-housing-plans", name: "1:50 HOUSING PROTOTYPE PLANS", labelZh: "1:50 準則國宅單元空間原型與服務核平面", projectIds: ["proj-11"] },
       { id: "detail-sections", name: "1:50 LONGITUDINAL SECTIONS", labelZh: "山坡地與老街屋長向縱剖面透視", projectIds: ["proj-2", "proj-7"] },
       { id: "detail-exploded", name: "1:100 EXPLODED AXONOMETRIC", labelZh: "機能立體複合爆炸軸測圖", projectIds: ["proj-4"] },
       { id: "detail-site-plan", name: "1:200 WATERFRONT SITE PLANS", labelZh: "八斗子消波碼頭全區配置圖", projectIds: ["proj-3"] },
       { id: "detail-masterplan", name: "1:500 URBAN MASTERPLANS", labelZh: "港灣縫合三公里全區景觀總圖", projectIds: ["proj-5"] },
+      { id: "detail-superblock-map", name: "1:500 SUPERBLOCK AXONOMETRIC", labelZh: "1:500 大街廓社區立體分區與防衛中庭形態", projectIds: ["proj-11"] },
       { id: "detail-cfd-maps", name: "CFD VECTOR FLOW MAPS", labelZh: "風速流線向量與熱舒適色階圖", projectIds: ["proj-9"] },
       { id: "detail-syntax-maps", name: "SYNTAX AXIAL MAPS", labelZh: "軸線拓樸整合度與穿透度分析圖", projectIds: ["proj-10"] },
       { id: "detail-field-draft", name: "MEASURED FIELD ARCHIVES", labelZh: "製圖桌實體手繪原稿實拍寫真", projectIds: ["proj-7"] }
@@ -551,7 +605,7 @@ const DIVISARE_ATLAS_TAXONOMY = [
   {
     id: "selected-projects",
     name: "SELECTED PROJECTS",
-    labelZh: "十件建築專案目錄",
+    labelZh: "十一件建築專案目錄",
     icon: "✦",
     tags: [
       { id: "sel-proj-1", name: "ARC-101 輕質木構實驗亭", labelZh: "一年級 · 基本設計", projectIds: ["proj-1"] },
@@ -562,6 +616,7 @@ const DIVISARE_ATLAS_TAXONOMY = [
       { id: "sel-proj-6", name: "ELE-310 參數化遮陽桁架", labelZh: "三年級 · 專業選修", projectIds: ["proj-6"] },
       { id: "sel-proj-7", name: "ELE-220 大稻埕街屋測繪踏查", labelZh: "二年級 · 專業選修", projectIds: ["proj-7"] },
       { id: "sel-proj-8", name: "ELE-430 柳杉膠合木折板原型", labelZh: "四年級 · 專業選修", projectIds: ["proj-8"] },
+      { id: "sel-proj-11", name: "ELE-440 準則國宅空間原型與大街廓研究", labelZh: "四年級 · 專業選修", projectIds: ["proj-11"] },
       { id: "sel-proj-9", name: "RES-501 低密度迎季風面微氣候模擬", labelZh: "五年級 · 研究專題", projectIds: ["proj-9"] },
       { id: "sel-proj-10", name: "RES-402 西門町空間句法分析", labelZh: "四年級 · 研究專題", projectIds: ["proj-10"] }
     ]
@@ -569,11 +624,11 @@ const DIVISARE_ATLAS_TAXONOMY = [
   {
     id: "all-exhibits",
     name: "ALL EXHIBITS",
-    labelZh: "全部作品 (10/10)",
+    labelZh: "全部作品 (11/11)",
     icon: "○",
     isReset: true,
     tags: [
-      { id: "view-all-projects", name: "VIEW ALL 10 EXHIBITS", labelZh: "顯示全體 10 件作品 (重設篩選)", projectIds: ["proj-1", "proj-2", "proj-3", "proj-4", "proj-5", "proj-6", "proj-7", "proj-8", "proj-9", "proj-10"] }
+      { id: "view-all-projects", name: "VIEW ALL 11 EXHIBITS", labelZh: "顯示全體 11 件作品 (重設篩選)", projectIds: ["proj-1", "proj-2", "proj-3", "proj-4", "proj-5", "proj-6", "proj-7", "proj-8", "proj-9", "proj-10", "proj-11"] }
     ]
   }
 ];
@@ -642,7 +697,7 @@ const I18N = {
     atlasBtnSub: "全部作品 · 分類標籤 ▾",
     atlasBadge: "DIVISARE ATLAS",
     atlasTitle: "ARCHITECTURAL TAXONOMY & KEYWORDS INDEX · 建築分類關鍵詞與標籤索引",
-    atlasResetAll: "○ 全部作品 (ALL 10)",
+    atlasResetAll: "○ 全部作品 (ALL 11)",
     atlasClose: "關閉",
     activeTagPrefix: "標籤篩選:",
     clearActiveTag: "清除標籤篩選",
@@ -711,7 +766,7 @@ const I18N = {
     atlasBtnSub: "All Exhibits · Taxonomy ▾",
     atlasBadge: "DIVISARE ATLAS",
     atlasTitle: "ARCHITECTURAL TAXONOMY & KEYWORDS INDEX",
-    atlasResetAll: "○ All Works (ALL 10)",
+    atlasResetAll: "○ All Works (ALL 11)",
     atlasClose: "Close",
     activeTagPrefix: "Taxonomy Tag:",
     clearActiveTag: "Clear Tag Filter",
