@@ -2049,10 +2049,10 @@ html[data-theme="dark"] .divisare-atlas-panel {
 .mode-switch-group {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--line-hairline);
   border-radius: 4px;
   overflow: hidden;
-  background-color: var(--card-bg);
+  background-color: var(--frame-bg);
   padding: 2px;
   gap: 2px;
 }
@@ -2078,29 +2078,37 @@ html[data-theme="dark"] .divisare-atlas-panel {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-body[data-theme="dark"] .btn-mode-opt:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+html[data-theme="dark"] .btn-mode-opt:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
 
 .btn-mode-opt.active {
   background-color: var(--text-main);
-  color: var(--bg-color);
+  color: var(--bg-paper);
   font-weight: 600;
 }
 
+html[data-theme="dark"] .btn-mode-opt.active {
+  background-color: #f2f2f2;
+  color: #0c0c0c;
+}
+
 .btn-mode-opt[data-mode="editor"].active {
-  background-color: var(--cobalt);
-  color: #ffffff;
+  background-color: var(--cobalt) !important;
+  color: #ffffff !important;
 }
 
 /* --------------------------------------------------------------------------
    Viewer Mode (外部純淨展覽模式 · 預設狀態)
-   徹底隱藏所有後台管理、編輯、刪除與上傳按鈕，呈現純粹建築專刊閱讀
+   徹底隱藏所有後台管理、編輯、排序、刪除與上傳按鈕，呈現純粹建築專刊閱讀
    -------------------------------------------------------------------------- */
 body.mode-viewer #btn-open-asset-manager,
 body.mode-viewer .card-quick-actions,
+body.mode-viewer .stream-img-actions,
 body.mode-viewer .stream-item-actions,
-body.mode-viewer .stream-caption-bar .btn-delete-img,
+body.mode-viewer .stream-img-caption-bar .btn-delete-img,
+body.mode-viewer .stream-bottom-add-bar,
 body.mode-viewer #btn-add-more-trigger,
 body.mode-viewer #btn-reset-single-image,
 body.mode-viewer .reader-stream-add-box,
@@ -2108,6 +2116,8 @@ body.mode-viewer #btn-bottom-add-image,
 body.mode-viewer #bottom-image-input,
 body.mode-viewer #reader-dropzone,
 body.mode-viewer #reader-image-input,
+body.mode-viewer .device-replacer-box,
+body.mode-viewer .stream-empty-actions,
 body.mode-viewer .empty-state-actions {
   display: none !important;
 }
