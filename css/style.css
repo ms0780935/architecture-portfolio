@@ -1690,7 +1690,7 @@ html[data-theme="dark"] .divisare-atlas-panel {
 .essay-body {
   font-size: 0.95rem;
   line-height: 1.85;
-  color: #222;
+  color: var(--text-main);
 }
 
 /* ==========================================================================
