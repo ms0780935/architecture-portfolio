@@ -353,25 +353,25 @@ const ARCH_PROJECTS = [
     categoryLabel: { zh: "研究專題", en: "Research & Theory" },
     code: "RES-501",
     title: {
-      zh: "高密度亞熱帶都市街道峽谷微氣候與通風風廊 CFD 數值模擬",
-      en: "CFD Microclimate & Wind Corridor Simulation in High-Density Urban Canyons"
+      zh: "低密度迎季風面的微氣候與通風風廊 CFD 數值模擬",
+      en: "CFD Microclimate & Wind Corridor Simulation on Low-Density Windward Fronts"
     },
     typology: { zh: "學術研究論文／都市微氣候", en: "Academic Research / Urban Climatology" },
     location: { zh: "台北盆地信義計畫區邊界", en: "Xinyi District Border, Taipei" },
     advisor: { zh: "沈家駒 教授", en: "Prof. Jia-Ju Shen" },
     defaultImage: "assets/project-9.svg",
     summary: {
-      zh: "運用 OpenFOAM 計算流體力學，量化建築迎風面退縮比對消除都市熱島效應之關聯性，建立低風速死區改善指引。",
-      en: "Utilizing OpenFOAM CFD to quantify building setback ratios on urban heat island mitigation, establishing planning guidelines for pedestrian airflow."
+      zh: "運用 OpenFOAM 計算流體力學，量化低密度迎季風面之建築群退縮比對消除都市熱島效應之關聯性，建立低風速死區改善指引。",
+      en: "Utilizing OpenFOAM CFD to quantify building setback ratios on low-density windward fronts for urban heat island mitigation, establishing planning guidelines for pedestrian airflow."
     },
     concept: {
-      zh: "本研究針對台北夏季悶熱街道峽谷展開流體模擬。研究指出，當街道高寬比（H/W）大於 2.5 時，地面層風速衰減超過 60%，形成滯熱死區。透過本研究所提出的『多孔隙通透低樓層』與『導風傾角屋頂』設計準則，能有效將涼爽季風導入行人層，平均降溫達 1.8°C。",
-      en: "Focusing on severe urban canyon stagnation in subtropical Taipei, this CFD research simulated 18 urban typologies. The paper proves that a stepped ground-floor arcade reduces stagnant hot spots by 45%, providing quantitative design guidelines for city zoning."
+      zh: "本研究針對低密度迎季風面之開放街廓展開流體模擬。研究指出，當迎風面配置順應季風主導風向時，可有效消除滯熱死區。透過本研究所提出的『多孔隙通透低樓層』與『導風傾角屋頂』設計準則，能有效將涼爽季風導入行人層，平均降溫達 1.8°C。",
+      en: "Focusing on low-density windward urban fabrics, this CFD research simulated monsoon airflow patterns. The paper proves that a stepped ground-floor arcade aligned with prevailing windward vectors reduces stagnant hot spots by 45%, providing quantitative design guidelines for sustainable zoning."
     },
     drawings: [
       { type: "Simulation", label: { zh: "都市風速向量流線分布與熱島溫度色階圖", en: "CFD Wind Velocity Streamlines & Thermal Gradient Map" }, src: "assets/project-9.svg" }
     ],
-    tags: ["Research", "CFD Simulation", "Microclimate", "Urban Heat Island", "OpenFOAM"]
+    tags: ["Research", "CFD Simulation", "Microclimate", "Urban Heat Island", "OpenFOAM", "Windward Front"]
   },
   {
     id: "proj-10",
@@ -487,7 +487,7 @@ const DIVISARE_ATLAS_TAXONOMY = [
     icon: "◎",
     tags: [
       { id: "aerodynamics", name: "AERODYNAMICS", labelZh: "迎風面折板與氣流捕捉導引", projectIds: ["proj-1", "proj-9"] },
-      { id: "cfd-simulation", name: "CFD SIMULATION", labelZh: "OpenFOAM 街道峽谷微氣候模擬", projectIds: ["proj-9"] },
+      { id: "cfd-simulation", name: "CFD SIMULATION", labelZh: "OpenFOAM 迎季風面微氣候模擬", projectIds: ["proj-9"] },
       { id: "daylighting", name: "DAYLIGHTING & SOLAR", labelZh: "Ladybug 太陽輻射即時演算法", projectIds: ["proj-6"] },
       { id: "intertidal", name: "INTERTIDAL INTEGRATION", labelZh: "消波碼頭潮汐海水熱交換調節", projectIds: ["proj-3"] },
       { id: "microclimate", name: "MICROCLIMATE", labelZh: "中庭與街道微氣候通風優化", projectIds: ["proj-1", "proj-9"] },
@@ -562,7 +562,7 @@ const DIVISARE_ATLAS_TAXONOMY = [
       { id: "sel-proj-6", name: "ELE-310 參數化遮陽桁架", labelZh: "三年級 · 專業選修", projectIds: ["proj-6"] },
       { id: "sel-proj-7", name: "ELE-220 大稻埕街屋測繪踏查", labelZh: "二年級 · 專業選修", projectIds: ["proj-7"] },
       { id: "sel-proj-8", name: "ELE-430 柳杉膠合木折板原型", labelZh: "四年級 · 專業選修", projectIds: ["proj-8"] },
-      { id: "sel-proj-9", name: "RES-501 CFD 街道微氣候模擬", labelZh: "五年級 · 研究專題", projectIds: ["proj-9"] },
+      { id: "sel-proj-9", name: "RES-501 低密度迎季風面微氣候模擬", labelZh: "五年級 · 研究專題", projectIds: ["proj-9"] },
       { id: "sel-proj-10", name: "RES-402 西門町空間句法分析", labelZh: "四年級 · 研究專題", projectIds: ["proj-10"] }
     ]
   },
