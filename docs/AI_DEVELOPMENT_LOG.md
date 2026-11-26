@@ -2,109 +2,148 @@
 
 - **課程名稱**：自然科學與人工智慧
 - **學生姓名**：謝易廷（學號：11231167）
-- **修課組別**：CD000A 第 2 組（單人組）
+- **修課組別**：CD000A 第 2 組（個人組）
 - **專案名稱**：ARCH / FOLIO — 建築系學生五年學習歷程與設計作品集系統
 - **線上儲存庫**：[https://github.com/ms0780935/architecture-portfolio](https://github.com/ms0780935/architecture-portfolio)
+- **雲端正式網站 (Vercel)**：[https://architecture-portfolio-drab.vercel.app/](https://architecture-portfolio-drab.vercel.app/)
+- **線上簡報網頁**：[https://architecture-portfolio-drab.vercel.app/presentation.html](https://architecture-portfolio-drab.vercel.app/presentation.html)
 - **AI 協作平台**：Google DeepMind Antigravity Agentic Platform (Gemini 2.5 Pro / Flash)
-- **紀錄生成時間**：2026-11-25
+- **紀錄更新日期**：2026-11-26
 
 ---
 
-## 一、AI 協作與資源消耗統計 (Token Metrics)
+## 一、AI 使用量與對話工程指標統計 (Token Metrics)
 
-| 指標項目 | 統計數據 | 說明 |
+| 數據指標 | 統計數值 | 說明與架構意涵 |
 | :--- | :--- | :--- |
-| **總疊加 Token 處理量** | **53,927,939 (53.9M)** | 包含長上下文對話、代碼庫解析與驗證重用 |
-| **輸入 Token (Input Tokens)** | **1,945,377** | 使用者提示詞、需求規格與檔案結構解析 |
-| **輸出 Token (Output Tokens)** | **256,830** | 代碼撰寫、CSS 樣式表、JSON 資料集與結構設計 |
-| **快取讀取 Token (Cache Read Tokens)**| **51,725,732** | 深度長上下文快取複用，大幅提升多輪對話反應效率 |
-| **AI 迭代總步驟數** | **848 Steps** | 涵蓋指令解析、檔案讀寫、指令執行與自主驗證 |
-| **協作對話輪次** | **26 Conversational Turns** | 連續多天深度迭代式對話工程 |
-| **調用子代理人 (Subagents)** | **image-generator (Nano Banana)**<br>**browser-subagent (Playwright Chromium)** | 用於建築視覺生成、網頁即時渲染與端對端視覺驗證 |
+| **總處理 Token 處理量** | **53,927,939 (53.9M)** | 包含長上下文代碼解析、跨模態架構驗證與迭代推理 |
+| **快取讀取 Token (Cache Read Tokens)**| **51,725,732 (51.7M)** | 深度利用長上下文快取複用，大幅提升多輪對話反應效率與架構一致性 |
+| **輸入 Token (Input Tokens)** | **1,945,377 (1.94M)** | 詳細規格提示詞、除錯日誌、測試報告與各階段設計指示 |
+| **輸出 Token (Output Tokens)** | **256,830 (256K)** | 高精度純靜態前端代碼、CSS 樣式表、JSON 資料庫與雙語詞典 |
+| **AI 迭代總步數** | **848+ Steps** | 涵蓋檔案讀寫、語法修復、進程守護、Git 版本提交與自動化測試 |
+| **深度對話輪次** | **26+ Conversational Turns** | 跨多天深度迭代之雙向協作工程歷程 |
+| **調用子代理人 (Subagents)** | **image-generator (Nano Banana)**<br>**browser (Playwright Chromium)** | 用於建築原創圖紙生成與即時無快取瀏覽器實機視覺驗證 |
 
-> **AI 使用量截圖存檔**：`docs/ai_usage_screenshot.png`  
-> 圖片直連：[https://raw.githubusercontent.com/ms0780935/architecture-portfolio/main/docs/ai_usage_screenshot.png](https://raw.githubusercontent.com/ms0780935/architecture-portfolio/main/docs/ai_usage_screenshot.png)
-
----
-
-## 二、階段性開發歷程與技術決策紀錄
-
-### 階段一：專案架構建立與 Divisare 極簡編輯風格奠定
-- **使用者需求**：建構以 [Divisare.com](https://divisare.com/) 為典範的建築系五年學習歷程作品集，具備一至五年級時間軸與建築設計、選修、研究專題分類。
-- **AI 執行內容**：
-  - 規劃純白高對比編輯架構（`#fcfbf9` 紙本底色搭配 `#111111` 墨黑文字與襯線體標題）。
-  - 建立 10 件涵蓋大一至大五完整作品的雙語建築資料庫（`js/data.js`），每案皆具備基地、類型、指導教授、論述概念與原創構造向量圖。
-
-### 階段二：本機裝置圖片抽換與 IndexedDB v2 持久化儲存引擎
-- **使用者需求**：使用者需能直接從電腦選取或拖曳個人建築手繪、CAD 或渲染圖替換作品集圖片，並能在重新整理後保留。
-- **AI 執行內容**：
-  - 開發 `js/storage.js`，導入瀏覽器原生 IndexedDB v2 非同步資料庫，支援多圖陣列持久化。
-  - 支援單圖覆蓋、多圖依序擴充、一鍵恢復原創圖紙，以及全站資料 JSON 備份匯出與匯入功能。
-
-### 階段三：全站中英雙語 i18n 與時間軸／課程分類雙向篩選
-- **使用者需求**：支援國際化中英文切換，並能依年級與課程領域快速檢索。
-- **AI 執行內容**：
-  - 實作無重載的動態 i18n 字典系統，所有標題、概念論述、按鈕與標籤皆在 0.1 秒內無縫切換。
-  - 設計「建築設計 (一~五) / 選修 / 研究」與「Yr 1 ~ Yr 5」雙重聯動篩選列，附帶即時作品計數徽章。
-
-### 階段四：12 頁專業期末簡報 (.pptx) 自動生成與課程評量對照
-- **使用者需求**：依據評量指標產出 10-15 頁可編輯期末簡報（含演講備忘稿），並與期末評分標準無縫對照。
-- **AI 執行內容**：
-  - 使用 Python `python-pptx` 撰寫自動排版腳本，生成 12 頁寬螢幕 16:9 建築風格簡報檔（`architecture_portfolio_presentation.pptx`）。
-  - 每一頁均附帶專業演講備忘稿（Speaker Notes）；並將二進位簡報檔案成功上傳至課程 API。
-
-### 階段五：周榮敬建築師指導資料更新與選修課多圖擴充
-- **使用者需求**：將大四建築設計指導老師更正為「周榮敬 建築師 / Arch. Jung-Ching Chou」，並為大二選修「大稻埕街屋立面構造演變與騎樓空間實地踏查」擴充 3 張現場照片與 3 張測繪圖。
-- **AI 執行內容**：
-  - 更新資料集並自動同步至訪客桌面捷徑檔 `修改作品文字_data.js`。
-  - 導入大稻埕迪化街現場踏查照片與高精度立面測繪圖，使該專案擴展為 6 張完整專題檔案。
-
-### 階段六：作品分頁垂直多圖串流（Vertical Stream）與手動排序、底端新增
-- **使用者需求**：作品集分頁中圖片依序由上至下排列，每張照片可手動上移／下移，並在最後一張圖片下方提供新增照片按鈕。
-- **AI 執行內容**：
-  - 在 `index.html` 與 `js/app.js` 重構為直式圖紙串流（`.reader-images-stream`）。
-  - 為每張照片頂部新增 `▲ 上移` 與 `▼ 下移` 按鈕，調動順序時自動同步更新儲存至 IndexedDB。
-  - 在最底端設置大尺寸虛線區域按鈕 `➕ 在最下方新增照片 (由本機選取)`，支援多選檔案一次批次接續。
-
-### 階段七：微軟 Aptos 原廠字體引入與純文字立體金屬銀色 LOGO
-- **使用者需求**：依據上傳參考圖片樣式，在左上角生成金屬銀色純文字 LOGO，字體為 Aptos，全大寫 PORTFOLIO，字元間距緊密。
-- **AI 執行內容**：
-  - 下載微軟原廠 Aptos ExtraBold 與 Aptos Display 字型檔案至 `assets/fonts/`，以 `@font-face` 本地封裝。
-  - 以純 HTML/CSS 向量文字架構（`<span class="portfolio-metallic-text">PORTFOLIO</span>`）製作，設定 `letter-spacing: -0.052em`。
-  - 運用多階銀白光影漸層、頂部白色高光倒角與多重實體環境陰影，重現高階金屬字牌的質感。
-
-### 階段八：Divisare 風格三模式外觀切換（白底日間、黑底夜間、瀏覽器個人模式）
-- **使用者需求**：參考 divisare.com 提供白底日間模式、黑底夜間模式，以及使用者個人瀏覽器模式。
-- **AI 執行內容**：
-  - 建立 CSS 變數體系，支援 `data-theme="light"`（暖白紙本 `#fcfbf9`）、`data-theme="dark"`（深邃黑畫廊 `#0c0c0c`），以及 `data-theme="auto"`（自動監聽 OS `prefers-color-scheme`）。
-  - 在頂部動作列加入 `[ ☼ 日間 | ☾ 夜間 | 🖥 系統 ]` 分段切換按鈕，並於 `<head>` 加入防閃爍立即執行腳本。
-
-### 階段九：空間微風實驗亭三張專案影像生成（構造圖紙、實體模型、空間影像）
-- **使用者需求**：依據 ARC-101「空間微風：輕質木構與重力感知實驗亭」概念生成圖紙、模型與空間影像三張照片。
-- **AI 執行內容**：
-  - **圖紙**：撰寫高精度向量圖紙 `assets/project-1-drawing.svg`（1:20 軸測構造分解圖、1:5 局部手作互承榫接節點、4.2 kN 重力傳遞箭頭、2.4 m/s 微氣候氣流導向向量與基地等高線）。
-  - **模型**：配置大一基本設計 1:1/1:20 柳杉角材互承骨架實體手作模型照片（`assets/project-1-model.jpg`）。
-  - **空間影像**：配置校園中庭草坪微氣候輕質木構空間實景與光影穿透氛圍照片（`assets/project-1-space.jpg`）。
-
-### 階段十：作品集圖片點擊開啟新分頁原尺寸預覽
-- **使用者需求**：作品集中的圖片可點擊並開啟新分頁原尺寸預覽。
-- **AI 執行內容**：
-  - 在閱讀器中為每張圖片設定 `cursor: zoom-in`，並在懸浮時浮現 `🔍 原尺寸預覽 ↗` 標籤。
-  - 在圖說欄與首頁卡片快捷列加入 `↗ 原尺寸預覽` 按鈕。
-  - 實作 Blob Object URL 轉換機制，確保 Base64 自訂圖片與 SVG 向量大圖均能順暢在新分頁以 100% 原尺寸開啟。
-
-### 階段十一：分頁導覽純箭頭化與關閉純符號化
-- **使用者需求**：作品集分頁中，上一個作品、下一個作品使用純箭頭（無文字），關閉使用 ✕ 符號。
-- **AI 執行內容**：
-  - 將前進／後退按鈕精簡為正方形純符號 `←` 與 `→`，關閉按鈕改為純 `✕`。
-  - 移除 `data-i18n` 覆蓋文字設定，保留鍵盤快速鍵與無障礙提示。
+> **AI 使用量截圖認證**：`docs/ai_usage_screenshot.png`  
+> 截圖直接存取：[https://raw.githubusercontent.com/ms0780935/architecture-portfolio/main/docs/ai_usage_screenshot.png](https://raw.githubusercontent.com/ms0780935/architecture-portfolio/main/docs/ai_usage_screenshot.png)
 
 ---
 
-## 三、自主驗證與品質保證機制
+## 二、階段性開發歷程與真實修改紀錄 (Changelog & Milestones)
 
-在整個開發過程中，AI 助手透過呼叫 **內建 Playwright 瀏覽器子代理人（Browser Subagent）** 進行真實端對端操作與視覺驗證：
-1. **即時 DOM 與樣式驗證**：自動載入 `http://localhost:8080/` 驗證元素結構、計算後 CSS 樣式及 RWD 排版。
-2. **主題切換動態測試**：模擬使用者手動點擊「☾ 夜間」、「☼ 日間」及「🖥 系統」，檢查背景色、字體對比與過渡效果。
-3. **分頁與鍵盤互動**：模擬點擊 `→` 測試作品專刊翻頁與 URL hash 深層連結更新。
-4. **視覺截圖存證**：每次重大更新皆由宿主系統自動捕獲 Host-Observed Screenshot 並記錄至日誌中，確保無任何破版。
+### 階段一：架構搭建與 Divisare 極簡編輯風格奠定
+- **需求**：建立以 [Divisare.com](https://divisare.com/) 為典範的建築作品集系統，具備五年歷程時間軸與雙向檢索維度。
+- **AI 實作**：
+  - 設計暖白紙本底色 `#fcfbf9`、墨黑文字 `#111111` 與現代襯線字體排版。
+  - 建構 10 件五年作品資料庫（`js/data.js`），每件作品收錄結構、材料、氣候概念與圖紙尺度。
+- **Commit**：`491d900`, `272b145`
+
+### 階段二：本機持久化儲存引擎（IndexedDB v2）
+- **需求**：打破靜態網站限制，讓同學免編程即可拖曳抽換個人 CAD 或手繪圖，重整頁面絕不丟失。
+- **AI 實作**：
+  - 開發 `js/storage.js`，封裝非同步 IndexedDB v2 資料庫，儲存客製圖紙。
+  - 支援拖曳上傳、多圖選取、圖紙重設與全站資料 JSON 備份匯出／匯入。
+- **Commit**：`aa53bb0`
+
+### 階段三：全站中英雙語 i18n 與時間軸／選修雙向連動
+- **需求**：支援 0.1 秒無刷新切換中英雙語，適應國際競圖與申請研究所需求。
+- **AI 實作**：
+  - 建立雙語詞庫與資料集，同步切換標題、專案論述與圖說。
+  - 設計「一至五年級等高線」與「建築設計／選修／研究」雙向連動篩選。
+- **Commit**：`a3b8b05`
+
+### 階段四：分頁垂直多圖串流（Vertical Stream）與手動排序
+- **需求**：單圖展示不足以交代完整設計，需支援直式多圖依序瀏覽與手動調整順序。
+- **AI 實作**：
+  - 重構彈窗為垂直串流 `.reader-images-stream`。
+  - 每張圖片新增「▲ 上移」與「▼ 下移」即時排序控制項，同步寫入 IndexedDB。
+- **Commit**：`68bca17`, `c9006cf`
+
+### 階段五：Aptos 原廠金屬銀字純 CSS 標誌
+- **需求**：替換點陣圖，以微軟原廠 Aptos 字型製作立體金屬銀色文字 LOGO。
+- **AI 實作**：
+  - 本地封裝 Aptos ExtraBold 字型檔，以純 CSS（`-0.052em` 緊密字距）打造多重金屬光澤漸層與陰影銘牌。
+- **Commit**：`757479f`
+
+### 階段六：Divisare 風格三模式主題切換
+- **需求**：支援日間紙本白底、夜間展覽館黑底與跟隨系統個人模式三態切換。
+- **AI 實作**：
+  - 導入 CSS 變數系統，支援 `data-theme="light"`（#fcfbf9）、`data-theme="dark"`（#0c0c0c）與 `data-theme="auto"`，於 `<head>` 注入防閃爍預載腳本。
+- **Commit**：`75b7978`
+
+### 階段七：作品圖紙點擊開啟新分頁原尺寸大圖預覽
+- **需求**：建築圖紙需支援高解析度 100% 原始比例檢視細節。
+- **AI 實作**：
+  - 設置圖片 `cursor: zoom-in`，並在右上角提供「↗ 原尺寸預覽」按鈕，以 Blob Object URL 技術實現安全無跨域新分頁全景預覽。
+- **Commit**：`6a0c265`
+
+### 階段八：極簡幾何符號化優化
+- **需求**：簡化彈窗導覽為純幾何符號，極大化圖紙閱讀視野。
+- **AI 實作**：
+  - 將文字按鈕改為純幾何箭頭 `←` / `→`，關閉按鈕改為純符號 `✕`。
+- **Commit**：`d60adbe`
+
+### 階段九：Divisare PROJECTS 建築本體論分類抽屜（Atlas Taxonomy）
+- **需求**：替代單調的全部作品按鈕，打造具有 8 大領域與 60+ 專業標籤的雙欄索引抽屜。
+- **AI 實作**：
+  - 左欄劃分 ELEMENTS、MATERIALITY、TYPES、TOPICS、IDEAS、CITIES、PLANS、SELECTED PROJECTS。
+  - 右欄三欄式排版 60+ 字母排序關鍵詞與展品數量徽章，點擊自動過濾並浮現可清除的 `#標籤 ✕` 藥丸按鈕。
+- **Commit**：`8ea8ad1`, `a70d4b1`
+
+### 階段十：Nano Banana 跨模態文本生成出版級原創圖紙
+- **需求**：為缺少高解析圖說之專案繪製具備真實紙質與尺度的出版級圖紙。
+- **AI 實作**：
+  - 調用 Gemini 2.5 Flash Image（Nano Banana）繪製：
+    * ARC-302 八斗子 1:200 耐候鋼懸挑剖面
+    * ARC-500 基隆港東岸 3 公里縫合總圖
+    * ELE-430 1:20 柳杉折板屋架榫接大樣
+    * RES-402 西門町 DepthmapX 空間句法熱力圖
+- **Commit**：`f040cea`
+
+### 階段十一：Google Docs 論文提煉新增大四選修 ELE-440 國宅專案
+- **需求**：依據兩份 Google Docs 研究報告（《國宅空間原型》與《大街廓國宅社區》），提煉內容新增大四選修專案；並將 RES-501 改名為《低密度迎季風面的微氣候與通風風廊 CFD 數值模擬》。
+- **AI 實作**：
+  - 深度提煉柯比意光輝城市與雷特朋理論，創建 ELE-440 專案與 1:50 原型向量圖紙。
+  - 精確修正 RES-501 題目與 OpenFOAM 向量圖。
+- **Commit**：`aa88b9b`, `2d77f4c`, `7415e38`
+
+### 階段十二：作品集多層級圖片刪除功能實作
+- **需求**：完整提供作品集中單張圖紙刪除、首圖刪除、批次清空與恢復預設功能。
+- **AI 實作**：
+  - 閱讀器彈窗頂端與底端配置「🗑 刪除此圖」按鈕。
+  - 當所有圖紙刪除後呈現極簡空狀態面板「[ 尚無圖紙 · NO ARCHITECTURAL DRAWINGS ]」與「➕ 上傳新圖紙」、「↺ 恢復預設圖紙」。
+  - 圖片管理中心新增縮圖條（Thumbnails Strip）與個別刪除叉號。
+- **Commit**：`0da3a2d`
+
+### 階段十三：本機上傳引擎除錯與非破壞性追加（Non-Destructive Append）
+- **需求**：修復線上拖曳上傳失效問題，且上傳新圖紙時應保留現有預設圖說，而非直接覆蓋。
+- **AI 實作**：
+  - 修復 `js/storage.js` 讀取未客製專案時 `null.length` 異常。
+  - 將上傳邏輯改為非破壞性追加（3 張預設圖 + 1 張上傳 = 4 張依序呈現）。
+  - 導入 HTML5 Canvas 自動採樣（> 2560px 或 > 1.5MB 自動平滑縮放），防止 IndexedDB 配額耗盡。
+- **Commit**：`0c5495c`, `104eb62`, `81ab7c0`
+
+### 階段十四：12 頁 16:9 Modernist Editorial 簡報系統與自動化交件
+- **需求**：參考使用者手繪塗鴉風格（Cobalt Blue Doodles）產出 12 頁簡報網頁與可編輯 16:9 PPTX / PDF，並完成課程平台交件。
+- **AI 實作**：
+  - 打造 `presentation.html`，具備鍵盤換頁、九宮格總覽與演講備忘稿（Speaker Notes）。
+  - 編寫 Python 自動化產生器輸出 `architecture_portfolio_presentation.pptx` 與印刷級 `ppt.pdf`。
+  - 透過課程後端 API（PATCH 二進位串流）完成交件（第 13 版，`hasPresentationFile: true`）。
+- **Commit**：`7a1fcef`, `29e809d`, `35918d1`
+
+---
+
+## 三、真實除錯與自主解決挑戰實錄 (Troubleshooting Log)
+
+1. **Windows PowerShell 語法相容問題**：
+   - *現象*：在 Windows 環境下使用 `&&` 串接命令會觸發 PowerShell 解析器錯誤。
+   - *解決*：改用分號 `;` 串接或編寫封閉式 Python 腳本執行多步檔案與 Git 操作。
+2. **本機 Webview 舊快取資料未更新**：
+   - *現象*：修改 `js/data.js` 與 `js/app.js` 後，本機快取導致畫面未即時反映最新專案。
+   - *解決*：在 `index.html` 引入版本號查詢字串（`?v=2.2`），並調用 Playwright 子代理人以無快取模式進行視覺確認。
+3. **夜間模式下長篇論述對比度不足**：
+   - *現象*：`.essay-body` 樣式先前硬編碼為 `#222`，切換至黑底夜間模式時文字無法閱讀。
+   - *解決*：重構為動態語意變數 `color: var(--text-main)`，白底時為深墨黑（`#111111`），黑底時自動轉為亮白（`#f2f2f2`）。
+4. **本機圖片上傳 `TypeError` 阻斷**：
+   - *現象*：上傳新照片時，未曾修改過圖紙的專案在 IndexedDB 中回傳 `null`，引發 `Cannot read properties of null (reading 'length')`。
+   - *解決*：在 `js/storage.js` 的 `addImageToProject` 與 `removeImageAt` 加入防禦性數組檢查，保證容錯穩定性。

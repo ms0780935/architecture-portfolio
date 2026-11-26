@@ -1,8 +1,8 @@
 # ARCH / FOLIO — 建築系學生五年學習歷程與設計作品集
 
 > **期末專案作品** · 自然科學與人工智慧課程  
-> **風格典範**：參考 [Divisare](https://divisare.com/) 極簡編輯排版與直覺式分頁閱讀  
-> **核心特色**：一至五年級時間軸與三向度課程分類、本機裝置圖片抽換與備份機制、RWD 響應式排版、中英雙語系（i18n）
+> **風格典範**：參考 [Divisare.com](https://divisare.com/) 極簡編輯排版與直覺式分頁閱讀  
+> **核心特色**：11 件作品收錄、PROJECTS 建築分類抽屜（60+ 標籤）、IndexedDB 本機圖紙持久化抽換與刪除、Aptos 金屬銀字 LOGO、三模式外觀主題、RWD 響應式排版、全站中英雙語系（i18n）、12 頁現代主義編輯風簡報（HTML / PPTX / PDF）
 
 ---
 
@@ -11,69 +11,47 @@
 本專案旨在解決建築系學生在整理五年龐大學習圖紙時，面臨的「更新繁瑣」、「檔案分散」與「國際化展示不易」等痛點。
 透過借鑒國際當代建築指標媒體 **Divisare** 的極簡編輯美學，打造一個聚焦於建築圖紙本質、具備優雅排版、沉浸式閱讀體驗的高效作品集檔案庫。
 
-### 📚 作品分類架構
+### 📚 作品分類架構（收錄 11 件作品）
 1. **時間軸向度 (Timeline)**：五個年級（Year 1 到 Year 5 / 2021 ~ 2025）循序展開
 2. **課程向度 (Curriculum Classification)**：
    - **建築設計 (一到五年級)**：從大一基本設計木構感知、大二斜坡集合住宅、大三八斗子潮汐圖書館、大四萬華垂直生態農園，至大五基隆港東岸都市地景縫合畢業設計。
-   - **選修科目**：包含參數化微氣候立面（Grasshopper）、歷史街屋測繪（大稻埕）、膠合木折板結構原型。
-   - **研究專題**：高密度街道峽谷 CFD 風廊模擬、西門町空間句法（Space Syntax）拓樸分析。
+   - **選修科目**：包含參數化微氣候立面（Grasshopper）、歷史街屋測繪（大稻埕）、膠合木折板結構原型，以及依據兩份國宅研究報告提煉新增之「台灣 1970-1980 年代國宅空間原型與大街廓社區批判研究（ELE-440）」。
+   - **研究專題**：低密度迎季風面的微氣候與通風風廊 CFD 數值模擬（RES-501）、西門町空間句法（Space Syntax）拓樸分析（RES-402）。
+3. **Divisare PROJECTS 建築分類抽屜**：
+   - 劃分 8 大本體論領域（ELEMENTS 構件、MATERIALITY 材料工法、TYPES 類型、TOPICS 微氣候、IDEAS 概念、CITIES 基地、PLANS 尺度、SELECTED PROJECTS 專案目錄）。
+   - 收錄 60+ 個英文字母排序標籤與展品數量徽章，支援即時交互篩選。
 
 ---
 
 ## ⚙️ 核心技術與功能實踐
 
-### 1. 本機裝置圖片抽換機制（落實資料管理加分項目 +10分）
-- **免資料庫登入、無隱私疑慮**：整合瀏覽器原生 **IndexedDB** 儲存引擎，支援從個人電腦直接拖曳或選取 JPG、PNG、WEBP、SVG 圖紙。
-- **持久化保存**：抽換後的圖紙自動儲存於瀏覽器本地，重新整理或離線使用皆不遺失。
-- **資料備份與還原**：提供「匯出備份 JSON」與「匯入備份」功能，隨時備份整套個人化作品集圖檔。
+### 1. 本機裝置圖片持久化與非破壞性抽換管理（落實資料管理加分項目 +10分）
+- **IndexedDB v2 離線持久化**：整合瀏覽器原生非同步儲存引擎，支援從本機直接拖曳或選取 JPG、PNG、WEBP、SVG 圖紙，重新整理頁面永不丟失。
+- **非破壞性追加（Non-Destructive Append）**：上傳新圖紙時自動保留現有預設圖說並追加於底端，並內建 HTML5 Canvas 大圖自動採樣防止配額耗盡。
+- **多層級完整刪除機制**：
+  * 閱讀器頂端與底端操作列提供「🗑 刪除此圖」與「▲ 上移 / ▼ 下移」即時手動微調。
+  * 圖紙全數刪除後顯示極簡空狀態面板「[ 尚無圖紙 · NO ARCHITECTURAL DRAWINGS ]」與「➕ 上傳新圖紙」、「↺ 恢復預設圖紙」。
+  * 首頁專案卡片 Hover 提供「🗑 刪除首圖」與「↺ 恢復預設」快捷按鈕。
+  * 圖片管理中心提供橫向縮圖條（Thumbnails Strip）與個別刪除按鈕。
+- **資料備份與還原**：提供「匯出備份 JSON」與「匯入備份」功能，支援跨裝置移轉。
 
-### 2. Divisare 風格之極簡編輯排版與沉浸式分頁
-- **嚴謹字級與版面率**：採用 Cinzel 襯線標題搭配 Inter / Noto Serif TC，營造雜誌書頁質感。
-- **分頁閱讀（Pagination）**：在單一作品視窗中，可直接點擊「上一個作品 / 下一個作品」或透過鍵盤左右鍵（`←` / `→`）流暢切換，並具備深層連結（URL Hash）。
+### 2. 品牌工藝與無障礙感官體驗
+- **Aptos 金屬銀字純 CSS 標誌**：本地封裝微軟原廠 Aptos ExtraBold 字型，以負字距（`-0.052em`）、多重金屬銀白光影漸層與實體陰影呈現立體銘牌。
+- **三模式主題切換**：支援「☼ 日間」（#fcfbf9 紙本白底）、「☾ 夜間」（#0c0c0c 展覽館深黑）與「🖥 系統」（跟隨 OS 設定），具備預載防閃爍機制。
+- **原尺寸新分頁全景預覽**：圖片具備 `cursor: zoom-in`，並提供 Blob URL 技術實現新分頁 100% 原始解析度檢視。
 
-### 3. 多國語系（中/英 i18n）即時切換
-- 全站建構雙語辭典與作品資料庫，一鍵在「繁體中文」與「English」之間秒級切換，便於國際競圖與留學申請。
-
-### 4. RWD 全平台響應式設計
-- 手機、平板與桌機無縫適配，流暢支援觸控與滑鼠操作。
-
----
-
-## 🚀 如何推送至 GitHub 並部署到 Vercel
-
-### 第一步：在 GitHub 建立專案庫
-1. 登入您的 [GitHub](https://github.com/) 帳號，點擊右上角 **New repository**。
-2. 專案庫名稱可設定為 `architecture-portfolio`，設為 **Public**，不需勾選額外的 README 初始化。
-3. 建立後取得專案庫網址，例如：`https://github.com/您的帳號/architecture-portfolio.git`。
-
-### 第二步：推送程式碼（本地已安裝 Git）
-在專案目錄下開啟終端機，執行以下指令：
-```bash
-cd "C:\Users\USER\.gemini\antigravity\scratch\architecture-portfolio"
-git remote add origin https://github.com/您的帳號/architecture-portfolio.git
-git branch -M main
-git push -u origin main
-```
-
-### 第三步：在 Vercel 部署上線
-1. 登入 [Vercel](https://vercel.com/)，點擊 **Add New Project**。
-2. 選擇剛才推送的 `architecture-portfolio` 專案庫，點擊 **Import**。
-3. Framework Preset 選擇 **Other**（純靜態網頁，無需設定 Build Command），直接點擊 **Deploy**。
-4. 約 30 秒內即可取得公開上線網址（例如 `https://architecture-portfolio-xxx.vercel.app`）！
+### 3. 12 頁現代主義編輯風簡報系統（16:9 Widescreen）
+- **線上簡報網頁**：[https://architecture-portfolio-drab.vercel.app/presentation.html](https://architecture-portfolio-drab.vercel.app/presentation.html)，支援鍵盤方向鍵換頁、九宮格總覽與演講備忘稿。
+- **一鍵下載功能**：導覽列直接提供「📥 下載 PPTX」與「📄 下載 PDF」按鈕。
+- **可編輯 PPTX 產生器**：使用 Python 自動生成純向量 16:9 PowerPoint 簡報檔。
 
 ---
 
-## 📊 評分標準自我檢核表 (100 / 100)
+## 🔗 線上部署與成果存取
 
-| 評分項目 | 項目滿分 | 本專案實踐成果 |
-| :--- | :---: | :--- |
-| **主題與使用情境** | 10 分 | 明確定位建築系學生五年成果展現，整合時間軸與課程分類。 |
-| **網站內容與基本功能** | 20 分 | 完整收錄 11 件建築設計、選修與研究作品，具備搜尋、篩選與圖紙檢視。 |
-| **實際展示與操作** | 15 分 | 現場可示範卡片預覽、檔案分頁切換、鍵盤快捷鍵與本機圖片抽換。 |
-| **AI 使用與改善說明** | 10 分 | 紀錄關鍵提示詞、記錄三項具體改善前後對照。 |
-| **組員分工／個人貢獻** | 5 分 | 提出 Divisare 排版、本機圖檔抽換與中英雙語核心規格。 |
-| **加分一：作品上線** | +10 分 | 支援 Vercel 部署並提供公開網址。 |
-| **加分二：管理／資料功能** | +10 分 | 實現從本機裝置抽換圖紙、重設及 JSON 備份匯出匯入功能。 |
-| **加分三：個人貢獻** | +10 分 | 完整 Git commit 提交歷史與客製化程式碼。 |
-| **加分四：完成度與創意** | +10 分 | 媲美現代建築媒體 Divisare 的高完成度美學與原創向量圖紙。 |
-| **總計** | **100 分** | **全數指標達成** |
+- **雲端正式網站**：[https://architecture-portfolio-drab.vercel.app/](https://architecture-portfolio-drab.vercel.app/)
+- **線上簡報系統**：[https://architecture-portfolio-drab.vercel.app/presentation.html](https://architecture-portfolio-drab.vercel.app/presentation.html)
+- **簡報 PDF 檔案**：[https://architecture-portfolio-drab.vercel.app/ppt.pdf](https://architecture-portfolio-drab.vercel.app/ppt.pdf)
+- **AI 開發歷程全紀錄**：[docs/AI_DEVELOPMENT_LOG.md](docs/AI_DEVELOPMENT_LOG.md)
+- **GitHub 貢獻提交紀錄**：[docs/GITHUB_CONTRIBUTION_RECORD.md](docs/GITHUB_CONTRIBUTION_RECORD.md)
+- **課程期末專題認證**：[https://yinchen.tw/zh-TW/courses/ai/final-project](https://yinchen.tw/zh-TW/courses/ai/final-project?member=2725c9bf-67ab-49c3-b3f4-768fdcca503c&lang=zh-Hant-TW#key=kL_jn8jN0gj9fwI0-nMtk4A2Tx7CB74AOlR1Pv79HBA)
