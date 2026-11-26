@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e2e2" stroke-width="0.75" opacity="0.6"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="#f8f8f7"/>
+  <rect width="1200" height="800" fill="url(#archGrid)"/>
+  
+  <!-- Outer border & corner crosshairs -->
+  <rect x="40" y="40" width="1120" height="720" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="8 6"/>
+  
+  <!-- Corner marks -->
+  <path d="M 30 40 L 50 40 M 40 30 L 40 50" stroke="#888" stroke-width="1.5"/>
+  <path d="M 1150 40 L 1170 40 M 1160 30 L 1160 50" stroke="#888" stroke-width="1.5"/>
+  <path d="M 30 760 L 50 760 M 40 750 L 40 770" stroke="#888" stroke-width="1.5"/>
+  <path d="M 1150 760 L 1170 760 M 1160 750 L 1160 770" stroke="#888" stroke-width="1.5"/>
+  
+  <!-- Center symbol -->
+  <circle cx="600" cy="370" r="42" fill="none" stroke="#bbb" stroke-width="1.5"/>
+  <path d="M 580 370 L 620 370 M 600 350 L 600 390" stroke="#999" stroke-width="1.5"/>
+  <rect x="586" y="356" width="28" height="28" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Text Info -->
+  <text x="600" y="450" text-anchor="middle" font-family="'Courier New', monospace, sans-serif" font-size="16" letter-spacing="3" fill="#666" font-weight="600">[ NO ARCHITECTURAL DRAWINGS ]</text>
+  <text x="600" y="480" text-anchor="middle" font-family="'Aptos', -apple-system, 'PingFang TC', sans-serif" font-size="14" letter-spacing="1" fill="#999">此作品圖紙目前已全數移除 · 點選「新增圖片」上傳或「恢復預設圖紙」</text>
+  <text x="600" y="510" text-anchor="middle" font-family="'Courier New', monospace, sans-serif" font-size="11" letter-spacing="1" fill="#aaa">ARCH/FOLIO LOCAL STORAGE ENGINE · INDEXEDDB PERSISTED</text>
+</svg>

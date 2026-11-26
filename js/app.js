@@ -568,6 +568,34 @@ class ArchApp {
     }
   }
 
+  getActiveImagesForProject(proj) {
+    if (proj.id in this.customImages) {
+      const customList = this.customImages[proj.id];
+      if (Array.isArray(customList)) {
+        return customList.map((item, i) => ({
+          id: item.id || `custom-${i}`,
+          src: item.src,
+          name: item.name || `Custom Image ${i + 1}`,
+          isCustom: true
+        }));
+      }
+    }
+    if (proj.drawings && proj.drawings.length > 0) {
+      return proj.drawings.map((d, i) => ({
+        id: `def-${i}`,
+        src: d.src,
+        name: (d.label && d.label[this.currentLang]) ? d.label[this.currentLang] : (d.type || `Drawing ${i + 1}`),
+        isCustom: false
+      }));
+    }
+    return [{
+      id: 'def-0',
+      src: proj.defaultImage,
+      name: proj.title[this.currentLang],
+      isCustom: false
+    }];
+  }
+
   renderGrid() {
     const grid = document.getElementById("projects-grid");
     if (!grid) return;
@@ -586,10 +614,11 @@ class ArchApp {
     }
 
     this.filteredProjects.forEach((proj, idx) => {
-      const customList = this.customImages[proj.id];
-      const isCustom = Array.isArray(customList) && customList.length > 0;
-      const imgSrc = isCustom ? customList[0].src : proj.defaultImage;
-      const imgCount = isCustom ? customList.length : (proj.drawings ? proj.drawings.length : 1);
+      const activeImages = this.getActiveImagesForProject(proj);
+      const isCustom = proj.id in this.customImages;
+      const hasImages = activeImages.length > 0;
+      const imgSrc = hasImages ? activeImages[0].src : "assets/placeholder-empty.svg";
+      const imgCount = activeImages.length;
 
       const card = document.createElement("article");
       card.className = "project-card";
@@ -601,20 +630,38 @@ class ArchApp {
           <img src="${imgSrc}" alt="${proj.title[this.currentLang]}" class="card-img" loading="lazy">
           <div class="card-badges">
             <span class="badge-year">${proj.period} · ${proj.yearLabel[this.currentLang]}</span>
-            <span class="${isCustom ? 'badge-custom' : 'badge-default'}">
-              ${isCustom ? `● ${imgCount} ${t.imgSeqBadge || '圖紙'}` : `○ ${imgCount} ${t.imgSeqBadge || '圖紙'}`}
-            </span>
+            ${!hasImages ? `
+              <span class="badge-custom" style="background: rgba(184, 80, 66, 0.15); color: var(--accent-terra);">
+                ● 0 ${t.emptyStateBadge || '尚無圖紙'}
+              </span>
+            ` : `
+              <span class="${isCustom ? 'badge-custom' : 'badge-default'}">
+                ${isCustom ? `● ${imgCount} ${t.imgSeqBadge || '圖紙'}` : `○ ${imgCount} ${t.imgSeqBadge || '圖紙'}`}
+              </span>
+            `}
           </div>
           <div class="card-quick-actions">
             <button class="btn-card-action" data-action="view">
               <span>📖 ${t.viewDetails}</span>
             </button>
-            <button class="btn-card-action" data-action="quick-upload">
+            <button class="btn-card-action" data-action="quick-upload" title="${t.quickReplace}">
               <span>📷 ${t.quickReplace}</span>
             </button>
-            <button class="btn-card-action" data-action="open-full" data-src="${imgSrc}" title="${t.zoomHint || '原尺寸預覽'}">
-              <span>🔍 ${t.openFullSize || '原尺寸'} ↗</span>
-            </button>
+            ${hasImages ? `
+              <button class="btn-card-action btn-card-delete" data-action="quick-delete" title="${t.deleteCardImg || '刪除首圖'}">
+                <span>🗑 ${t.deleteCardImg || '刪除首圖'}</span>
+              </button>
+            ` : ''}
+            ${isCustom ? `
+              <button class="btn-card-action" data-action="quick-reset" title="${t.resetDefaults}">
+                <span>↺ ${t.restoreDefault || '恢復預設'}</span>
+              </button>
+            ` : ''}
+            ${hasImages ? `
+              <button class="btn-card-action" data-action="open-full" data-src="${imgSrc}" title="${t.zoomHint || '原尺寸預覽'}">
+                <span>🔍 ${t.openFullSize || '原尺寸'} ↗</span>
+              </button>
+            ` : ''}
           </div>
         </div>
 
@@ -650,6 +697,22 @@ class ArchApp {
         btnQuickUpload.addEventListener("click", (e) => {
           e.stopPropagation();
           this.triggerQuickUpload(proj.id);
+        });
+      }
+
+      const btnQuickDelete = card.querySelector('[data-action="quick-delete"]');
+      if (btnQuickDelete) {
+        btnQuickDelete.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await this.quickDeleteProjectImage(proj);
+        });
+      }
+
+      const btnQuickReset = card.querySelector('[data-action="quick-reset"]');
+      if (btnQuickReset) {
+        btnQuickReset.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await this.resetProjectImage(proj.id);
         });
       }
 
@@ -695,33 +758,8 @@ class ArchApp {
 
   renderReaderModal(proj) {
     const t = I18N[this.currentLang];
-    const customList = this.customImages[proj.id];
-    const isCustom = Array.isArray(customList) && customList.length > 0;
-
-    // Build the ordered list of images (from top to bottom)
-    let activeImages = [];
-    if (isCustom) {
-      activeImages = customList.map((item, i) => ({
-        id: item.id || `custom-${i}`,
-        src: item.src,
-        name: item.name || `Custom Image ${i + 1}`,
-        isCustom: true
-      }));
-    } else if (proj.drawings && proj.drawings.length > 0) {
-      activeImages = proj.drawings.map((d, i) => ({
-        id: `def-${i}`,
-        src: d.src,
-        name: (d.label && d.label[this.currentLang]) ? d.label[this.currentLang] : (d.type || `Drawing ${i + 1}`),
-        isCustom: false
-      }));
-    } else {
-      activeImages = [{
-        id: 'def-0',
-        src: proj.defaultImage,
-        name: proj.title[this.currentLang],
-        isCustom: false
-      }];
-    }
+    const activeImages = this.getActiveImagesForProject(proj);
+    const isCustom = proj.id in this.customImages;
 
     // Counter & Nav states
     const counter = document.getElementById("reader-counter");
@@ -763,7 +801,7 @@ class ArchApp {
       countBadge.textContent = `${activeImages.length} ${t.imgSeqBadge || '圖紙'} · ${this.currentLang === 'zh' ? '依序由上至下展示' : 'Ordered Vertically'}`;
     }
 
-    // Reset button visibility
+    // Reset button visibility (shown whenever images have been customized or modified)
     const btnReset = document.getElementById("btn-reset-single-image");
     if (btnReset) {
       btnReset.style.display = isCustom ? "inline-flex" : "none";
@@ -772,84 +810,114 @@ class ArchApp {
     // Render Sequential Vertical Images Stream (依序由上至下排列)
     const streamContainer = document.getElementById("reader-images-stream");
     if (streamContainer) {
-      streamContainer.innerHTML = activeImages.map((imgItem, idx) => `
-        <div class="stream-image-block" data-img-index="${idx}">
-          <div class="stream-img-top-meta">
-            <span style="font-weight: 700; color: var(--text-main);">
-              ${t.imgSeqBadge || 'FIG.'} ${String(idx + 1).padStart(2, '0')} / ${String(activeImages.length).padStart(2, '0')}
-              <span style="margin-left: 0.5rem; font-weight: normal; font-size: 0.72rem; color: var(--text-light); text-transform: uppercase;">
+      if (activeImages.length === 0) {
+        streamContainer.innerHTML = `
+          <div class="stream-empty-state">
+            <div class="stream-empty-icon">⊘</div>
+            <h3 class="stream-empty-title">[ ${t.noDrawingsTitle || '此作品圖紙已全數刪除'} ]</h3>
+            <p class="stream-empty-desc">${t.noDrawingsDesc || '目前此作品檔案庫中沒有圖紙。您可以點擊下方按鈕上傳個人新圖紙，或隨時點擊「恢復預設圖紙」還原。'}</p>
+            <div class="stream-empty-actions">
+              <button class="btn-editorial btn-accent" id="btn-empty-add-img">
+                ➕ ${t.btnAddImage || '新增圖片 (由本機選取)'}
+              </button>
+              <button class="btn-editorial" id="btn-empty-reset-img" style="color: var(--accent-terra);">
+                ↺ ${t.resetDefaults || '恢復預設圖紙'}
+              </button>
+            </div>
+          </div>
+        `;
+        const btnEmptyAdd = streamContainer.querySelector("#btn-empty-add-img");
+        if (btnEmptyAdd) {
+          btnEmptyAdd.addEventListener("click", () => {
+            const input = document.getElementById("reader-image-input");
+            if (input) input.click();
+          });
+        }
+        const btnEmptyReset = streamContainer.querySelector("#btn-empty-reset-img");
+        if (btnEmptyReset) {
+          btnEmptyReset.addEventListener("click", () => this.resetProjectImage(proj.id));
+        }
+      } else {
+        streamContainer.innerHTML = activeImages.map((imgItem, idx) => `
+          <div class="stream-image-block" data-img-index="${idx}">
+            <div class="stream-img-top-meta">
+              <span style="font-weight: 700; color: var(--text-main);">
+                ${t.imgSeqBadge || 'FIG.'} ${String(idx + 1).padStart(2, '0')} / ${String(activeImages.length).padStart(2, '0')}
+                <span style="margin-left: 0.5rem; font-weight: normal; font-size: 0.72rem; color: var(--text-light); text-transform: uppercase;">
+                  ${imgItem.name || ''}
+                </span>
+              </span>
+              <div class="stream-img-actions">
+                <button class="btn-order-img" data-action="move-up" data-index="${idx}" ${idx === 0 ? 'disabled' : ''} title="${t.moveUp || '上移'}">
+                  ${t.moveUp || '▲ 上移'}
+                </button>
+                <button class="btn-order-img" data-action="move-down" data-index="${idx}" ${idx === activeImages.length - 1 ? 'disabled' : ''} title="${t.moveDown || '下移'}">
+                  ${t.moveDown || '▼ 下移'}
+                </button>
+                <button class="btn-delete-img" data-action="delete-stream-img" data-index="${idx}" title="${t.deleteSingleImg || '刪除此圖'}">
+                  🗑 ${t.deleteSingleImg || '刪除此圖'}
+                </button>
+              </div>
+            </div>
+            <div class="stream-image-frame" data-action="open-full" data-src="${imgItem.src}" title="${t.zoomHint || '點擊於新分頁開啟原尺寸大圖預覽'}">
+              <img src="${imgItem.src}" class="stream-img" alt="${imgItem.name || proj.title[this.currentLang]}" loading="lazy">
+              <span class="stream-zoom-badge">🔍 ${t.openFullSize || '原尺寸預覽'} ↗</span>
+            </div>
+            <div class="stream-img-caption-bar">
+              <span>
+                ${imgItem.isCustom ? `<strong style="color: #145a54;">[ ${t.customBadge} ]</strong>` : `<span style="color: var(--text-light);">[ ${t.defaultBadge} ]</span>`}
                 ${imgItem.name || ''}
               </span>
-            </span>
-            <div class="stream-img-actions">
-              <button class="btn-order-img" data-action="move-up" data-index="${idx}" ${idx === 0 ? 'disabled' : ''} title="${t.moveUp || '上移'}">
-                ${t.moveUp || '▲ 上移'}
-              </button>
-              <button class="btn-order-img" data-action="move-down" data-index="${idx}" ${idx === activeImages.length - 1 ? 'disabled' : ''} title="${t.moveDown || '下移'}">
-                ${t.moveDown || '▼ 下移'}
-              </button>
-            </div>
-          </div>
-          <div class="stream-image-frame" data-action="open-full" data-src="${imgItem.src}" title="${t.zoomHint || '點擊於新分頁開啟原尺寸大圖預覽'}">
-            <img src="${imgItem.src}" class="stream-img" alt="${imgItem.name || proj.title[this.currentLang]}" loading="lazy">
-            <span class="stream-zoom-badge">🔍 ${t.openFullSize || '原尺寸預覽'} ↗</span>
-          </div>
-          <div class="stream-img-caption-bar">
-            <span>
-              ${imgItem.isCustom ? `<strong style="color: #145a54;">[ ${t.customBadge} ]</strong>` : `<span style="color: var(--text-light);">[ ${t.defaultBadge} ]</span>`}
-              ${imgItem.name || ''}
-            </span>
-            <div style="display: inline-flex; align-items: center; gap: 0.4rem;">
-              <button class="btn-preview-full" data-action="open-full" data-src="${imgItem.src}" title="${t.zoomHint || '點擊於新分頁開啟原尺寸大圖預覽'}">
-                ↗ ${t.openFullSize || '原尺寸預覽'}
-              </button>
-              ${imgItem.isCustom ? `
-                <button class="btn-delete-img" data-action="delete-stream-img" data-index="${idx}" title="${t.deleteSingleImg || '移除此圖'}">
-                  ✕ ${t.deleteSingleImg || '移除此圖'}
+              <div style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                <button class="btn-preview-full" data-action="open-full" data-src="${imgItem.src}" title="${t.zoomHint || '點擊於新分頁開啟原尺寸大圖預覽'}">
+                  ↗ ${t.openFullSize || '原尺寸預覽'}
                 </button>
-              ` : ''}
+                <button class="btn-delete-img" data-action="delete-stream-img" data-index="${idx}" title="${t.deleteSingleImg || '刪除此圖'}">
+                  🗑 ${t.deleteSingleImg || '刪除此圖'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      `).join("");
+        `).join("");
 
-      // Bind Full-Size Image Preview (點擊開啟新分頁原尺寸預覽)
-      streamContainer.querySelectorAll('[data-action="open-full"]').forEach(el => {
-        el.addEventListener("click", (e) => {
-          e.stopPropagation();
-          this.openFullSizePreview(el.dataset.src);
+        // Bind Full-Size Image Preview (點擊開啟新分頁原尺寸預覽)
+        streamContainer.querySelectorAll('[data-action="open-full"]').forEach(el => {
+          el.addEventListener("click", (e) => {
+            e.stopPropagation();
+            this.openFullSizePreview(el.dataset.src);
+          });
         });
-      });
 
-      // Bind reordering (Move Up / Move Down)
-      streamContainer.querySelectorAll('[data-action="move-up"]').forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const targetIdx = parseInt(btn.dataset.index, 10);
-          if (targetIdx > 0) {
-            await this.moveImageInStream(proj.id, targetIdx, targetIdx - 1, activeImages);
-          }
+        // Bind reordering (Move Up / Move Down)
+        streamContainer.querySelectorAll('[data-action="move-up"]').forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            e.stopPropagation();
+            const targetIdx = parseInt(btn.dataset.index, 10);
+            if (targetIdx > 0) {
+              await this.moveImageInStream(proj.id, targetIdx, targetIdx - 1, activeImages);
+            }
+          });
         });
-      });
 
-      streamContainer.querySelectorAll('[data-action="move-down"]').forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const targetIdx = parseInt(btn.dataset.index, 10);
-          if (targetIdx < activeImages.length - 1) {
-            await this.moveImageInStream(proj.id, targetIdx, targetIdx + 1, activeImages);
-          }
+        streamContainer.querySelectorAll('[data-action="move-down"]').forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            e.stopPropagation();
+            const targetIdx = parseInt(btn.dataset.index, 10);
+            if (targetIdx < activeImages.length - 1) {
+              await this.moveImageInStream(proj.id, targetIdx, targetIdx + 1, activeImages);
+            }
+          });
         });
-      });
 
-      // Bind delete single image buttons
-      streamContainer.querySelectorAll('[data-action="delete-stream-img"]').forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const targetIdx = parseInt(btn.dataset.index, 10);
-          await this.deleteImageFromStream(proj.id, targetIdx);
+        // Bind delete single image buttons
+        streamContainer.querySelectorAll('[data-action="delete-stream-img"]').forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            e.stopPropagation();
+            const targetIdx = parseInt(btn.dataset.index, 10);
+            await this.deleteImageFromStream(proj.id, targetIdx, activeImages);
+          });
         });
-      });
+      }
     }
 
     // Architectural Essay
@@ -952,8 +1020,72 @@ class ArchApp {
     window.open(src, "_blank", "noopener,noreferrer");
   }
 
-  async deleteImageFromStream(projectId, index) {
-    await window.archStorage.removeImageAt(projectId, index);
+  async deleteImageFromStream(projectId, index, currentImages) {
+    const t = I18N[this.currentLang];
+    const images = currentImages || this.getActiveImagesForProject(ARCH_PROJECTS.find(p => p.id === projectId));
+    if (!images || images.length === 0 || index < 0 || index >= images.length) return;
+
+    const itemToDelete = images[index];
+    const itemName = itemToDelete ? (itemToDelete.name || `第 ${index + 1} 張`) : `第 ${index + 1} 張`;
+    const confirmMsg = this.currentLang === 'zh'
+      ? `確定要刪除圖紙「${itemName}」嗎？\n\n（刪除後變更將自動儲存於本機 IndexedDB，若需還原可隨時點擊「恢復預設圖紙」）`
+      : `Are you sure you want to delete "${itemName}"?\n\n(Saved locally to IndexedDB. You can restore default drawings anytime.)`;
+
+    if (!confirm(confirmMsg)) return;
+
+    // Filter out the image at index
+    const remaining = images.filter((_, i) => i !== index).map(item => ({
+      id: item.id || ("img-" + Math.random().toString(36).substr(2, 7)),
+      src: item.src,
+      name: item.name,
+      isCustom: true
+    }));
+
+    // Save to storage
+    await window.archStorage.saveProjectImages(projectId, remaining);
+    this.customImages = await window.archStorage.getAllCustomImages();
+    this.filterAndRender();
+
+    if (this.isReaderOpen()) {
+      const currentProj = this.filteredProjects[this.currentProjectIndex];
+      if (currentProj && currentProj.id === projectId) {
+        this.renderReaderModal(currentProj);
+      }
+    }
+  }
+
+  async quickDeleteProjectImage(proj) {
+    const t = I18N[this.currentLang];
+    const activeImages = this.getActiveImagesForProject(proj);
+    if (!activeImages || activeImages.length === 0) {
+      alert(this.currentLang === 'zh' ? '此作品目前已無圖紙可刪除。' : 'No drawings available to delete.');
+      return;
+    }
+
+    const confirmMsg = activeImages.length === 1
+      ? (this.currentLang === 'zh'
+          ? `確定要刪除「${proj.code} · ${proj.title[this.currentLang]}」的唯一圖紙嗎？\n（隨時可點擊「恢復預設」還原原創圖紙）`
+          : `Delete the only drawing from "${proj.code}"? (You can restore default drawings anytime)`)
+      : (this.currentLang === 'zh'
+          ? `確定要刪除「${proj.code}」目前的封面首圖嗎？\n（目前共有 ${activeImages.length} 張圖紙，刪除後將自動由第 2 張遞補為封面）`
+          : `Delete current cover image from "${proj.code}"? (Next image will become cover)`);
+
+    if (!confirm(confirmMsg)) return;
+
+    await this.deleteImageFromStream(proj.id, 0, activeImages);
+  }
+
+  async clearAllProjectImages(projectId) {
+    const t = I18N[this.currentLang];
+    const proj = ARCH_PROJECTS.find(p => p.id === projectId);
+    const pTitle = proj ? `${proj.code} · ${proj.title[this.currentLang]}` : projectId;
+    const confirmMsg = this.currentLang === 'zh'
+      ? `確定要清空「${pTitle}」的所有圖紙嗎？\n（清空後作品將顯示為無圖紙狀態，隨時可按「恢復預設」還原）`
+      : `Are you sure you want to remove all drawings from "${pTitle}"?`;
+
+    if (!confirm(confirmMsg)) return;
+
+    await window.archStorage.saveProjectImages(projectId, []);
     this.customImages = await window.archStorage.getAllCustomImages();
     this.filterAndRender();
 
@@ -1016,35 +1148,75 @@ class ArchApp {
     const t = I18N[this.currentLang];
 
     ARCH_PROJECTS.forEach(proj => {
-      const customList = this.customImages[proj.id];
-      const isCustom = Array.isArray(customList) && customList.length > 0;
-      const imgSrc = isCustom ? customList[0].src : proj.defaultImage;
-      const count = isCustom ? customList.length : (proj.drawings ? proj.drawings.length : 1);
+      const activeImages = this.getActiveImagesForProject(proj);
+      const isCustom = proj.id in this.customImages;
+      const count = activeImages.length;
+      const primaryThumb = count > 0 ? activeImages[0].src : "assets/placeholder-empty.svg";
 
       const row = document.createElement("div");
       row.className = "manager-item";
       row.innerHTML = `
-        <div class="manager-item-info">
-          <img src="${imgSrc}" class="manager-thumb" alt="${proj.code}">
-          <div style="min-width: 0;">
-            <div class="manager-item-title">${proj.code} · ${proj.title[this.currentLang]}</div>
-            <div class="manager-item-meta">
-              ${proj.period} · ${isCustom ? `<span style="color: #145a54; font-weight: 700;">● ${count} ${t.imgSeqBadge || '圖紙'} (${t.customBadge})</span>` : `<span style="color: #888;">○ ${count} ${t.imgSeqBadge || '圖紙'} (${t.defaultBadge})</span>`}
+        <div class="manager-header-row">
+          <div class="manager-item-info">
+            <img src="${primaryThumb}" class="manager-thumb" alt="${proj.code}">
+            <div style="min-width: 0;">
+              <div class="manager-item-title">${proj.code} · ${proj.title[this.currentLang]}</div>
+              <div class="manager-item-meta">
+                ${proj.period} · ${isCustom
+                  ? `<span style="color: #145a54; font-weight: 700;">● ${count} ${t.imgSeqBadge || '圖紙'} (${t.customBadge})</span>`
+                  : `<span style="color: #888;">○ ${count} ${t.imgSeqBadge || '圖紙'} (${t.defaultBadge})</span>`}
+              </div>
             </div>
           </div>
+          <div class="manager-actions">
+            <button class="btn-editorial" data-action="upload-single" data-id="${proj.id}" title="${t.btnAddImage}">
+              ➕ ${t.btnAddImage || '新增圖片'}
+            </button>
+            ${count > 0 ? `
+              <button class="btn-editorial" style="color: var(--accent-terra);" data-action="clear-all-proj" data-id="${proj.id}" title="${t.clearAllImages || '清空圖紙'}">
+                🗑 ${t.clearAllImages || '清空圖紙'}
+              </button>
+            ` : ''}
+            ${isCustom ? `
+              <button class="btn-editorial" data-action="reset-single" data-id="${proj.id}" title="${t.resetDefaults}">
+                ↺ ${t.restoreDefault || '恢復預設'}
+              </button>
+            ` : ''}
+          </div>
         </div>
-        <div class="manager-actions">
-          <button class="btn-editorial" data-action="upload-single" data-id="${proj.id}">
-            ➕ ${t.btnAddImage || '新增圖片'}
-          </button>
-          ${isCustom ? `<button class="btn-editorial" style="color: var(--accent-terra);" data-action="reset-single" data-id="${proj.id}">✕ ${t.resetDefaults}</button>` : ''}
-        </div>
+
+        ${count > 0 ? `
+          <div class="manager-thumbs-strip" title="所有圖紙縮圖列表，滑鼠移至圖上可點選 ✕ 刪除特定圖紙">
+            ${activeImages.map((img, imgIdx) => `
+              <div class="manager-thumb-box" title="${img.name || `圖紙 ${imgIdx + 1}`}">
+                <img src="${img.src}" class="manager-thumb-img" alt="${img.name}">
+                <button class="btn-thumb-delete" data-action="delete-thumb" data-proj-id="${proj.id}" data-index="${imgIdx}" title="${t.deleteSingleImg || '刪除此圖'}">✕</button>
+                <span class="thumb-index-num">${imgIdx + 1}</span>
+              </div>
+            `).join("")}
+          </div>
+        ` : `
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-terra); padding-top: 0.2rem;">
+            [ 尚無圖紙 · 請點擊「新增圖片」上傳或「恢復預設」還原 ]
+          </div>
+        `}
       `;
 
+      // Upload button
       row.querySelector('[data-action="upload-single"]').addEventListener("click", () => {
         this.triggerQuickUpload(proj.id);
       });
 
+      // Clear all images button
+      const btnClear = row.querySelector('[data-action="clear-all-proj"]');
+      if (btnClear) {
+        btnClear.addEventListener("click", async () => {
+          await this.clearAllProjectImages(proj.id);
+          this.openAssetManagerModal(); // refresh manager
+        });
+      }
+
+      // Reset default button
       const btnReset = row.querySelector('[data-action="reset-single"]');
       if (btnReset) {
         btnReset.addEventListener("click", async () => {
@@ -1052,6 +1224,16 @@ class ArchApp {
           this.openAssetManagerModal(); // refresh manager
         });
       }
+
+      // Individual thumbnail delete buttons
+      row.querySelectorAll('[data-action="delete-thumb"]').forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const targetIdx = parseInt(btn.dataset.index, 10);
+          await this.deleteImageFromStream(proj.id, targetIdx, activeImages);
+          this.openAssetManagerModal(); // refresh manager
+        });
+      });
 
       list.appendChild(row);
     });

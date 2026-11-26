@@ -41,7 +41,7 @@ class ArchStorage {
     });
   }
 
-  // Get all images for a given project (returns Array of image objects: [{ src, name, size, isCustom, id }])
+  // Get all images for a given project (returns Array of image objects or null if not modified)
   async getProjectImages(projectId) {
     await this.isReady;
     if (this.db) {
@@ -50,7 +50,7 @@ class ArchStorage {
         const store = tx.objectStore(this.storeName);
         const req = store.get(projectId);
         req.onsuccess = () => {
-          if (!req.result) return resolve([]);
+          if (!req.result) return resolve(null);
           // Support both legacy single dataUrl and new images array
           if (Array.isArray(req.result.images)) {
             resolve(req.result.images);
@@ -65,7 +65,7 @@ class ArchStorage {
             resolve([]);
           }
         };
-        req.onerror = () => resolve([]);
+        req.onerror = () => resolve(null);
       });
     } else {
       const item = localStorage.getItem(`arch_imgs_${projectId}`) || localStorage.getItem(`arch_img_${projectId}`);
@@ -75,10 +75,10 @@ class ArchStorage {
           if (Array.isArray(parsed.images)) return parsed.images;
           if (parsed.dataUrl) return [{ id: "img-1", src: parsed.dataUrl, name: parsed.fileName || "custom.jpg", isCustom: true }];
         } catch {
-          return [];
+          return null;
         }
       }
-      return [];
+      return null;
     }
   }
 
@@ -181,7 +181,7 @@ class ArchStorage {
         req.onsuccess = () => {
           const map = {};
           (req.result || []).forEach(item => {
-            if (Array.isArray(item.images) && item.images.length > 0) {
+            if (Array.isArray(item.images)) {
               map[item.projectId] = item.images;
             } else if (item.dataUrl) {
               map[item.projectId] = [{ id: "img-legacy", src: item.dataUrl, isCustom: true }];
