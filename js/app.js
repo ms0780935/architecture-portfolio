@@ -940,26 +940,34 @@ class ArchApp {
     fileInput.type = "file";
     fileInput.accept = "image/*";
     fileInput.multiple = true;
-    fileInput.onchange = (e) => {
+    fileInput.style.display = "none";
+    document.body.appendChild(fileInput);
+
+    fileInput.onchange = async (e) => {
       const files = Array.from(e.target.files);
       if (files.length > 0) {
-        this.processMultipleImageUpload(projectId, files);
+        await this.processMultipleImageUpload(projectId, files);
+        const mgr = document.getElementById("asset-manager-modal");
+        if (mgr && mgr.classList.contains("active")) {
+          this.openAssetManagerModal();
+        }
       }
+      fileInput.remove();
     };
     fileInput.click();
   }
 
   async processMultipleImageUpload(projectId, files) {
-    const validFiles = files.filter(f => f.type.startsWith("image/"));
+    const validFiles = Array.from(files).filter(f => f.type.startsWith("image/") || /\.(jpg|jpeg|png|webp|svg|gif|bmp|jfif|heic|avif)$/i.test(f.name));
     if (validFiles.length === 0) {
-      alert("請選擇有效的圖形檔案（.jpg, .png, .webp, .svg）");
+      alert(this.currentLang === 'zh' ? "請選擇有效的圖形檔案（.jpg, .png, .webp, .svg）" : "Please select valid image files (.jpg, .png, .webp, .svg)");
       return;
     }
 
     let loadedCount = 0;
     for (const file of validFiles) {
       try {
-        const dataUrl = await this.readFileAsDataURL(file);
+        const dataUrl = await this.processImageFile(file);
         await window.archStorage.addImageToProject(projectId, dataUrl, {
           name: file.name,
           size: file.size
@@ -975,7 +983,11 @@ class ArchApp {
 
     // Feedback
     const t = I18N[this.currentLang];
-    alert(`✓ ${t.uploadSuccess} (已新增 ${loadedCount} 張圖片，依序排列於本作品中)`);
+    if (loadedCount > 0) {
+      alert(`✓ ${t.uploadSuccess} (${this.currentLang === 'zh' ? `已成功加入 ${loadedCount} 張圖紙至本專案` : `Successfully added ${loadedCount} drawings`})`);
+    } else {
+      alert(this.currentLang === 'zh' ? '圖片載入發生錯誤，請確認檔案格式是否正確。' : 'Failed to load image files.');
+    }
 
     this.filterAndRender();
 
@@ -985,6 +997,49 @@ class ArchApp {
         this.renderReaderModal(currentProj);
       }
     }
+
+    const mgr = document.getElementById("asset-manager-modal");
+    if (mgr && mgr.classList.contains("active")) {
+      this.openAssetManagerModal();
+    }
+  }
+
+  async processImageFile(file) {
+    if (file.type === "image/svg+xml" || file.name.toLowerCase().endsWith(".svg")) {
+      return this.readFileAsDataURL(file);
+    }
+    const dataUrl = await this.readFileAsDataURL(file);
+    // If under 1.5MB, use directly
+    if (file.size < 1.5 * 1024 * 1024) {
+      return dataUrl;
+    }
+    // Resize down very large raw camera photos (> 2560px) to keep IndexedDB snappy and reliable
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxDim = 2560;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+        const mime = file.type === "image/png" ? "image/png" : "image/jpeg";
+        resolve(canvas.toDataURL(mime, 0.90));
+      };
+      img.onerror = () => resolve(dataUrl);
+      img.src = dataUrl;
+    });
   }
 
   readFileAsDataURL(file) {

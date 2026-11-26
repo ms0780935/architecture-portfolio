@@ -113,7 +113,8 @@ class ArchStorage {
 
   // Append a single new image to a project's sequence
   async addImageToProject(projectId, dataUrl, meta = {}) {
-    const existing = await this.getProjectImages(projectId);
+    const rawExisting = await this.getProjectImages(projectId);
+    const existing = Array.isArray(rawExisting) ? rawExisting : [];
     const newImage = {
       id: "img-" + Date.now() + "-" + Math.random().toString(36).substr(2, 5),
       src: dataUrl,
@@ -129,7 +130,8 @@ class ArchStorage {
 
   // Remove one image at specific index
   async removeImageAt(projectId, index) {
-    const existing = await this.getProjectImages(projectId);
+    const rawExisting = await this.getProjectImages(projectId);
+    const existing = Array.isArray(rawExisting) ? rawExisting : [];
     if (index >= 0 && index < existing.length) {
       existing.splice(index, 1);
       await this.saveProjectImages(projectId, existing);
