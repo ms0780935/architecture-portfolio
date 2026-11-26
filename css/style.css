@@ -821,17 +821,25 @@ html[data-theme="dark"] .divisare-atlas-panel {
 }
 
 .btn-clear-active-tag {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   color: var(--bg-paper);
   cursor: pointer;
-  padding: 0 0.2rem;
+  padding: 0.15rem 0.45rem;
   font-weight: 700;
   line-height: 1;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  min-height: 22px;
+  transition: all var(--transition-fast);
 }
 
 .btn-clear-active-tag:hover {
-  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 @media (max-width: 900px) {
@@ -927,6 +935,7 @@ html[data-theme="dark"] .divisare-atlas-panel {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 2.5rem 2rem;
+  scroll-margin-top: 140px;
 }
 
 /* Project Card */

@@ -406,10 +406,10 @@ class ArchApp {
     this.closeAtlas();
     this.filterAndRender();
 
-    // Smoothly scroll to main projects grid
-    const mainGrid = document.getElementById("projects-grid");
-    if (mainGrid) {
-      mainGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Ensure filter row and top of grid are cleanly visible
+    const filterSec = document.querySelector(".filter-section");
+    if (filterSec) {
+      filterSec.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
 
