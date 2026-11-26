@@ -21,12 +21,18 @@ class ArchApp {
     this.activeAtlasTag = null;
     this.isAtlasOpen = false;
 
+    // Dual-Mode State: 'viewer' (Exhibition) vs 'editor' (Curator)
+    this.currentViewMode = "viewer";
+
     this.init();
   }
 
   async init() {
     // Initialize Theme (Divisare-style Light / Dark / Auto)
     this.initTheme();
+
+    // Initialize Dual-Mode (Viewer vs. Editor)
+    this.initViewMode();
 
     // Load custom images from IndexedDB
     try {
@@ -80,6 +86,82 @@ class ArchApp {
     document.querySelectorAll(".btn-theme-opt").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.theme === this.themeMode);
     });
+  }
+
+  /* ==========================================================================
+     Dual-Mode Architecture: Viewer (Exhibition) vs. Editor (Curator)
+     ========================================================================== */
+  initViewMode() {
+    // 1. Check URL query param ?mode=editor or ?mode=viewer
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMode = urlParams.get("mode");
+
+    // 2. Read stored mode, default to 'viewer' (外部純淨展覽模式)
+    let initialMode = urlMode || localStorage.getItem("arch_view_mode") || "viewer";
+    if (initialMode !== "editor" && initialMode !== "viewer") {
+      initialMode = "viewer";
+    }
+
+    this.setViewMode(initialMode, false);
+
+    // 3. Bind header button events
+    const btnViewer = document.getElementById("btn-mode-viewer");
+    const btnEditor = document.getElementById("btn-mode-editor");
+    if (btnViewer) {
+      btnViewer.addEventListener("click", () => {
+        this.setViewMode("viewer", true);
+      });
+    }
+    if (btnEditor) {
+      btnEditor.addEventListener("click", () => {
+        this.setViewMode("editor", true);
+      });
+    }
+
+    // 4. Keyboard Shortcut: press 'E' to toggle mode anytime
+    document.addEventListener("keydown", (e) => {
+      // Don't trigger if user is typing in search or input fields
+      if (e.target && ["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
+      if (e.key === "e" || e.key === "E") {
+        const nextMode = this.currentViewMode === "viewer" ? "editor" : "viewer";
+        this.setViewMode(nextMode, true);
+      }
+    });
+  }
+
+  setViewMode(mode, showToast = false) {
+    this.currentViewMode = mode;
+    localStorage.setItem("arch_view_mode", mode);
+
+    document.body.classList.remove("mode-viewer", "mode-editor");
+    document.body.classList.add(`mode-${mode}`);
+
+    const btnViewer = document.getElementById("btn-mode-viewer");
+    const btnEditor = document.getElementById("btn-mode-editor");
+    if (btnViewer) btnViewer.classList.toggle("active", mode === "viewer");
+    if (btnEditor) btnEditor.classList.toggle("active", mode === "editor");
+
+    if (showToast) {
+      this.showModeToast(mode);
+    }
+  }
+
+  showModeToast(mode) {
+    const toast = document.getElementById("mode-toast");
+    if (!toast) return;
+
+    const t = I18N[this.currentLang];
+    const msg = mode === "viewer"
+      ? (t.modeViewerToast || "已切換至「外部瀏覽模式」：已隱藏管理按鈕，呈現純淨建築展覽 (按 E 可隨時切換)")
+      : (t.modeEditorToast || "已切換至「策展編輯模式」：已啟用圖片抽換、排序與刪除工具 (按 E 可隨時切換)");
+
+    toast.textContent = msg;
+    toast.classList.add("show");
+
+    if (this._modeToastTimer) clearTimeout(this._modeToastTimer);
+    this._modeToastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3200);
   }
 
   bindEvents() {
@@ -508,6 +590,11 @@ class ArchApp {
     if (langToggleBtn) {
       langToggleBtn.textContent = this.currentLang === "zh" ? "ENGLISH" : "繁體中文";
     }
+
+    const btnViewer = document.getElementById("btn-mode-viewer");
+    const btnEditor = document.getElementById("btn-mode-editor");
+    if (btnViewer && t.modeViewerDesc) btnViewer.title = t.modeViewerDesc;
+    if (btnEditor && t.modeEditorDesc) btnEditor.title = t.modeEditorDesc;
 
     document.documentElement.lang = this.currentLang === "zh" ? "zh-Hant-TW" : "en";
 

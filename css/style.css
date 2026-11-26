@@ -2042,3 +2042,136 @@ html[data-theme="dark"] .divisare-atlas-panel {
     max-height: 96vh;
   }
 }
+
+/* ==========================================================================
+   Dual-Mode Architecture: Viewer (Public Exhibition) vs. Editor (Curator)
+   ========================================================================== */
+.mode-switch-group {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-mode-opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.btn-mode-opt:hover {
+  color: var(--text-main);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+body[data-theme="dark"] .btn-mode-opt:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn-mode-opt.active {
+  background-color: var(--text-main);
+  color: var(--bg-color);
+  font-weight: 600;
+}
+
+.btn-mode-opt[data-mode="editor"].active {
+  background-color: var(--cobalt);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Viewer Mode (外部純淨展覽模式 · 預設狀態)
+   徹底隱藏所有後台管理、編輯、刪除與上傳按鈕，呈現純粹建築專刊閱讀
+   -------------------------------------------------------------------------- */
+body.mode-viewer #btn-open-asset-manager,
+body.mode-viewer .card-quick-actions,
+body.mode-viewer .stream-item-actions,
+body.mode-viewer .stream-caption-bar .btn-delete-img,
+body.mode-viewer #btn-add-more-trigger,
+body.mode-viewer #btn-reset-single-image,
+body.mode-viewer .reader-stream-add-box,
+body.mode-viewer #btn-bottom-add-image,
+body.mode-viewer #bottom-image-input,
+body.mode-viewer #reader-dropzone,
+body.mode-viewer #reader-image-input,
+body.mode-viewer .empty-state-actions {
+  display: none !important;
+}
+
+/* 移除首頁卡片在瀏覽模式下的管理遮罩 */
+body.mode-viewer .project-card:hover .card-thumb-wrap::after {
+  opacity: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Editor Mode (策展編輯模式)
+   浮現完整管理按鈕、圖片抽換、排序與刪除工具
+   -------------------------------------------------------------------------- */
+body.mode-editor #btn-open-asset-manager {
+  display: inline-flex !important;
+  border-color: var(--cobalt);
+  color: var(--cobalt);
+  position: relative;
+}
+
+body.mode-editor #btn-open-asset-manager::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  margin-right: 6px;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+/* --------------------------------------------------------------------------
+   Floating Mode Toast Notification (模式切換浮動通知)
+   -------------------------------------------------------------------------- */
+.mode-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(15, 23, 42, 0.94);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mode-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+body[data-theme="dark"] .mode-toast {
+  background: rgba(30, 41, 59, 0.96);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+

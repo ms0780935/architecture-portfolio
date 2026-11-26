@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=2.1">
+  <link rel="stylesheet" href="css/style.css?v=2.3">
   <!-- Early Theme Initialization (Prevents theme flash) -->
   <script>
     (function() {
@@ -38,6 +38,18 @@
       </div>
 
       <div class="header-actions">
+        <!-- Dual Mode Switcher (外部瀏覽模式 / 策展編輯模式) -->
+        <div class="mode-switch-group" role="group" aria-label="瀏覽與編輯模式切換">
+          <button id="btn-mode-viewer" class="btn-mode-opt active" data-mode="viewer" title="外部訪客純淨展覽模式 (快捷鍵: E)" aria-label="外部訪客純淨展覽模式">
+            <span class="mode-icon">👁</span>
+            <span class="mode-name" data-i18n="modeViewerShort">瀏覽</span>
+          </button>
+          <button id="btn-mode-editor" class="btn-mode-opt" data-mode="editor" title="作品集策展編輯模式 (快捷鍵: E)" aria-label="作品集策展編輯模式">
+            <span class="mode-icon">✏️</span>
+            <span class="mode-name" data-i18n="modeEditorShort">編輯</span>
+          </button>
+        </div>
+
         <!-- Theme Mode Switcher (日間 / 夜間 / 系統模式) -->
         <div class="theme-switch-group" role="group" aria-label="主題外觀模式切換">
           <button class="btn-theme-opt" data-theme="light" title="日間模式 (白底)" aria-label="日間模式 (白底)">
@@ -473,9 +485,12 @@
     </div>
   </footer>
 
+  <!-- Floating Mode Toast Notification (快捷鍵 E 切換通知) -->
+  <div id="mode-toast" class="mode-toast" aria-live="polite"></div>
+
   <!-- Scripts -->
-  <script src="js/data.js?v=2.2"></script>
-  <script src="js/storage.js?v=2.2"></script>
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/data.js?v=2.3"></script>
+  <script src="js/storage.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
 </body>
 </html>
