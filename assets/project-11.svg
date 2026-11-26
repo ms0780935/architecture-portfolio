@@ -17,14 +17,14 @@
   <rect x="30" y="30" width="740" height="540" fill="none" stroke="#ccc" stroke-width="0.5"/>
 
   <!-- Header Title Block (Divisare Minimalist Architectural Typography) -->
-  <text x="50" y="65" font-family="'Cinzel', 'Noto Serif TC', serif" font-size="16" font-weight="700" fill="#111" letter-spacing="2">FIG. 11 / STANDARDIZED PROTOTYPE &amp; SUPERBLOCK MORPHOLOGY</text>
-  <text x="50" y="85" font-family="'Aptos', -apple-system, sans-serif" font-size="10.5" fill="#666" letter-spacing="1">ELE-440 · 1970–1980s TAIWAN PUBLIC HOUSING ARCHIVAL STUDY · DA'AN &amp; CHENGGONG</text>
+  <text x="50" y="60" font-family="'Cinzel', 'Noto Serif TC', serif" font-size="13" font-weight="700" fill="#111" letter-spacing="1.5">FIG. 11 / 1:50 UNIT PROTOTYPE &amp; 1:500 SUPERBLOCK MORPHOLOGY</text>
+  <text x="50" y="78" font-family="'Aptos', -apple-system, sans-serif" font-size="9.5" fill="#666" letter-spacing="0.5">ELE-440 · 1970–1980s TAIWAN PUBLIC HOUSING ARCHIVAL STUDY · DA'AN &amp; CHENGGONG</text>
 
   <!-- Notice Banner: Awaiting User Upload -->
-  <g transform="translate(470, 48)">
-    <rect x="0" y="0" width="280" height="42" fill="#fff" stroke="#111" stroke-width="1.2" stroke-dasharray="4 2"/>
-    <text x="140" y="18" font-family="'Aptos', sans-serif" font-size="10" font-weight="700" fill="#111" text-anchor="middle" letter-spacing="0.5">【 待上傳圖紙 · AWAITING UPLOAD 】</text>
-    <text x="140" y="33" font-family="'Aptos', sans-serif" font-size="9" fill="#777" text-anchor="middle">隨時由「圖片管理中心」或「更換圖片」上傳</text>
+  <g transform="translate(530, 44)">
+    <rect x="0" y="0" width="220" height="38" fill="#fff" stroke="#111" stroke-width="1.2" stroke-dasharray="4 2"/>
+    <text x="110" y="16" font-family="'Aptos', sans-serif" font-size="9.5" font-weight="700" fill="#111" text-anchor="middle" letter-spacing="0.5">【 待上傳圖紙 · AWAITING UPLOAD 】</text>
+    <text x="110" y="30" font-family="'Aptos', sans-serif" font-size="8.5" fill="#777" text-anchor="middle">可由「圖片管理中心」或「更換圖片」抽換</text>
   </g>
 
   <!-- Left Side: 1:50 Unit Floor Plan Prototype -->
