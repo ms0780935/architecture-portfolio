@@ -21,7 +21,7 @@ const ARCH_PROJECTS = [
     typology: { zh: "實驗亭／空間裝置", en: "Experimental Pavilion / Installation" },
     location: { zh: "學校中庭花園草坪", en: "University Courtyard Lawn" },
     advisor: { zh: "陳建華 建築師", en: "Arch. Jian-Hua Chen" },
-    defaultImage: "assets/project-1.svg",
+    defaultImage: "assets/project-1-drawing.svg",
     summary: {
       zh: "探索木材受力受拉之極限狀態，透過連續尺度模矩與斜向支撐，構築出捕捉中庭微氣候氣流之空間感知構築物。",
       en: "Exploring the boundary of timber in tension and compression through modular scaling and diagonal bracing to capture courtyard microclimatic airflows."
