@@ -964,13 +964,27 @@ class ArchApp {
       return;
     }
 
+    const proj = ARCH_PROJECTS.find(p => p.id === projectId);
+    // Get existing active drawings so newly added images are appended without wiping out existing/default drawings!
+    const existingActive = this.getActiveImagesForProject(proj);
+    const updatedList = existingActive.map(item => ({
+      id: item.id || ("img-" + Math.random().toString(36).substr(2, 7)),
+      src: item.src,
+      name: item.name,
+      isCustom: true
+    }));
+
     let loadedCount = 0;
     for (const file of validFiles) {
       try {
         const dataUrl = await this.processImageFile(file);
-        await window.archStorage.addImageToProject(projectId, dataUrl, {
+        updatedList.push({
+          id: "img-" + Date.now() + "-" + Math.random().toString(36).substr(2, 5),
+          src: dataUrl,
           name: file.name,
-          size: file.size
+          size: file.size,
+          isCustom: true,
+          addedAt: new Date().toISOString()
         });
         loadedCount++;
       } catch (err) {
@@ -978,13 +992,15 @@ class ArchApp {
       }
     }
 
-    // Refresh custom images cache
-    this.customImages = await window.archStorage.getAllCustomImages();
+    if (loadedCount > 0) {
+      await window.archStorage.saveProjectImages(projectId, updatedList);
+      this.customImages = await window.archStorage.getAllCustomImages();
+    }
 
     // Feedback
     const t = I18N[this.currentLang];
     if (loadedCount > 0) {
-      alert(`✓ ${t.uploadSuccess} (${this.currentLang === 'zh' ? `已成功加入 ${loadedCount} 張圖紙至本專案` : `Successfully added ${loadedCount} drawings`})`);
+      alert(`✓ ${t.uploadSuccess} (${this.currentLang === 'zh' ? `已成功加入 ${loadedCount} 張圖紙至本專案（共 ${updatedList.length} 張圖紙）` : `Successfully added ${loadedCount} drawings (${updatedList.length} total)`})`);
     } else {
       alert(this.currentLang === 'zh' ? '圖片載入發生錯誤，請確認檔案格式是否正確。' : 'Failed to load image files.');
     }
