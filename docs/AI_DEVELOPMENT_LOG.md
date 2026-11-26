@@ -16,12 +16,12 @@
 
 | 數據指標 | 統計數值 | 說明與架構意涵 |
 | :--- | :--- | :--- |
-| **總處理 Token 處理量** | **53,927,939 (53.9M)** | 包含長上下文代碼解析、跨模態架構驗證與迭代推理 |
-| **快取讀取 Token (Cache Read Tokens)**| **51,725,732 (51.7M)** | 深度利用長上下文快取複用，大幅提升多輪對話反應效率與架構一致性 |
-| **輸入 Token (Input Tokens)** | **1,945,377 (1.94M)** | 詳細規格提示詞、除錯日誌、測試報告與各階段設計指示 |
-| **輸出 Token (Output Tokens)** | **256,830 (256K)** | 高精度純靜態前端代碼、CSS 樣式表、JSON 資料庫與雙語詞典 |
-| **AI 迭代總步數** | **848+ Steps** | 涵蓋檔案讀寫、語法修復、進程守護、Git 版本提交與自動化測試 |
-| **深度對話輪次** | **26+ Conversational Turns** | 跨多天深度迭代之雙向協作工程歷程 |
+| **總處理 Token 處理量** | **134,010,482 (134.0M)** | 包含長上下文代碼解析、跨模態架構驗證與迭代推理 |
+| **快取讀取 Token (Cache Read Tokens)**| **128,502,126 (128.5M)** | 深度利用長上下文快取複用，大幅提升多輪對話反應效率與架構一致性 |
+| **輸入 Token (Input Tokens)** | **4,877,436 (4.88M)** | 詳細規格提示詞、除錯日誌、測試報告與各階段設計指示 |
+| **輸出 Token (Output Tokens)** | **630,920 (631K)** | 高精度純靜態前端代碼、CSS 樣式表、JSON 資料庫與雙語詞典 |
+| **AI 迭代總步數** | **2,500+ Steps** | 涵蓋檔案讀寫、語法修復、進程守護、Git 版本提交與自動化測試 |
+| **深度對話輪次** | **35+ Conversational Turns** | 跨多天深度迭代之雙向協作工程歷程 |
 | **調用子代理人 (Subagents)** | **image-generator (Nano Banana)**<br>**browser (Playwright Chromium)** | 用於建築原創圖紙生成與即時無快取瀏覽器實機視覺驗證 |
 
 > **AI 使用量截圖認證**：`docs/ai_usage_screenshot.png`  
@@ -128,8 +128,24 @@
 - **AI 實作**：
   - 打造 `presentation.html`，具備鍵盤換頁、九宮格總覽與演講備忘稿（Speaker Notes）。
   - 編寫 Python 自動化產生器輸出 `architecture_portfolio_presentation.pptx` 與印刷級 `ppt.pdf`。
-  - 透過課程後端 API（PATCH 二進位串流）完成交件（第 13 版，`hasPresentationFile: true`）。
+  - 透過課程後端 API（PATCH 二進位串流）完成交件（`hasPresentationFile: true`）。
 - **Commit**：`7a1fcef`, `29e809d`, `35918d1`
+
+### 階段十五：雙模式架構（編輯者模式 vs. 外部瀏覽模式）與安全權限隔離
+- **需求**：支援「瀏覽模式 (Viewer Mode)」與「編輯模式 (Editor Mode)」，外部訪客僅可純粹閱讀作品，不能誤觸或看到任何編輯/刪除/拖曳上傳按鈕；學生本人可一鍵切換或透過鍵盤快捷鍵 <kbd>E</kbd> 進入編輯模式。
+- **AI 實作**：
+  - 頂部導覽列設計模式切換組 `[ 👁 瀏覽 | ✏️ 編輯 ]`（支援中英雙語），並綁定全域鍵盤 <kbd>E</kbd> 快捷鍵與狀態 Toast 提示。
+  - 模式狀態持久化於 `localStorage`，預設為 `viewer` 外部瀏覽模式。
+  - 嚴格隔離 UI：在 `body.mode-viewer` 狀態下，徹底隱藏「📷 圖片管理中心」、卡片與閱讀器中的「🗑 刪除按鈕」、「▲/▼ 排序微調」、「➕ 新增圖紙」與拖曳上傳 dropzone。
+- **Commit**：`574c08e`, `4a6a9c5`
+
+### 階段十六：首頁介面極簡純粹化——移除簡報與評量按鈕及彈窗
+- **需求**：將首頁頂部「🖥 12頁期末簡報」與「📊 期末報告與評量」按鈕以及 `#presentation-modal` 彈窗自 `index.html` 移除，使首頁回歸純粹的建築作品展示，同時保留伺服器獨立簡報頁面供評分系統直接連結。
+- **AI 實作**：
+  - 移除 `index.html` 頂部導覽列外部簡報連結與報告按鈕。
+  - 完整移除 `#presentation-modal` 評量自評對照彈窗 HTML 結構。
+  - 保留 `presentation.html`、`architecture_portfolio_presentation.pptx` 與 `ppt.pdf` 獨立網址與路由，確保課程平台審閱與下載功能完整無虞。
+- **Commit**：`ca75197`
 
 ---
 
@@ -147,3 +163,9 @@
 4. **本機圖片上傳 `TypeError` 阻斷**：
    - *現象*：上傳新照片時，未曾修改過圖紙的專案在 IndexedDB 中回傳 `null`，引發 `Cannot read properties of null (reading 'length')`。
    - *解決*：在 `js/storage.js` 的 `addImageToProject` 與 `removeImageAt` 加入防禦性數組檢查，保證容錯穩定性。
+5. **暗色主題下切換鈕 active 膠囊文字白底白字**：
+   - *現象*：在黑底夜間模式下，`.btn-mode-opt.active` 誤用了未定義的 `var(--bg-color)`，導致高亮膠囊在暗色主題下文字對比不良。
+   - *解決*：修正為 `var(--bg-paper)` 並特化 `html[data-theme="dark"] .btn-mode-opt.active` 的文字顏色與背景，確保高對比度易讀性。
+6. **瀏覽模式下作品彈窗內部管理按鈕漏網問題**：
+   - *現象*：彈窗內部的圖片操作欄使用的是 `.stream-img-actions`，導致初版 `mode-viewer` 規則漏掉隱藏。
+   - *解決*：在 CSS 針對 `.stream-img-actions`、`.stream-img-caption-bar .btn-delete-img` 及 `.stream-bottom-add-bar` 補強 `display: none !important`，經 Playwright 子代理人截圖比對驗證徹底隱藏。

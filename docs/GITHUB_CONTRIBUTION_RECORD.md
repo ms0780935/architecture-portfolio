@@ -29,6 +29,10 @@
    - 指導提煉兩份 Google Docs 國宅研究報告，擴充大四選修專案 ELE-440；精確對齊 RES-501 微氣候 CFD 題目；並調用 Nano Banana 繪製出版級建築工程圖紙。
 8. **12 頁現代主義編輯風簡報與自動化交件**：
    - 依據手繪塗鴉風格確立 12 頁 16:9 簡報，產出網頁版（`presentation.html`）、PowerPoint（`.pptx`）與 PDF，並成功透過課程 API 完成上傳與交件驗證。
+9. **雙模式架構（編輯者模式 vs. 外部瀏覽模式）與安全隔離**：
+   - 提出雙模式設計理念，預設外部訪客為純粹畫廊檢視（徹底隱藏所有刪除、上傳、排序控制項），學生本人可一鍵切換或透過鍵盤 <kbd>E</kbd> 鍵解鎖完整管理面板。
+10. **首頁介面極簡純粹化**：
+   - 決策移除首頁頂部簡報外部連結與評量自評彈窗，使首頁展現國際頂級建築畫廊之優雅沉浸體驗，同時在雲端維持獨立簡報路由。
 
 ---
 
@@ -36,6 +40,11 @@
 
 | Commit Hash | 提交說明 (Commit Message) | 核心異動檔案 |
 | :--- | :--- | :--- |
+| **`ca75197`** | feat: Remove 12-slide presentation and rubric modal from main portfolio page | `index.html` |
+| **`4a6a9c5`** | fix: Ensure stream-img-actions and bottom add bar are hidden in viewer mode and fix dark theme active pill | `css/style.css` |
+| **`574c08e`** | feat: Implement Dual-Mode Architecture (Viewer Mode vs. Editor Mode with hotkey E) | `index.html`, `css/style.css`, `js/app.js`, `js/data.js` |
+| **`07c9a93`** | docs: Update AI usage screenshot to 134.0M tokens and 2285 agent steps | `docs/ai_usage_screenshot.png` |
+| **`7d27529`** | docs: Update AI development log, GitHub contribution record, and README with full project evolution | `docs/*`, `README.md` |
 | **`35918d1`** | feat: Add direct PPTX and PDF download buttons to presentation deck header | `presentation.html`, `ppt.pdf` |
 | **`81ab7c0`** | style: Set project-1-drawing.svg as primary default image for ARC-101 | `js/data.js` |
 | **`104eb62`** | feat: Non-destructive image addition that preserves default drawings and appends new photos | `js/app.js` |
