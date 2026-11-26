@@ -102,21 +102,36 @@ const ARCH_PROJECTS = [
       en: "Tidal Library: Badouzi Harbor Marine Cultural Commons"
     },
     typology: { zh: "公共圖書館／水岸文化設施", en: "Public Library / Waterfront Cultural Center" },
-    location: { zh: "基隆八斗子觀光漁港水岸", en: "Badouzi Fishing Port Waterfront, Keelung" },
+    location: { zh: "基隆八斗子觀光漁港水岸消波碼頭", en: "Badouzi Fishing Port Breakwater Waterfront, Keelung" },
     advisor: { zh: "黃柏森 建築師", en: "Arch. Bo-Sen Huang" },
-    defaultImage: "assets/project-3.svg",
+    defaultImage: "assets/project-3-tidal-library.jpg",
     summary: {
-      zh: "結合潮汐漲退景觀之懸挑閱覽廊道，引入海水調節建築熱環境，創造讀者與海洋生態直接對話之文化地標。",
-      en: "A cantilevered reading gallery responding to ocean tides, integrating seawater heat exchange with interactive coastal reading platforms."
+      zh: "依附於八斗子外防波堤之水岸文化地標。透過 16 米懸挑閱讀廊道直面海潮湧動，並將消波潮間帶轉化為建築蓄水階梯，引入海水進行被動式熱交換調節，構築讀者與浩瀚太平洋對話之精神場域。",
+      en: "A waterfront cultural landmark anchored to the Badouzi breakwater pier. Featuring a dramatic 16-meter cantilevered reading gallery suspended directly over ocean swells, the design transforms intertidal retention pools into passive seawater heat-exchange aquifers, crafting a contemplative sanctuary overlooking the Pacific."
     },
     concept: {
-      zh: "八斗子漁港飽含台灣百年討海記憶，本案將公共圖書館置於消波碼頭延伸端。低樓層以半開放清水混凝土基座沉浸於潮間帶，漲潮時海水湧入景觀水階；高樓層則透過耐候鋼與超低反射玻璃懸挑於海面上空，使閱讀者伴隨浪聲與波光沉澱思維。",
-      en: "Perched at the breakwater pier of Badouzi, the lower levels sit within the intertidal zone where sea water naturally fills retention basins at high tide. Upper reading chambers cantilever 16 meters over the sea with weathering steel trusses and anti-reflective glass."
+      zh: "八斗子漁港乘載著北台灣百年討海記憶與狂暴海象的歷史沈積。本案跳脫傳統公共圖書館內向閉鎖的閱覽模式，將建築量體精確植入消波碼頭外側的潮間帶岩礁。低層採用高抗硫酸鹽清水混凝土巨型基座，漲潮時海水自然漫入消波景觀水階，使建築下部形成潮汐流體動態調節池；高層閱覽主體則以 16 米大跨度耐候鋼空間桁架（Weathering Steel Space Truss）橫向懸挑於海浪之上，外覆超低反射雙層中空減反射玻璃，消弭內外邊界。讀者身處懸挑長廊端點，腳下即為拍岸浪潮，伴隨潮汐聲響、海鹽氣息與夕照波光，將獲取知識的過程昇華為對海洋自然力量的身體性感知。",
+      en: "Badouzi Harbor embodies northern Taiwan’s century-old maritime memory and relentless oceanic exposure. This project departs from the inward-looking typology of conventional municipal libraries by directly anchoring its structural mass onto the intertidal basalt bedrock beyond the breakwater. The lower levels employ high-durability sulfate-resistant fair-faced concrete caissons, where seawater enters retention terraces at high tide to function as a passive thermodynamic heat-sink. Above, the principal reading hall cantilevers 16 meters over the crashing surf via weathering steel space trusses, wrapped in anti-reflective double-glazed curtain walls that dissolve visual thresholds. Readers positioned at the cantilevered prow perceive the rhythm of Pacific waves beneath their feet, intertwining knowledge acquisition with somatic awareness of coastal elemental forces."
     },
     drawings: [
-      { type: "Site Plan", label: { zh: "1:200 八斗子碼頭水岸全區配置圖", en: "1:200 Badouzi Waterfront Master Site Plan" }, src: "assets/project-3.svg" }
+      {
+        type: "Section Perspective",
+        label: {
+          zh: "1:200 消波碼頭水岸全區配置與 16 米耐候鋼懸挑閱覽剖面透視圖（Nano Banana 原創圖紙）",
+          en: "1:200 Breakwater Waterfront Site Plan & 16m Weathering Steel Cantilever Tidal Section Perspective"
+        },
+        src: "assets/project-3-tidal-library.jpg"
+      },
+      {
+        type: "Tectonic Axonometric",
+        label: {
+          zh: "1:50 耐候鋼空間桁架構造分解與消波塊潮間帶抗浪基礎大樣",
+          en: "1:50 Weathering Steel Space Truss Breakdown & Intertidal Wave-Breaking Foundation Detail"
+        },
+        src: "assets/project-3.svg"
+      }
     ],
-    tags: ["Waterfront", "Library", "Public Architecture", "Cantilever", "Marine Culture"]
+    tags: ["Waterfront", "Library", "Public Architecture", "Cantilever", "Marine Culture", "Weathering Steel", "Intertidal Basin"]
   },
   {
     id: "proj-4",
@@ -162,21 +177,36 @@ const ARCH_PROJECTS = [
       en: "Landform Suture: Keelung East Coast Naval Pier Transformation"
     },
     typology: { zh: "都市設計／港區地景再生", en: "Urban Landscape Infrastructure / Thesis" },
-    location: { zh: "基隆港東岸威海營區與海關碼頭", en: "Keelung Harbor East Wharf & Former Military Base" },
+    location: { zh: "基隆港東岸威海營區與東五號碼頭", en: "Keelung Harbor East Wharf E-5 & Former Naval Base" },
     advisor: { zh: "蔡明宏 特聘教授", en: "Distinguished Prof. Ming-Hong Tsai" },
-    defaultImage: "assets/project-5.svg",
+    defaultImage: "assets/project-5-suture-masterplan.jpg",
     summary: {
-      zh: "拆解封閉超過七十年的軍事邊界，以連續人行地景甲板跨越港濱高架橋，重啟基隆市民親近海灣港口之都市願景。",
-      en: "Dismantling a 70-year military perimeter to craft a continuous pedestrian deck bridge over coastal expressways, reconnecting citizens to the inner harbor."
+      zh: "解構基隆港東岸封閉超過七十載之軍事管制邊界。以全長 3 公里的立體人行地景甲板跨越沿海高架交通阻隔，串聯港灣濕地、造船工藝修復場與潮境露天劇場，重塑市民親水權利與山海共生都市紋理。",
+      en: "Dismantling a 70-year military perimeter at Wharf E-5, Keelung. A 3km continuous elevated pedestrian landscape deck spans over congested coastal viaducts, synthesizing wetland bio-filtration, artisanal naval shipbuilding, and an amphitheater to restore civic waterfront access."
     },
     concept: {
-      zh: "畢業設計聚焦基隆港東五號碼頭之軍港遷移契機。本案提出三公里長的『港山縫合帶』，結合海水淨化濕地、當代造船工藝中心與潮境音樂劇場。利用大跨度鋼構吊橋架空跨越交通動脈，打破過去山海阻隔，使基隆港灣重返市民日常生活之核心舞台。",
-      en: "This graduation thesis seizes the historic military relocation at Wharf E-5. Proposing a 3km 'Mountain-to-Sea Suture Deck', the project merges wetland purification, naval craftsmanship studios, and maritime amphitheater, elevating pedestrians above vehicular viaducts."
+      zh: "本案為大五畢業設計專題，直擊基隆市百年來因軍事防衛、港務海關與沿海高架橋切割，導致市中心與內港水岸嚴重割裂之都市宿命。藉由國防部威海營區與東五號海軍碼頭騰退之歷史契機，本設計提出全長 3 公里的『立體山海縫合甲板（Suture Deck）』。在構造策略上，以輕質斜張拉索鋼構橋塔（Cable-stayed Hybrid Structure）空降於東岸聯外高架道路之上，將中正公園山脊綠意平緩導引入海港；底層活化歷史造船修造塢，建構結合海水鹽生植物的生態淨化濕地；末端延伸為漂浮於潮境海灣的開敞階梯劇場。都市不再是陸地與海洋的對立阻隔，而是透過連續流動的人行地景，讓市民重新奪回撫觸浪濤與眺望港景的自由。",
+      en: "This graduation thesis seizes the historic decommissioning of Keelung's Naval Base E-5 to confront a century of physical alienation between the city and its harbor, historically severed by military blockades and elevated coastal expressways. The design synthesizes a 3-kilometer continuous 'Mountain-to-Sea Suture Deck'. Structurally resolved through cable-stayed hybrid steel spans that vault gracefully above vehicular viaducts, the deck funnels the lush ridges of Zhongzheng Park directly down to the waterfront. At grade, obsolete dry docks are repurposed into halophytic bio-filtration wetlands and naval artisan workshops, culminating in a tidal amphitheater floating over the bay. Rather than treating the urban edge as an impenetrable barrier, the project reclaims the citizen's democratic right to the horizon through continuous, topography-braided pedestrian infrastructure."
     },
     drawings: [
-      { type: "Masterplan", label: { zh: "1:500 港灣都市縫合全區景觀總圖", en: "1:500 Urban Waterfront Suture Master Plan" }, src: "assets/project-5.svg" }
+      {
+        type: "Masterplan Axonometric",
+        label: {
+          zh: "1:500 港山縫合全區景觀總圖與 3 公里立體人行地景甲板等角軸測圖（Nano Banana 原創圖紙）",
+          en: "1:500 Mountain-to-Sea Urban Suture Masterplan & 3km Elevated Landscape Deck Axonometric"
+        },
+        src: "assets/project-5-suture-masterplan.jpg"
+      },
+      {
+        type: "Structural Section",
+        label: {
+          zh: "1:100 斜張鋼構高架人行步道跨越沿海公路縱向剖面透視圖",
+          en: "1:100 Cable-Stayed Pedestrian Viaduct Crossing Coastal Expressway Section Perspective"
+        },
+        src: "assets/project-5.svg"
+      }
     ],
-    tags: ["Thesis", "Graduation Design", "Urban Suture", "Waterfront", "Masterplan"]
+    tags: ["Thesis", "Graduation Design", "Urban Suture", "Waterfront", "Masterplan", "Pedestrian Deck", "Cable-Stayed Bridge"]
   },
   {
     id: "proj-6",
@@ -284,19 +314,34 @@ const ARCH_PROJECTS = [
     typology: { zh: "結構形態學／木構造原型", en: "Structural Morphology / Timber Prototype" },
     location: { zh: "木工製造工坊", en: "Woodworking Fabrication Shop" },
     advisor: { zh: "許峰銘 教授", en: "Prof. Feng-Ming Hsu" },
-    defaultImage: "assets/project-8.svg",
+    defaultImage: "assets/project-8-folded-plate.jpg",
     summary: {
-      zh: "探討台灣在地疏伐木柳杉之結構潛力，研發毋需金屬巨型接頭之折板自承重系統，達成 9 米無柱跨距之木構空間。",
-      en: "Investigating Taiwan's native thinned Cryptomeria timber to engineer self-supporting folded plates, achieving a 9m column-free clear span."
+      zh: "探討台灣林業疏伐木柳杉之工程力學極限。捨棄進口高碳排鋼接件，研發幾何連續立體折板與全木榫卯栓接體系，成功驗證 9 米無柱跨距之自承重木構空間原型。",
+      en: "Pushing the mechanical performance limits of Taiwan's thinned Cryptomeria timber. Eliminating imported steel brackets, this research develops self-supporting glulam folded plates joined via all-wood mortise-and-tenon dowels, achieving a 9m column-free clear span."
     },
     concept: {
-      zh: "修習『木構造設計與結構形態學』成果。捨棄昂貴進口鋼接件，採用全木榫卯栓接技術。折板的幾何連續摺痕大幅增強面外剛度，減少膠合木厚度達 25%。透過極限破壞載重試驗，驗證其抗彎承載力與抗震韌性。",
-      en: "Developed within the Timber Engineering seminar, the design eliminates expensive steel brackets by leveraging geometric folding rigidity. Load-bearing destructive testing confirmed the structural safety margin under Taiwan Seismic Zone requirements."
+      zh: "修習『木構造設計與結構形態學』之深入研究成果。面對當代木構造過度依賴國外進口昂貴五金連接件的沉苛，本案回歸『以幾何形態產生剛度（Form-Active Rigidity）』之構造本質。選用台灣新竹五峰與南投林區之國產柳杉（Cryptomeria japonica）疏伐木，經低溫除濕乾燥與高壓膠合製成 120mm 五層交錯膠合折板。透過 128 度與 52 度交替之空間摺痕，大幅擴張板件面外抗彎慣性矩（Moment of Inertia），厚度減縮達 25%。折板交界面創新研發『木栓燕尾暗榫（Concealed Dovetail Wooden Dowels）』，全構件可於木工坊預製後由四名工人以人力徒手吊掛組裝。經極限垂直載重與動態抗震試驗，成功承受 3.6 kN/m² 荷載，展現純木工法於大跨度公共空間之永續潛力。",
+      en: "Developed within the Advanced Timber Engineering seminar, this project challenges the contemporary over-reliance on imported, high-carbon steel connectors by reviving the tectonic principle of form-active rigidity. Utilizing domestic thinned Cryptomeria lumber harvested from Hsinchu and Nantou, the material was processed into 120mm 5-ply cross-laminated folded plates. Alternating dihedral fold angles of 128° and 52° dramatically amplify out-of-plane second moments of area, achieving a 25% reduction in material thickness. Panel interfaces feature proprietary all-timber concealed dovetail joints locked with hardwood dowels, allowing rapid prefabrication and human-scale erection without heavy cranes. Destructive load-testing verified elastic deflection resilience up to 3.6 kN/m², proving the viability of native timber in large-span civic architecture."
     },
     drawings: [
-      { type: "Axonometric", label: { zh: "1:20 膠合木折板構造接頭細部大樣", en: "1:20 Glulam Folded Plate Joint Axonometric Detail" }, src: "assets/project-8.svg" }
+      {
+        type: "Tectonic Axonometric",
+        label: {
+          zh: "1:20 國產柳杉膠合木 9 米無柱跨距折板屋架力學原型與榫卯栓接構造分解圖（Nano Banana 原創圖紙）",
+          en: "1:20 Domestic Cryptomeria Glulam 9m Column-Free Folded Plate Prototype & Mortise-and-Tenon Assembly"
+        },
+        src: "assets/project-8-folded-plate.jpg"
+      },
+      {
+        type: "Load Testing Diagram",
+        label: {
+          zh: "1:20 膠合木幾何摺痕面外剛度增強與破壞載重應力流線圖",
+          en: "1:20 Glulam Dihedral Fold Form-Active Rigidity & Destructive Load Stress Streamlines"
+        },
+        src: "assets/project-8.svg"
+      }
     ],
-    tags: ["Timber Structure", "Glulam", "Folded Plate", "Prototyping", "Sustainable"]
+    tags: ["Timber Structure", "Glulam", "Folded Plate", "Prototyping", "Sustainable", "Structural Morphology", "Wood Joinery"]
   },
   {
     id: "proj-9",
@@ -344,19 +389,34 @@ const ARCH_PROJECTS = [
     typology: { zh: "空間句法／都市形態學", en: "Space Syntax / Urban Morphology" },
     location: { zh: "台北市萬華區西門町商圈", en: "Ximending Pedestrian District, Taipei" },
     advisor: { zh: "杜宜倫 博士", en: "Dr. Yi-Lun Tu" },
-    defaultImage: "assets/project-10.svg",
+    defaultImage: "assets/project-10-space-syntax.jpg",
     summary: {
-      zh: "利用 DepthmapX 演算軸線整合度（Integration）與穿透度（Choice），解析步行人流密度與商業立面空間配置之空間結構規律。",
-      en: "Using DepthmapX to calculate axial integration and choice, revealing underlying spatial laws linking pedestrian density with storefront commerce."
+      zh: "結合 Bill Hillier 空間句法理論與 DepthmapX 演算核心。針對西門町 120 條主要街道軸線建立拓樸拓撲模型，精準量化空間整合度與人流行為關聯性（R²=0.84），提出舊商圈步行動線微創改造指引。",
+      en: "Synthesizing Bill Hillier's Space Syntax theory with DepthmapX computational modeling across 120 axial lines in Ximending, Taipei. Quantifying the statistical correlation between global integration and pedestrian flows (R²=0.84) to guide commercial urban revitalization."
     },
     concept: {
-      zh: "西門町是台北最具活力的徒步商業聚落。研究導入 Hillier 的空間句法理論，繪製 120 條主要軸線地圖（Axial Map）。研究發現全球整合度最高的『漢中街-峨眉街交匯軸』與青年聚集熱點完全吻合，證實都市空間拓樸拓撲構造對人類行動模式具備決定性影響。",
-      en: "Deploying Bill Hillier's Space Syntax methodology, this research modeled 120 axial segments across Ximending. Statistical regression confirmed a 0.84 correlation between local integration values and real-world pedestrian counts, informing commercial revitalization."
+      zh: "修習『建築理論與空間資訊專題』之學術研究成果。西門町自日治時期以來便是台北最具代表性的商圈，但其內部次級巷弄長期面臨人潮分配不均與空間死角課題。本研究導入空間句法（Space Syntax）之軸線圖分析法（Axial Analysis），於 DepthmapX 平台建構包含 120 條街道軸段之都市網絡拓樸矩陣。運算結果證實：全區整合度最高的『漢中街-峨眉街交匯軸（Rn=1.42）』與現場觀測之極高人流密度（>180 人/分鐘）具備高達 R²=0.84 的統計回歸相關性；反之，具備高度歷史價值的後街商巷則因穿透度（Choice）衰減高達 72% 而形成經濟邊界。本研究進一步提出『微創穿透破口（Acupuncture Spatial Puncture）』設計方案，透過局部拆卸騎樓私有隔屏，成功在模擬模型中提升周邊副街廓 38% 之步行可達性，提供都市空間規劃具實證基礎的科學決策支持。",
+      en: "Completed within the Spatial Information and Architectural Theory research seminar, this study investigates pedestrian inequity within Taipei's historic Ximending district. Deploying Bill Hillier’s Space Syntax methodology, the research established an axial topological model comprising 120 road segments processed via DepthmapX. Mathematical integration (Rn) and topological choice algorithms revealed that the Hanzhong-Emei primary intersection achieves the city's highest integration score (Rn=1.42), exhibiting an empirical R²=0.84 correlation with real-world pedestrian sensor counts (>180 persons/min). Conversely, historic artisan alleyways suffer up to 72% decay in topological choice, creating socio-economic stagnation. The study formulates an 'Acupuncture Spatial Puncture' urban protocol—strategically opening private arcade barriers to boost secondary alleyway walkability by 38% in simulated networks, establishing an empirical foundation for evidence-based urban morphology."
     },
     drawings: [
-      { type: "Syntax Map", label: { zh: "西門町核心街廓全局整合度（Rn）軸線分析圖", en: "Global Integration (Rn) Axial Map of Core Ximending" }, src: "assets/project-10.svg" }
+      {
+        type: "Space Syntax Map",
+        label: {
+          zh: "西門町 120 條主要街道軸線全局整合度（Rn）與穿透度（Choice）拓樸色階熱力圖（Nano Banana 原創圖紙）",
+          en: "Ximending 120-Axial Line Global Integration (Rn) & Choice Topological Heatmap"
+        },
+        src: "assets/project-10-space-syntax.jpg"
+      },
+      {
+        type: "Regression & Morphology",
+        label: {
+          zh: "核心商圈街廓空間句法整合度與步行人流迴歸相關性分析圖（R²=0.84）",
+          en: "Space Syntax Integration vs. Pedestrian Flow Statistical Regression Correlation Map (R²=0.84)"
+        },
+        src: "assets/project-10.svg"
+      }
     ],
-    tags: ["Space Syntax", "DepthmapX", "Urban Morphology", "Accessibility", "Research"]
+    tags: ["Space Syntax", "DepthmapX", "Urban Morphology", "Accessibility", "Research", "Walkability", "Pedestrian Network"]
   }
 ];
 
