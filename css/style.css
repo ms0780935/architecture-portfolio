@@ -442,6 +442,431 @@ img, svg {
   border-color: var(--text-main);
 }
 
+/* ==========================================================================
+   Divisare Projects Atlas Taxonomy Component
+   Inspired by Divisare.com Projects Mega-Drawer & Keywords Index
+   ========================================================================== */
+
+.atlas-trigger-wrapper {
+  display: inline-flex;
+}
+
+.atlas-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-hairline);
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+}
+
+.atlas-tab-btn:hover {
+  border-color: var(--text-main);
+  background: var(--hover-subtle);
+}
+
+.atlas-tab-btn.active {
+  border-color: var(--text-main);
+  background: var(--text-main);
+  color: var(--bg-paper);
+}
+
+.atlas-tab-btn.active .atlas-sub-text {
+  color: var(--bg-paper);
+  opacity: 0.9;
+}
+
+.atlas-tag-badge-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.atlas-title-text {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.atlas-sub-text {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Divisare Atlas Mega-Drawer Panel */
+.divisare-atlas-panel {
+  display: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-hairline);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+  animation: atlasFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+html[data-theme="dark"] .divisare-atlas-panel {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+  background: #111111;
+  border-color: #222222;
+}
+
+.divisare-atlas-panel.active {
+  display: block;
+}
+
+@keyframes atlasFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.atlas-panel-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.atlas-panel-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--line-hairline);
+  background: var(--bg-paper);
+}
+
+.atlas-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.atlas-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.5rem;
+  background: var(--text-main);
+  color: var(--bg-paper);
+}
+
+.atlas-topbar-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.atlas-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.atlas-action-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--line-hairline);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.atlas-action-pill:hover {
+  border-color: var(--text-main);
+  background: var(--text-main);
+  color: var(--bg-paper);
+}
+
+.atlas-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.atlas-close-btn:hover {
+  color: var(--text-main);
+}
+
+/* Atlas Panel Body (Two-Column Layout matching Divisare) */
+.atlas-panel-body {
+  display: flex;
+  min-height: 380px;
+  max-height: 480px;
+}
+
+.atlas-categories-nav {
+  width: 240px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--line-hairline);
+  background: var(--bg-paper);
+  padding: 0.5rem 0;
+  overflow-y: auto;
+}
+
+.atlas-cat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.65rem 1.15rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+  border-left: 3px solid transparent;
+}
+
+.atlas-cat-item:hover {
+  background: var(--hover-subtle);
+  color: var(--text-main);
+}
+
+.atlas-cat-item.active {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-weight: 700;
+  border-left-color: var(--text-main);
+}
+
+.atlas-cat-item .cat-name-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.atlas-cat-item .cat-icon {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.atlas-cat-item .cat-chevron {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-light);
+  transition: transform 0.15s ease;
+}
+
+.atlas-cat-item.active .cat-chevron {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Right Column: Tags Area */
+.atlas-keywords-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.75rem;
+  overflow-y: auto;
+  background: var(--bg-surface);
+}
+
+.atlas-keywords-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.85rem;
+  border-bottom: 1px dashed var(--line-hairline);
+}
+
+.atlas-cur-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.atlas-active-cat-title {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.atlas-active-cat-desc {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+.atlas-tag-counter {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* 3-Column Tag Grid Matching Divisare Screenshot */
+.atlas-keywords-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1.75rem;
+  row-gap: 0.45rem;
+}
+
+.atlas-tag-link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.35rem 0.4rem;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.atlas-tag-link:hover {
+  background: var(--hover-subtle);
+  border-color: var(--line-hairline);
+}
+
+.atlas-tag-link:hover .atlas-tag-name {
+  color: var(--accent-terra);
+}
+
+.atlas-tag-link.selected {
+  background: var(--badge-bg);
+  border-color: var(--text-main);
+}
+
+.atlas-tag-link.selected .atlas-tag-name {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.atlas-tag-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: hidden;
+  margin-right: 0.4rem;
+}
+
+.atlas-tag-name {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transition-fast);
+}
+
+.atlas-tag-zh {
+  font-size: 0.68rem;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.atlas-tag-count {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-light);
+  flex-shrink: 0;
+}
+
+/* Active Tag Badge in Search Row */
+.active-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  background: var(--text-main);
+  color: var(--bg-paper);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  margin: 0 0.5rem;
+}
+
+.active-tag-label {
+  opacity: 0.75;
+}
+
+.active-tag-name {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.btn-clear-active-tag {
+  background: transparent;
+  border: none;
+  color: var(--bg-paper);
+  cursor: pointer;
+  padding: 0 0.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.btn-clear-active-tag:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 900px) {
+  .atlas-panel-body {
+    flex-direction: column;
+    max-height: none;
+  }
+  .atlas-categories-nav {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line-hairline);
+    padding: 0.35rem;
+  }
+  .atlas-cat-item {
+    width: auto;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .atlas-cat-item.active {
+    border-bottom-color: var(--text-main);
+  }
+  .atlas-keywords-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .atlas-keywords-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Search & Results Bar */
 .search-bar-row {
   display: flex;

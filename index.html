@@ -75,7 +75,14 @@
       <div class="filter-row">
         <!-- Curriculum Category Tabs -->
         <nav class="category-nav" aria-label="課程領域分類">
-          <button class="tab-btn active" data-category="all" data-i18n="filterAll">全部作品</button>
+          <!-- Divisare Projects Atlas Trigger (取代原本純文字「全部作品」) -->
+          <div class="atlas-trigger-wrapper">
+            <button id="btn-projects-atlas" class="tab-btn atlas-tab-btn active" data-category="all" aria-expanded="false" aria-controls="divisare-atlas-panel" title="開啟 Divisare 建築關鍵詞與分類標籤庫 (PROJECTS)">
+              <span class="atlas-tag-badge-icon">⊞</span>
+              <span class="atlas-title-text" data-i18n="atlasBtnMain">PROJECTS</span>
+              <span class="atlas-sub-text" data-i18n="atlasBtnSub">全部作品 · 分類標籤 ▾</span>
+            </button>
+          </div>
           <button class="tab-btn" data-category="studio" data-i18n="filterStudio">建築設計 (一~五年級)</button>
           <button class="tab-btn" data-category="elective" data-i18n="filterElective">選修科目</button>
           <button class="tab-btn" data-category="research" data-i18n="filterResearch">研究專題</button>
@@ -93,11 +100,59 @@
         </div>
       </div>
 
+      <!-- ==========================================
+           Divisare Atlas Mega-Drawer (Taxonomy & Keywords)
+           Inspired by Divisare.com Projects Explorer
+           ========================================== -->
+      <div id="divisare-atlas-panel" class="divisare-atlas-panel" aria-hidden="true">
+        <div class="atlas-panel-inner">
+          <div class="atlas-panel-topbar">
+            <div class="atlas-topbar-left">
+              <span class="atlas-badge" data-i18n="atlasBadge">DIVISARE ATLAS</span>
+              <span class="atlas-topbar-title" data-i18n="atlasTitle">ARCHITECTURAL TAXONOMY & KEYWORDS INDEX · 建築分類關鍵詞與標籤索引</span>
+            </div>
+            <div class="atlas-topbar-right">
+              <button id="btn-atlas-reset-all" class="atlas-action-pill" title="重設並顯示全體作品">
+                <span data-i18n="atlasResetAll">○ 全部作品 (ALL 10)</span>
+              </button>
+              <button id="btn-close-atlas" class="atlas-close-btn" aria-label="關閉索引面板" title="關閉 (Esc)">✕</button>
+            </div>
+          </div>
+
+          <div class="atlas-panel-body">
+            <!-- Left Column: Classification Categories (ELEMENTS, MATERIALITY, TYPES, etc.) -->
+            <nav id="atlas-categories-nav" class="atlas-categories-nav" aria-label="分類領域導覽">
+              <!-- Dynamically populated by app.js with chevron '>' -->
+            </nav>
+
+            <!-- Right Column: Alphabetical Keywords & Tags Grid (Matching screenshot 3-column layout) -->
+            <div class="atlas-keywords-container">
+              <div class="atlas-keywords-header">
+                <div class="atlas-cur-meta">
+                  <h3 id="atlas-active-category-title" class="atlas-active-cat-title">ELEMENTS</h3>
+                  <span id="atlas-active-category-desc" class="atlas-active-cat-desc">建築構件與空間元素</span>
+                </div>
+                <span id="atlas-tag-count-indicator" class="atlas-tag-counter">13 標籤項目</span>
+              </div>
+              <div id="atlas-keywords-grid" class="atlas-keywords-grid">
+                <!-- Dynamically populated tag links with exhibit counts -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Search & Status Row -->
       <div class="search-bar-row">
         <div class="search-input-wrap">
           <span class="search-icon">🔍</span>
           <input type="text" id="search-input" class="search-input" placeholder="搜尋作品名稱、年份、建築類型或標籤..." data-i18n-placeholder="searchPlaceholder" aria-label="搜尋作品">
+        </div>
+        <!-- Active Tag Badge Pill -->
+        <div id="active-tag-badge" class="active-tag-badge" style="display: none;">
+          <span class="active-tag-label" data-i18n="activeTagPrefix">標籤篩選:</span>
+          <span id="active-tag-name" class="active-tag-name">#WOODEN STRUCTURES</span>
+          <button id="btn-clear-active-tag" class="btn-clear-active-tag" title="清除標籤篩選" aria-label="清除標籤篩選">✕</button>
         </div>
         <div class="curator-status">
           <span id="project-count-badge" style="font-weight: 600; color: var(--text-main);">10 件作品展示中</span>

@@ -15,6 +15,12 @@ class ArchApp {
     this.filteredProjects = [...ARCH_PROJECTS];
     this.customImages = {};
 
+    // Divisare Atlas Taxonomy State
+    this.activeAtlasCategory = "elements";
+    this.activeAtlasTagId = null;
+    this.activeAtlasTag = null;
+    this.isAtlasOpen = false;
+
     this.init();
   }
 
@@ -30,6 +36,7 @@ class ArchApp {
       this.customImages = {};
     }
 
+    this.initAtlas();
     this.bindEvents();
     this.updateLanguageUI();
     this.filterAndRender();
@@ -98,12 +105,24 @@ class ArchApp {
       });
     }
 
-    // Category Tabs
+    // Category Tabs & Projects Atlas Trigger
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
+        if (e.currentTarget.id === "btn-projects-atlas") {
+          // Handled specifically in initAtlas() to toggle drawer
+          return;
+        }
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         e.currentTarget.classList.add("active");
         this.activeCategory = e.currentTarget.dataset.category;
+        
+        // Reset any active atlas tag when switching specific curriculum category
+        this.activeAtlasTagId = null;
+        this.activeAtlasTag = null;
+        const badge = document.getElementById("active-tag-badge");
+        if (badge) badge.style.display = "none";
+        this.closeAtlas();
+
         this.filterAndRender();
       });
     });
@@ -251,6 +270,224 @@ class ArchApp {
     history.replaceState(null, "", window.location.pathname);
   }
 
+  // ==========================================
+  // Divisare Atlas Architectural Taxonomy Methods
+  // ==========================================
+  initAtlas() {
+    this.renderAtlasCategories();
+    this.renderAtlasKeywords();
+
+    // Toggle button in filter nav (replacing standalone '全部作品')
+    const btnAtlas = document.getElementById("btn-projects-atlas");
+    if (btnAtlas) {
+      btnAtlas.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.toggleAtlas();
+      });
+    }
+
+    // Close button
+    const btnCloseAtlas = document.getElementById("btn-close-atlas");
+    if (btnCloseAtlas) {
+      btnCloseAtlas.addEventListener("click", () => this.closeAtlas());
+    }
+
+    // Reset All button inside Atlas
+    const btnResetAll = document.getElementById("btn-atlas-reset-all");
+    if (btnResetAll) {
+      btnResetAll.addEventListener("click", () => this.resetAtlasFilter());
+    }
+
+    // Clear active tag pill
+    const btnClearActiveTag = document.getElementById("btn-clear-active-tag");
+    if (btnClearActiveTag) {
+      btnClearActiveTag.addEventListener("click", () => this.resetAtlasFilter());
+    }
+
+    // Esc key closes atlas panel
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && this.isAtlasOpen) {
+        this.closeAtlas();
+      }
+    });
+  }
+
+  renderAtlasCategories() {
+    const nav = document.getElementById("atlas-categories-nav");
+    if (!nav || typeof DIVISARE_ATLAS_TAXONOMY === "undefined") return;
+
+    nav.innerHTML = DIVISARE_ATLAS_TAXONOMY.map(cat => `
+      <button class="atlas-cat-item ${cat.id === this.activeAtlasCategory ? 'active' : ''}" data-cat-id="${cat.id}">
+        <span class="cat-name-group">
+          <span class="cat-icon">${cat.icon || '⊞'}</span>
+          <span class="cat-name">${cat.name}</span>
+        </span>
+        <span class="cat-chevron">›</span>
+      </button>
+    `).join("");
+
+    nav.querySelectorAll(".atlas-cat-item").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const catId = btn.dataset.catId;
+        const cat = DIVISARE_ATLAS_TAXONOMY.find(c => c.id === catId);
+        if (cat && cat.isReset) {
+          this.resetAtlasFilter();
+          return;
+        }
+        this.activeAtlasCategory = catId;
+        nav.querySelectorAll(".atlas-cat-item").forEach(b => b.classList.toggle("active", b.dataset.catId === catId));
+        this.renderAtlasKeywords();
+      });
+    });
+  }
+
+  renderAtlasKeywords() {
+    const grid = document.getElementById("atlas-keywords-grid");
+    const titleElem = document.getElementById("atlas-active-category-title");
+    const descElem = document.getElementById("atlas-active-category-desc");
+    const countElem = document.getElementById("atlas-tag-count-indicator");
+    if (!grid || typeof DIVISARE_ATLAS_TAXONOMY === "undefined") return;
+
+    const cat = DIVISARE_ATLAS_TAXONOMY.find(c => c.id === this.activeAtlasCategory) || DIVISARE_ATLAS_TAXONOMY[0];
+    if (!cat) return;
+
+    if (titleElem) titleElem.textContent = cat.name;
+    if (descElem) descElem.textContent = this.currentLang === "zh" ? cat.labelZh : cat.name;
+    if (countElem) countElem.textContent = `${cat.tags.length} ${this.currentLang === "zh" ? "標籤項目" : "keywords"}`;
+
+    grid.innerHTML = cat.tags.map(tag => {
+      const matchCount = tag.projectIds ? tag.projectIds.length : 0;
+      const isSelected = this.activeAtlasTagId === tag.id;
+      return `
+        <button class="atlas-tag-link ${isSelected ? 'selected' : ''}" data-tag-id="${tag.id}" title="${tag.labelZh}">
+          <div class="atlas-tag-info">
+            <span class="atlas-tag-name">${tag.name}</span>
+            <span class="atlas-tag-zh">${tag.labelZh}</span>
+          </div>
+          <span class="atlas-tag-count">(${matchCount})</span>
+        </button>
+      `;
+    }).join("");
+
+    grid.querySelectorAll(".atlas-tag-link").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tagId = btn.dataset.tagId;
+        const tag = cat.tags.find(t => t.id === tagId);
+        if (tag) {
+          this.selectAtlasTag(tag);
+        }
+      });
+    });
+  }
+
+  selectAtlasTag(tag) {
+    if (tag.id === "view-all-projects" || tag.isReset) {
+      this.resetAtlasFilter();
+      return;
+    }
+
+    this.activeAtlasTagId = tag.id;
+    this.activeAtlasTag = tag;
+
+    // Set atlas tab button active
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    const atlasBtn = document.getElementById("btn-projects-atlas");
+    if (atlasBtn) atlasBtn.classList.add("active");
+    this.activeCategory = "all";
+
+    // Show active tag pill
+    const badge = document.getElementById("active-tag-badge");
+    const nameElem = document.getElementById("active-tag-name");
+    if (badge && nameElem) {
+      nameElem.textContent = `#${tag.name}`;
+      badge.style.display = "inline-flex";
+    }
+
+    this.closeAtlas();
+    this.filterAndRender();
+
+    // Smoothly scroll to main projects grid
+    const mainGrid = document.getElementById("projects-grid");
+    if (mainGrid) {
+      mainGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  resetAtlasFilter() {
+    this.activeAtlasTagId = null;
+    this.activeAtlasTag = null;
+
+    const badge = document.getElementById("active-tag-badge");
+    if (badge) badge.style.display = "none";
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    const atlasBtn = document.getElementById("btn-projects-atlas");
+    if (atlasBtn) atlasBtn.classList.add("active");
+    this.activeCategory = "all";
+
+    this.closeAtlas();
+    this.filterAndRender();
+  }
+
+  toggleAtlas() {
+    this.isAtlasOpen = !this.isAtlasOpen;
+    const panel = document.getElementById("divisare-atlas-panel");
+    const btn = document.getElementById("btn-projects-atlas");
+    if (panel) panel.classList.toggle("active", this.isAtlasOpen);
+    if (btn) {
+      btn.setAttribute("aria-expanded", this.isAtlasOpen);
+      const sub = btn.querySelector(".atlas-sub-text");
+      if (sub) {
+        sub.textContent = this.isAtlasOpen ? (this.currentLang === "zh" ? "全部作品 · 分類標籤 ▴" : "All Exhibits · Taxonomy ▴")
+                                           : (this.currentLang === "zh" ? "全部作品 · 分類標籤 ▾" : "All Exhibits · Taxonomy ▾");
+      }
+    }
+    if (this.isAtlasOpen) {
+      this.renderAtlasKeywords();
+    }
+  }
+
+  closeAtlas() {
+    this.isAtlasOpen = false;
+    const panel = document.getElementById("divisare-atlas-panel");
+    const btn = document.getElementById("btn-projects-atlas");
+    if (panel) panel.classList.remove("active");
+    if (btn) {
+      btn.setAttribute("aria-expanded", "false");
+      const sub = btn.querySelector(".atlas-sub-text");
+      if (sub) {
+        sub.textContent = this.currentLang === "zh" ? "全部作品 · 分類標籤 ▾" : "All Exhibits · Taxonomy ▾";
+      }
+    }
+  }
+
+  filterByKeywordOrTag(tagName) {
+    const clean = tagName.replace(/^#/, "").toLowerCase();
+    let found = null;
+    if (typeof DIVISARE_ATLAS_TAXONOMY !== "undefined") {
+      for (const cat of DIVISARE_ATLAS_TAXONOMY) {
+        for (const t of cat.tags) {
+          if (t.name.toLowerCase().includes(clean) || clean.includes(t.name.toLowerCase()) || (t.labelZh && t.labelZh.includes(clean))) {
+            found = t;
+            break;
+          }
+        }
+        if (found) break;
+      }
+    }
+
+    if (found) {
+      this.selectAtlasTag(found);
+    } else {
+      const searchInput = document.getElementById("search-input");
+      if (searchInput) {
+        searchInput.value = clean;
+        this.searchQuery = clean;
+        this.filterAndRender();
+      }
+    }
+  }
+
   updateLanguageUI() {
     const t = I18N[this.currentLang];
     document.querySelectorAll("[data-i18n]").forEach(elem => {
@@ -273,14 +510,24 @@ class ArchApp {
     }
 
     document.documentElement.lang = this.currentLang === "zh" ? "zh-Hant-TW" : "en";
+
+    // Update Atlas language rendering
+    this.renderAtlasCategories();
+    this.renderAtlasKeywords();
   }
 
   filterAndRender() {
     const q = this.searchQuery;
     const cat = this.activeCategory;
     const yr = this.activeYear;
+    const atlasTag = this.activeAtlasTag;
 
     this.filteredProjects = ARCH_PROJECTS.filter(proj => {
+      // Atlas Tag Match
+      if (atlasTag && Array.isArray(atlasTag.projectIds)) {
+        if (!atlasTag.projectIds.includes(proj.id)) return false;
+      }
+
       // Category match
       if (cat !== "all" && proj.category !== cat) return false;
 
@@ -380,7 +627,7 @@ class ArchApp {
           <div class="card-typology">${proj.typology[this.currentLang]} · ${proj.location[this.currentLang]}</div>
           <p class="card-summary">${proj.summary[this.currentLang]}</p>
           <div class="card-footer-tags">
-            ${proj.tags.map(tag => `<span class="tag-pill">#${tag}</span>`).join("")}
+            ${proj.tags.map(tag => `<span class="tag-pill" data-tag="${tag}">#${tag}</span>`).join("")}
           </div>
         </div>
       `;
@@ -388,6 +635,14 @@ class ArchApp {
       // Event handlers
       card.querySelectorAll('[data-action="view"]').forEach(el => {
         el.addEventListener("click", () => this.openReaderModal(idx));
+      });
+
+      card.querySelectorAll('.tag-pill').forEach(el => {
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const tName = el.dataset.tag;
+          if (tName) this.filterByKeywordOrTag(tName);
+        });
       });
 
       const btnQuickUpload = card.querySelector('[data-action="quick-upload"]');

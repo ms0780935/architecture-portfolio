@@ -360,6 +360,164 @@ const ARCH_PROJECTS = [
   }
 ];
 
+// ==========================================================================
+// Divisare Atlas Architectural Taxonomy & Keywords Index
+// Categorized keywords & technical tags inspired by Divisare.com Atlas
+// ==========================================================================
+const DIVISARE_ATLAS_TAXONOMY = [
+  {
+    id: "elements",
+    name: "ELEMENTS",
+    labelZh: "建築構件與空間元素",
+    icon: "⊞",
+    tags: [
+      { id: "arcades", name: "ARCADES & TING-A-KHA", labelZh: "連續騎樓與亭仔腳", projectIds: ["proj-7", "proj-4"] },
+      { id: "arches", name: "ARCHES", labelZh: "清水紅磚拱圈廊道", projectIds: ["proj-7"] },
+      { id: "balconies", name: "BALCONIES & TERRACES", labelZh: "退縮露台與私家花園", projectIds: ["proj-2", "proj-4"] },
+      { id: "cantilevers", name: "CANTILEVERS", labelZh: "16米水岸懸挑閱讀廊道", projectIds: ["proj-3"] },
+      { id: "columns", name: "COLUMNS & CAPITALS", labelZh: "紅磚圓柱與莨苕葉柱頭", projectIds: ["proj-7"] },
+      { id: "courtyards", name: "COURTYARDS & ATRIUMS", labelZh: "中庭草坪與長條拔風天井", projectIds: ["proj-1", "proj-7"] },
+      { id: "folded-plates", name: "FOLDED PLATES", labelZh: "自承重膠合木連續折板", projectIds: ["proj-8"] },
+      { id: "kinetic-facade", name: "KINETIC SHADING", labelZh: "演算法動態日照感應百葉", projectIds: ["proj-6"] },
+      { id: "pediments", name: "PEDIMENTS & PLASTERWORK", labelZh: "折衷主義巴洛克泥塑山牆", projectIds: ["proj-7"] },
+      { id: "reciprocal-joinery", name: "RECIPROCAL JOINERY", labelZh: "互承木構與榫卯抗剪節點", projectIds: ["proj-1", "proj-8"] },
+      { id: "roof-gardens", name: "ROOF GARDENS & RAMPS", labelZh: "螺旋立體公共空中農園", projectIds: ["proj-4"] },
+      { id: "solar-chimneys", name: "SOLAR CHIMNEYS", labelZh: "熱浮力自然對流拔風風井", projectIds: ["proj-4", "proj-7"] },
+      { id: "suspension-bridge", name: "SUSPENSION BRIDGES", labelZh: "大跨度鋼構吊橋人行甲板", projectIds: ["proj-5"] }
+    ]
+  },
+  {
+    id: "materiality",
+    name: "MATERIALITY",
+    labelZh: "構造材料與營造工法",
+    icon: "◈",
+    tags: [
+      { id: "brick-masonry", name: "BRICK & MASONRY", labelZh: "清水紅磚與閩南磚造體系", projectIds: ["proj-7"] },
+      { id: "concrete-terrazzo", name: "CONCRETE & TERRAZZO", labelZh: "清水混凝土與耐候洗石子", projectIds: ["proj-2", "proj-3"] },
+      { id: "cryptomeria", name: "CRYPTOMERIA TIMBER", labelZh: "在地國產柳杉與疏伐木材", projectIds: ["proj-1", "proj-8"] },
+      { id: "digital-fab", name: "DIGITAL FABRICATION", labelZh: "雷射切割、3D列印與CNC", projectIds: ["proj-6"] },
+      { id: "glulam", name: "GLULAM TIMBER", labelZh: "高剛度膠合木與工程木材", projectIds: ["proj-8"] },
+      { id: "glass", name: "LOW-REFLECTION GLASS", labelZh: "超低反射水岸全景透光玻璃", projectIds: ["proj-3"] },
+      { id: "steel-structures", name: "STEEL STRUCTURES", labelZh: "大跨距耐候鋼與拉索桁架", projectIds: ["proj-3", "proj-5"] },
+      { id: "weathering-steel", name: "WEATHERING STEEL", labelZh: "耐候鏽蝕鋼板與海風抗蝕", projectIds: ["proj-3"] },
+      { id: "wooden-structures", name: "WOODEN STRUCTURES", labelZh: "輕質木構與無金屬榫接系統", projectIds: ["proj-1", "proj-8"] }
+    ]
+  },
+  {
+    id: "types",
+    name: "TYPES",
+    labelZh: "建築類型與空間機能",
+    icon: "▲",
+    tags: [
+      { id: "academic-research", name: "ACADEMIC RESEARCH", labelZh: "計算流體模擬與形態學論文", projectIds: ["proj-9", "proj-10"] },
+      { id: "collective-housing", name: "COLLECTIVE HOUSING", labelZh: "坡地梯級退縮集合住宅", projectIds: ["proj-2"] },
+      { id: "computational-prototype", name: "COMPUTATIONAL PROTOTYPE", labelZh: "參數化自適應動態構件", projectIds: ["proj-6"] },
+      { id: "experimental-pavilion", name: "EXPERIMENTAL PAVILION", labelZh: "輕質木構微氣候感知實驗亭", projectIds: ["proj-1"] },
+      { id: "historic-survey", name: "HISTORIC FIELD SURVEY", labelZh: "大稻埕街屋立面實測與踏查", projectIds: ["proj-7"] },
+      { id: "infrastructure", name: "INFRASTRUCTURE & MASTERPLAN", labelZh: "基隆軍港東岸轉型都市設計", projectIds: ["proj-5"] },
+      { id: "mixed-use-agro", name: "MIXED-USE AGRO-TOWER", labelZh: "高密度舊城混居與垂直農園", projectIds: ["proj-4"] },
+      { id: "public-library", name: "PUBLIC LIBRARY", labelZh: "八斗子潮汐海洋文化圖書館", projectIds: ["proj-3"] },
+      { id: "structural-prototype", name: "STRUCTURAL PROTOTYPE", labelZh: "9米無柱跨距折板屋架力學原型", projectIds: ["proj-8"] }
+    ]
+  },
+  {
+    id: "topics",
+    name: "TOPICS",
+    labelZh: "環境永續與微氣候科學",
+    icon: "◎",
+    tags: [
+      { id: "aerodynamics", name: "AERODYNAMICS", labelZh: "迎風面折板與氣流捕捉導引", projectIds: ["proj-1", "proj-9"] },
+      { id: "cfd-simulation", name: "CFD SIMULATION", labelZh: "OpenFOAM 街道峽谷微氣候模擬", projectIds: ["proj-9"] },
+      { id: "daylighting", name: "DAYLIGHTING & SOLAR", labelZh: "Ladybug 太陽輻射即時演算法", projectIds: ["proj-6"] },
+      { id: "intertidal", name: "INTERTIDAL INTEGRATION", labelZh: "消波碼頭潮汐海水熱交換調節", projectIds: ["proj-3"] },
+      { id: "microclimate", name: "MICROCLIMATE", labelZh: "中庭與街道微氣候通風優化", projectIds: ["proj-1", "proj-9"] },
+      { id: "passive-ventilation", name: "PASSIVE VENTILATION", labelZh: "騎樓多孔隙通透與浮力拔風", projectIds: ["proj-4", "proj-7", "proj-9"] },
+      { id: "space-syntax", name: "SPACE SYNTAX", labelZh: "DepthmapX 軸線拓樸整合度分析", projectIds: ["proj-10"] },
+      { id: "sustainability", name: "SUSTAINABLE DESIGN", labelZh: "中水回收、垂直綠化與永續材料", projectIds: ["proj-4", "proj-8"] },
+      { id: "topography", name: "TOPOGRAPHY & SLOPES", labelZh: "依循等高線梯級退縮縫合", projectIds: ["proj-2"] },
+      { id: "urban-heat-island", name: "URBAN HEAT ISLAND", labelZh: "亞熱帶盆地熱島效應緩解", projectIds: ["proj-9"] }
+    ]
+  },
+  {
+    id: "ideas",
+    name: "IDEAS",
+    labelZh: "設計概念與演算手法",
+    icon: "◆",
+    tags: [
+      { id: "mockup-1-1", name: "1:1 PHYSICAL MOCKUP", labelZh: "1:1 實體榫接節點與破壞試驗", projectIds: ["proj-1", "proj-8"] },
+      { id: "algorithmic-arch", name: "ALGORITHMIC ARCHITECTURE", labelZh: "Grasshopper 參數化關聯幾何", projectIds: ["proj-6"] },
+      { id: "community-resilience", name: "COMMUNITY RESILIENCE", labelZh: "青年共居、傳統市場與長照互助", projectIds: ["proj-4"] },
+      { id: "historic-tectonics", name: "HISTORIC TECTONICS", labelZh: "閩南磚瓦至日治折衷泥塑流變", projectIds: ["proj-7"] },
+      { id: "measured-drafting", name: "MEASURED DRAFTING", labelZh: "現場正投影測繪手稿與大樣圖", projectIds: ["proj-7"] },
+      { id: "sectional-urbanism", name: "SECTIONAL URBANISM", labelZh: "剖面都市主義與立體公共步道", projectIds: ["proj-2"] },
+      { id: "spatial-perception", name: "SPATIAL PERCEPTION", labelZh: "輕質懸浮感知與風向光影推移", projectIds: ["proj-1"] },
+      { id: "urban-suture", name: "URBAN SUTURE", labelZh: "拆解七十年封閉軍事港區邊界", projectIds: ["proj-5"] },
+      { id: "voronoi-geometry", name: "VORONOI APERTURES", labelZh: "Voronoi 幾何開口演算法調控", projectIds: ["proj-6"] }
+    ]
+  },
+  {
+    id: "cities",
+    name: "CITIES & SITES",
+    labelZh: "基地脈絡與場域紋理",
+    icon: "⌖",
+    tags: [
+      { id: "keelung-badouzi", name: "KEELUNG · BADOUZI", labelZh: "八斗子觀光漁港水岸碼頭", projectIds: ["proj-3"] },
+      { id: "keelung-harbor", name: "KEELUNG · HARBOR", labelZh: "基隆港東岸軍事碼頭威海營區", projectIds: ["proj-5"] },
+      { id: "keelung-zhongzheng", name: "KEELUNG · ZHONGZHENG", labelZh: "基隆市中正區山坡巷道山城", projectIds: ["proj-2"] },
+      { id: "taipei-dadaocheng", name: "TAIPEI · DADAOCHENG", labelZh: "大同區迪化街一段傳統街屋", projectIds: ["proj-7"] },
+      { id: "taipei-wanhua", name: "TAIPEI · WANHUA", labelZh: "萬華區康定路舊市區生活街廓", projectIds: ["proj-4"] },
+      { id: "taipei-ximending", name: "TAIPEI · XIMENDING", labelZh: "萬華區西門町行人徒步商圈", projectIds: ["proj-10"] },
+      { id: "taipei-xinyi", name: "TAIPEI · XINYI", labelZh: "信義計畫區邊界高密度街谷", projectIds: ["proj-9"] },
+      { id: "campus-courtyard", name: "CAMPUS · COURTYARD", labelZh: "建築系館中庭花園草坪", projectIds: ["proj-1"] },
+      { id: "digital-fablab", name: "FABLAB & WORKSHOP", labelZh: "數位製造實驗室與木工工坊", projectIds: ["proj-6", "proj-8"] }
+    ]
+  },
+  {
+    id: "plans-details",
+    name: "PLANS & DETAILS",
+    labelZh: "圖紙類型與大樣尺度",
+    icon: "◫",
+    tags: [
+      { id: "detail-joinery", name: "1:1 / 1:20 JOINERY DETAILS", labelZh: "榫接構造分解與軸測大樣圖", projectIds: ["proj-1", "proj-8"] },
+      { id: "detail-sections", name: "1:50 LONGITUDINAL SECTIONS", labelZh: "山坡地與老街屋長向縱剖面透視", projectIds: ["proj-2", "proj-7"] },
+      { id: "detail-exploded", name: "1:100 EXPLODED AXONOMETRIC", labelZh: "機能立體複合爆炸軸測圖", projectIds: ["proj-4"] },
+      { id: "detail-site-plan", name: "1:200 WATERFRONT SITE PLANS", labelZh: "八斗子消波碼頭全區配置圖", projectIds: ["proj-3"] },
+      { id: "detail-masterplan", name: "1:500 URBAN MASTERPLANS", labelZh: "港灣縫合三公里全區景觀總圖", projectIds: ["proj-5"] },
+      { id: "detail-cfd-maps", name: "CFD VECTOR FLOW MAPS", labelZh: "風速流線向量與熱舒適色階圖", projectIds: ["proj-9"] },
+      { id: "detail-syntax-maps", name: "SYNTAX AXIAL MAPS", labelZh: "軸線拓樸整合度與穿透度分析圖", projectIds: ["proj-10"] },
+      { id: "detail-field-draft", name: "MEASURED FIELD ARCHIVES", labelZh: "製圖桌實體手繪原稿實拍寫真", projectIds: ["proj-7"] }
+    ]
+  },
+  {
+    id: "selected-projects",
+    name: "SELECTED PROJECTS",
+    labelZh: "十件建築專案目錄",
+    icon: "✦",
+    tags: [
+      { id: "sel-proj-1", name: "ARC-101 輕質木構實驗亭", labelZh: "一年級 · 基本設計", projectIds: ["proj-1"] },
+      { id: "sel-proj-2", name: "ARC-202 邊界共生山坡住宅", labelZh: "二年級 · 建築設計", projectIds: ["proj-2"] },
+      { id: "sel-proj-3", name: "ARC-302 潮汐閱覽所圖書館", labelZh: "三年級 · 建築設計", projectIds: ["proj-3"] },
+      { id: "sel-proj-4", name: "ARC-402 垂直複合生態社群", labelZh: "四年級 · 建築設計", projectIds: ["proj-4"] },
+      { id: "sel-proj-5", name: "ARC-500 地景縫合港區轉型 (Thesis)", labelZh: "五年級 · 畢業設計", projectIds: ["proj-5"] },
+      { id: "sel-proj-6", name: "ELE-310 參數化遮陽桁架", labelZh: "三年級 · 專業選修", projectIds: ["proj-6"] },
+      { id: "sel-proj-7", name: "ELE-220 大稻埕街屋測繪踏查", labelZh: "二年級 · 專業選修", projectIds: ["proj-7"] },
+      { id: "sel-proj-8", name: "ELE-430 柳杉膠合木折板原型", labelZh: "四年級 · 專業選修", projectIds: ["proj-8"] },
+      { id: "sel-proj-9", name: "RES-501 CFD 街道微氣候模擬", labelZh: "五年級 · 研究專題", projectIds: ["proj-9"] },
+      { id: "sel-proj-10", name: "RES-402 西門町空間句法分析", labelZh: "四年級 · 研究專題", projectIds: ["proj-10"] }
+    ]
+  },
+  {
+    id: "all-exhibits",
+    name: "ALL EXHIBITS",
+    labelZh: "全部作品 (10/10)",
+    icon: "○",
+    isReset: true,
+    tags: [
+      { id: "view-all-projects", name: "VIEW ALL 10 EXHIBITS", labelZh: "顯示全體 10 件作品 (重設篩選)", projectIds: ["proj-1", "proj-2", "proj-3", "proj-4", "proj-5", "proj-6", "proj-7", "proj-8", "proj-9", "proj-10"] }
+    ]
+  }
+];
+
 // UI Text Dictionary for i18n
 const I18N = {
   zh: {
@@ -420,6 +578,15 @@ const I18N = {
     reorderSuccess: "照片順序已更新並自動儲存！",
     openFullSize: "原尺寸預覽",
     zoomHint: "點擊於新分頁開啟原尺寸大圖預覽",
+    atlasBtnMain: "PROJECTS",
+    atlasBtnSub: "全部作品 · 分類標籤 ▾",
+    atlasBadge: "DIVISARE ATLAS",
+    atlasTitle: "ARCHITECTURAL TAXONOMY & KEYWORDS INDEX · 建築分類關鍵詞與標籤索引",
+    atlasResetAll: "○ 全部作品 (ALL 10)",
+    atlasClose: "關閉",
+    activeTagPrefix: "標籤篩選:",
+    clearActiveTag: "清除標籤篩選",
+    tagMatchCount: "件作品",
     footerText: "自然科學與人工智慧課程 · 建築設計學程期末專案成果"
   },
   en: {
@@ -480,6 +647,15 @@ const I18N = {
     reorderSuccess: "Photo order updated and saved!",
     openFullSize: "Full Size",
     zoomHint: "Click to open full-size image in a new tab",
+    atlasBtnMain: "PROJECTS",
+    atlasBtnSub: "All Exhibits · Taxonomy ▾",
+    atlasBadge: "DIVISARE ATLAS",
+    atlasTitle: "ARCHITECTURAL TAXONOMY & KEYWORDS INDEX",
+    atlasResetAll: "○ All Works (ALL 10)",
+    atlasClose: "Close",
+    activeTagPrefix: "Taxonomy Tag:",
+    clearActiveTag: "Clear Tag Filter",
+    tagMatchCount: "exhibits",
     footerText: "Natural Science & AI Course · Architecture Portfolio Final Project"
   }
 };
