@@ -2073,6 +2073,10 @@ html[data-theme="dark"] .divisare-atlas-panel {
   user-select: none;
 }
 
+.btn-mode-opt * {
+  pointer-events: none;
+}
+
 .btn-mode-opt:hover {
   color: var(--text-main);
   background-color: rgba(0, 0, 0, 0.05);
@@ -2099,12 +2103,15 @@ html[data-theme="dark"] .btn-mode-opt.active {
   color: #ffffff !important;
 }
 
+/* 預設隱藏圖片管理中心入口按鈕，由 Editor 模式顯現 */
+#btn-open-asset-manager {
+  display: none;
+}
+
 /* --------------------------------------------------------------------------
    Viewer Mode (外部純淨展覽模式 · 預設狀態)
    徹底隱藏圖片管理中心按鈕與分頁彈窗，以及所有編輯、排序、刪除與上傳控制項
    -------------------------------------------------------------------------- */
-#btn-open-asset-manager,
-#asset-manager-modal,
 body.mode-viewer #btn-open-asset-manager,
 body.mode-viewer #asset-manager-modal,
 html[data-mode="viewer"] #btn-open-asset-manager,
@@ -2141,6 +2148,10 @@ body.mode-editor #btn-open-asset-manager {
   border-color: var(--cobalt);
   color: var(--cobalt);
   position: relative;
+}
+
+body.mode-editor #asset-manager-modal.active {
+  display: flex !important;
 }
 
 body.mode-editor #btn-open-asset-manager::before {
