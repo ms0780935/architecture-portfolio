@@ -18,10 +18,15 @@
       const isDark = saved === 'dark' || (saved === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
       document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme-mode', saved);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const savedMode = urlParams.get('mode') || localStorage.getItem('arch_view_mode') || 'viewer';
+      const safeMode = (savedMode === 'editor') ? 'editor' : 'viewer';
+      document.documentElement.setAttribute('data-mode', safeMode);
     })();
   </script>
 </head>
-<body>
+<body class="mode-viewer">
 
   <!-- ==========================================
        Site Header / Masthead

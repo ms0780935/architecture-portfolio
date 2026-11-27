@@ -2101,9 +2101,14 @@ html[data-theme="dark"] .btn-mode-opt.active {
 
 /* --------------------------------------------------------------------------
    Viewer Mode (外部純淨展覽模式 · 預設狀態)
-   徹底隱藏所有後台管理、編輯、排序、刪除與上傳按鈕，呈現純粹建築專刊閱讀
+   徹底隱藏圖片管理中心按鈕與分頁彈窗，以及所有編輯、排序、刪除與上傳控制項
    -------------------------------------------------------------------------- */
+#btn-open-asset-manager,
+#asset-manager-modal,
 body.mode-viewer #btn-open-asset-manager,
+body.mode-viewer #asset-manager-modal,
+html[data-mode="viewer"] #btn-open-asset-manager,
+html[data-mode="viewer"] #asset-manager-modal,
 body.mode-viewer .card-quick-actions,
 body.mode-viewer .stream-img-actions,
 body.mode-viewer .stream-item-actions,

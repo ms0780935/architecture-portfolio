@@ -133,8 +133,17 @@ class ArchApp {
     this.currentViewMode = mode;
     localStorage.setItem("arch_view_mode", mode);
 
+    document.documentElement.setAttribute("data-mode", mode);
     document.body.classList.remove("mode-viewer", "mode-editor");
     document.body.classList.add(`mode-${mode}`);
+
+    // If switching to viewer mode, immediately close asset manager modal if it was open
+    if (mode === "viewer") {
+      const assetModal = document.getElementById("asset-manager-modal");
+      if (assetModal) {
+        assetModal.classList.remove("active");
+      }
+    }
 
     const btnViewer = document.getElementById("btn-mode-viewer");
     const btnEditor = document.getElementById("btn-mode-editor");
@@ -1299,6 +1308,13 @@ class ArchApp {
 
   // Asset Manager Modal
   openAssetManagerModal() {
+    // Prohibit opening asset manager in viewer mode
+    if (this.currentViewMode === "viewer") {
+      const modal = document.getElementById("asset-manager-modal");
+      if (modal) modal.classList.remove("active");
+      return;
+    }
+
     const modal = document.getElementById("asset-manager-modal");
     const list = document.getElementById("manager-project-list");
     list.innerHTML = "";
